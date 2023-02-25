@@ -14,6 +14,11 @@ public static class ObjectExtensions
         return new Result<TValue>(value);
     }
     
+    /// <summary>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="label"></param>
+    /// <returns></returns>
     internal static string ToLabelValueStringOrEmpty(this object? value, string label)
     {
         if (value == null)
@@ -21,10 +26,6 @@ public static class ObjectExtensions
             return string.Empty;
         }
         var valueText = value.ToString();
-        if (valueText == string.Empty)
-        {
-            return string.Empty;
-        }
-        return $"{label}='{valueText}'";
+        return valueText == string.Empty ? string.Empty : $"{label}='{valueText}'";
     }
 }

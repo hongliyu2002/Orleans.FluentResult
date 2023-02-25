@@ -6,7 +6,6 @@ namespace Orleans.FluentResults;
 /// </summary>
 public static class ResultBaseExtensions
 {
-
     #region To Result
 
     /// <summary>
@@ -439,5 +438,4 @@ public static class ResultBaseExtensions
     }
     
     #endregion
-
 }

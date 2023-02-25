@@ -2,8 +2,6 @@
 
 /// <summary>
 /// </summary>
-[Immutable]
-[GenerateSerializer]
 public class ResultSettings
 {
     /// <summary>
@@ -34,28 +32,23 @@ public class ResultSettings
 
     /// <summary>
     /// </summary>
-    [Id(0)]
     public IResultLogger Logger { get; }
 
     /// <summary>
     /// </summary>
-    [Id(1)]
     public Func<Exception, IError> DefaultTryCatchHandler { get; }
 
     /// <summary>
     ///     Factory to create an ISuccess object. Used in all scenarios where a success is created within FluentResults.
     /// </summary>
-    [Id(2)]
     public Func<string, ISuccess> SuccessFactory { get; }
 
     /// <summary>
     /// </summary>
-    [Id(3)]
     public Func<string, IError> ErrorFactory { get; }
 
     /// <summary>
     /// </summary>
-    [Id(4)]
     public Func<string, Exception, IExceptionalError> ExceptionalErrorFactory { get; }
 
     /// <summary>

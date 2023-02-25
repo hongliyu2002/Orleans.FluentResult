@@ -4,6 +4,8 @@
 /// </summary>
 public static class EnumerableExtensions
 {
+    #region Merge
+
     /// <summary>
     ///     Merge multiple result objects to one result together
     /// </summary>
@@ -21,4 +23,6 @@ public static class EnumerableExtensions
         ArgumentNullException.ThrowIfNull(results);
         return ResultHelper.Merge(results);
     }
+
+    #endregion
 }
