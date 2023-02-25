@@ -1,4 +1,6 @@
-﻿namespace Orleans.FluentResults;
+﻿using System.Collections.Immutable;
+
+namespace Orleans.FluentResults;
 
 public partial class Result
 {
@@ -36,25 +38,25 @@ public partial class Result
     public static Result Fail(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        return new Result().WithError(error);
+        return new Result(ImmutableList<IReason>.Empty.Add(error));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error message. Internally an error object from the error factory is created.
     /// </summary>
-    public static Result Fail(string message)
+    public static Result Fail(string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        return new Result().WithError(ResultSettings.Current.ErrorFactory(message));
+        ArgumentNullException.ThrowIfNull(errorMessage);
+        return new Result(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ErrorFactory(errorMessage)));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created
     /// </summary>
-    public static Result Fail(IEnumerable<string> messages)
+    public static Result Fail(IEnumerable<string> errorMessages)
     {
-        ArgumentNullException.ThrowIfNull(messages);
-        return new Result().WithErrors(messages.Select(ResultSettings.Current.ErrorFactory));
+        ArgumentNullException.ThrowIfNull(errorMessages);
+        return new Result(ImmutableList<IReason>.Empty.AddRange(errorMessages.Select(ResultSettings.Current.ErrorFactory)));
     }
 
     /// <summary>
@@ -63,7 +65,7 @@ public partial class Result
     public static Result Fail(IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        return new Result().WithErrors(errors);
+        return new Result(ImmutableList<IReason>.Empty.AddRange(errors));
     }
 
     #endregion

@@ -1,4 +1,6 @@
-﻿namespace Orleans.FluentResults;
+﻿using System.Collections.Immutable;
+
+namespace Orleans.FluentResults;
 
 public partial class Result<TValue>
 {
@@ -36,25 +38,25 @@ public partial class Result<TValue>
     public new static Result<TValue> Fail(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        return new Result<TValue>().WithError(error);
+        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(error));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error message. Internally an error object from the error factory is created.
     /// </summary>
-    public new static Result<TValue> Fail(string message)
+    public new static Result<TValue> Fail(string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        return new Result<TValue>().WithError(ResultSettings.Current.ErrorFactory(message));
+        ArgumentNullException.ThrowIfNull(errorMessage);
+        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ErrorFactory(errorMessage)));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created.
     /// </summary>
-    public new static Result<TValue> Fail(IEnumerable<string> messages)
+    public new static Result<TValue> Fail(IEnumerable<string> errorMessages)
     {
-        ArgumentNullException.ThrowIfNull(messages);
-        return new Result<TValue>().WithErrors(messages.Select(ResultSettings.Current.ErrorFactory));
+        ArgumentNullException.ThrowIfNull(errorMessages);
+        return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(errorMessages.Select(ResultSettings.Current.ErrorFactory)));
     }
 
     /// <summary>
@@ -63,7 +65,7 @@ public partial class Result<TValue>
     public new static Result<TValue> Fail(IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        return new Result<TValue>().WithErrors(errors);
+        return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(errors));
     }
 
     #endregion
