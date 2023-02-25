@@ -4,6 +4,7 @@
 /// </summary>
 public static class SuccessExtensions
 {
+
     #region With Metadata
 
     /// <summary>
@@ -28,4 +29,5 @@ public static class SuccessExtensions
     }
 
     #endregion
+
 }

@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{3A996229
 		resources\icons\FluentResults-Icon-1024.png = resources\icons\FluentResults-Icon-1024.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E1DD08E-C09D-4165-B6F6-9C1E0371F2BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.FluentResults.Test", "tests\Orleans.FluentResults.Test\Orleans.FluentResults.Test.csproj", "{82136704-6588-42F0-B557-A85EE7323F09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,11 +25,16 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7} = {64285279-25F6-430E-AD1C-29A887BD2DDF}
 		{3A996229-94EE-4E70-AF32-218F3F7D116A} = {F7DE6440-3489-4A4E-BAD6-01A47D47AB0B}
+		{82136704-6588-42F0-B557-A85EE7323F09} = {1E1DD08E-C09D-4165-B6F6-9C1E0371F2BF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82136704-6588-42F0-B557-A85EE7323F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82136704-6588-42F0-B557-A85EE7323F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82136704-6588-42F0-B557-A85EE7323F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82136704-6588-42F0-B557-A85EE7323F09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

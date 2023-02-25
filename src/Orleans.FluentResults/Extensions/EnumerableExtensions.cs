@@ -4,6 +4,7 @@
 /// </summary>
 public static class EnumerableExtensions
 {
+
     #region Merge
 
     /// <summary>
@@ -25,4 +26,5 @@ public static class EnumerableExtensions
     }
 
     #endregion
+
 }

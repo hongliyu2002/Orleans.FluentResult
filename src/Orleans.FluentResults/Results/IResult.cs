@@ -6,7 +6,7 @@
 public interface IResult<out TValue> : IResultBase
 {
     /// <summary>
-    ///     Get the Value.
+    ///     Get the original value regardless the status is failed or success.
     /// </summary>
     TValue Value { get; }
 

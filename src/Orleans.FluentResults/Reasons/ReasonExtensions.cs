@@ -4,6 +4,7 @@
 /// </summary>
 public static class ReasonExtensions
 {
+
     #region Has Metadata
 
     /// <summary>
@@ -33,4 +34,5 @@ public static class ReasonExtensions
     }
 
     #endregion
+
 }

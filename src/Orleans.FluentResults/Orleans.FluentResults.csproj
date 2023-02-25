@@ -26,6 +26,7 @@
         <Title>Fluent Results for Orleans</Title>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
+        <RepositoryUrl>https://github.com/hongliyu2002/Orleans.FluentResult</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

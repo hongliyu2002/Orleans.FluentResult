@@ -13,7 +13,7 @@ public static class ObjectExtensions
     {
         return new Result<TValue>(value);
     }
-    
+
     /// <summary>
     /// </summary>
     /// <param name="value"></param>

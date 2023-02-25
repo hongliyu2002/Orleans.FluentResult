@@ -4,6 +4,7 @@
 /// </summary>
 public static class ErrorExtensions
 {
+
     #region With Metadata
 
     /// <summary>
@@ -93,4 +94,5 @@ public static class ErrorExtensions
     }
 
     #endregion
+
 }

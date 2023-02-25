@@ -6,6 +6,7 @@ namespace Orleans.FluentResults;
 /// </summary>
 internal static class ResultHelper
 {
+
     #region Merge
 
     /// <summary>
@@ -28,11 +29,11 @@ internal static class ResultHelper
     {
         var resultsList = results.ToList();
         var mergedResult = new Result<IEnumerable<TValue>>(resultsList.SelectMany(result => result.Reasons).ToImmutableList());
-        if (!mergedResult.IsSuccess)
+        if (mergedResult.IsFailed)
         {
             return mergedResult;
         }
-        return (Result<IEnumerable<TValue>>)mergedResult.WithValue(resultsList.Select(result => result.Value));
+        return mergedResult.WithValue(resultsList.Select(result => result.Value));
     }
 
     #endregion
@@ -121,4 +122,5 @@ internal static class ResultHelper
     }
 
     #endregion
+
 }
