@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>Orleans.FluentResults</PackageId>
+        <Version>7.15.2.0</Version>
+        <Authors>Michael Altmann</Authors>
+        <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Copyright>Copyright 2022 (c) Michael Altmann. All rights reserved.</Copyright>
+        <PackageTags>Result Results exception error handling</PackageTags>
+        <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/hongliyu2002/Orleans.FluentResult/master/resources/icons/FluentResults-Icon-128.png</PackageIconUrl>
+        <PackageIcon>FluentResults-Icon-128.png</PackageIcon>
+        
+        <!--SourceLink-->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\resources\icons\FluentResults-Icon-128.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.1.0" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    </ItemGroup>
+    
+</Project>

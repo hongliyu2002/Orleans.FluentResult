@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{64285279-25F6-430E-AD1C-29A887BD2DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{F7DE6440-3489-4A4E-BAD6-01A47D47AB0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.FluentResults", "src\Orleans.FluentResults\Orleans.FluentResults.csproj", "{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{3A996229-94EE-4E70-AF32-218F3F7D116A}"
+	ProjectSection(SolutionItems) = preProject
+		resources\icons\FluentResults-Icon-64.png = resources\icons\FluentResults-Icon-64.png
+		resources\icons\FluentResults-Icon-128.png = resources\icons\FluentResults-Icon-128.png
+		resources\icons\FluentResults-Icon-1024.png = resources\icons\FluentResults-Icon-1024.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7} = {64285279-25F6-430E-AD1C-29A887BD2DDF}
+		{3A996229-94EE-4E70-AF32-218F3F7D116A} = {F7DE6440-3489-4A4E-BAD6-01A47D47AB0B}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A8FA49-E886-4961-A5F6-AB7C0B27C4C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
