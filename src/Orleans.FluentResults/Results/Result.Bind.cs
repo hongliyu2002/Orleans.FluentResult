@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public static partial class ResultExtensions
+public partial record Result
 {
 
     #region Bind to Function
@@ -10,16 +10,15 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
+    ///  var done = this.Bind(ActionWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static Result Bind(this Result result, Func<Result> bindAction)
+    public Result Bind(Func<Result> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        if (result.IsFailed)
+        var result = this;
+        if (IsFailed)
         {
             return result;
         }
@@ -32,16 +31,15 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
+    ///  var done = this.Bind(ActionWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static async Task<Result> Bind(this Result result, Func<Task<Result>> bindAction)
+    public async Task<Result> Bind(Func<Task<Result>> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        if (result.IsFailed)
+        var result = this;
+        if (IsFailed)
         {
             return result;
         }
@@ -54,16 +52,15 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
+    ///  var done = this.Bind(ActionWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static async ValueTask<Result> Bind(this Result result, Func<ValueTask<Result>> bindAction)
+    public async ValueTask<Result> Bind(Func<ValueTask<Result>> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        if (result.IsFailed)
+        var result = this;
+        if (IsFailed)
         {
             return result;
         }
@@ -76,23 +73,20 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
+    ///  var done = this.Bind(ActionWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static Result<TValue> Bind<TValue>(this Result result, Func<Result<TValue>> bindAction)
+    public Result<TValue> Bind<TValue>(Func<Result<TValue>> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
-        if (result.IsFailed)
+        var result = this as Result<TValue> ?? new Result<TValue>(Reasons);
+        if (IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = bindAction();
-        return boundResult.WithValue(bindResult.Value)
-                          .WithReasons(bindResult.Reasons);
+        return result.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -100,23 +94,20 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var bakeryDtoResult = result.Bind(GetWhichMayFail);
+    ///  var bakeryDtoResult = this.Bind(GetWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Transformation that may fail.</param>
-    public static async Task<Result<TValue>> Bind<TValue>(this Result result, Func<Task<Result<TValue>>> bindAction)
+    public async Task<Result<TValue>> Bind<TValue>(Func<Task<Result<TValue>>> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
-        if (result.IsFailed)
+        var result = this as Result<TValue> ?? new Result<TValue>(Reasons);
+        if (IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = await bindAction();
-        return boundResult.WithValue(bindResult.Value)
-                          .WithReasons(bindResult.Reasons);
+        return result.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -124,23 +115,20 @@ public static partial class ResultExtensions
     /// </summary>
     /// <example>
     ///     <code>
-    ///  var bakeryDtoResult = result.Bind(GetWhichMayFail);
+    ///  var bakeryDtoResult = this.Bind(GetWhichMayFail);
     /// </code>
     /// </example>
-    /// <param name="result"></param>
     /// <param name="bindAction">Transformation that may fail.</param>
-    public static async ValueTask<Result<TValue>> Bind<TValue>(this Result result, Func<ValueTask<Result<TValue>>> bindAction)
+    public async ValueTask<Result<TValue>> Bind<TValue>(Func<ValueTask<Result<TValue>>> bindAction)
     {
-        ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
-        if (result.IsFailed)
+        var result = this as Result<TValue> ?? new Result<TValue>(Reasons);
+        if (IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = await bindAction();
-        return boundResult.WithValue(bindResult.Value)
-                          .WithReasons(bindResult.Reasons);
+        return result.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
     }
 
     #endregion
