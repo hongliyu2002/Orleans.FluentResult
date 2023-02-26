@@ -8,6 +8,10 @@
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorStringifyTests.EmptyErrorToString_OnlyType&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorStringifyTests.ErrorWithReasonsToString_TypeWithReasons&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests.Merge_WithResultWithoutValue_ShouldMergeResults&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests.Merge_WithFailedResultWithValue_ShouldMergeResults&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultLoggingTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

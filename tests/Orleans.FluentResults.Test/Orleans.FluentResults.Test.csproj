@@ -28,11 +28,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Orleans.FluentResults\Orleans.FluentResults.csproj" />
+        <ProjectReference Include="..\..\src\Orleans.FluentResults\Orleans.FluentResults.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Reasons" />
+      <Folder Include="Foundation" />
     </ItemGroup>
 
 </Project>

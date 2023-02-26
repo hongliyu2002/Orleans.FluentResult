@@ -169,10 +169,6 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(errorMapper);
-        if (result.IsSuccess)
-        {
-            return result with {};
-        }
         return new Result().WithErrors(result.Errors.Select(errorMapper))
                            .WithSuccesses(result.Successes);
     }

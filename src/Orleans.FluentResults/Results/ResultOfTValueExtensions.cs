@@ -182,8 +182,8 @@ public static partial class ResultOfTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(successMapper);
-        return new Result<TValue>().WithErrors(result.Errors)
-                                   .WithSuccesses(result.Successes.Select(successMapper));
+        return new Result<TValue>(result.Value).WithErrors(result.Errors)
+                                               .WithSuccesses(result.Successes.Select(successMapper));
     }
 
     /// <summary>
@@ -196,12 +196,8 @@ public static partial class ResultOfTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(errorMapper);
-        if (result.IsSuccess)
-        {
-            return result with { };
-        }
-        return new Result<TValue>().WithErrors(result.Errors.Select(errorMapper))
-                                   .WithSuccesses(result.Successes);
+        return new Result<TValue>(result.Value).WithErrors(result.Errors.Select(errorMapper))
+                                               .WithSuccesses(result.Successes);
     }
 
     #endregion
