@@ -1,17 +1,33 @@
-﻿namespace Orleans.FluentResults;
+﻿using System.Collections.Immutable;
+
+namespace Orleans.FluentResults;
 
 /// <summary>
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
-public interface IResult<out TValue> : IResultBase
+public interface IResult
 {
     /// <summary>
-    ///     Get the original value regardless the status is failed or success.
+    ///     Is true if Reasons contains at least one error
     /// </summary>
-    TValue Value { get; }
+    bool IsFailed { get; }
 
     /// <summary>
-    ///     Get the Value. If result is failed then a default value is returned. Opposite see property Value.
+    ///     Is true if Reasons contains no errors
     /// </summary>
-    TValue? ValueOrDefault { get; }
+    bool IsSuccess { get; }
+
+    /// <summary>
+    ///     Get all reasons (errors and successes)
+    /// </summary>
+    IImmutableList<IReason> Reasons { get; }
+
+    /// <summary>
+    ///     Get all errors
+    /// </summary>
+    IImmutableList<Error> Errors { get; }
+
+    /// <summary>
+    ///     Get all successes
+    /// </summary>
+    IImmutableList<Success> Successes { get; }
 }

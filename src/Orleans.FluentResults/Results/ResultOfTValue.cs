@@ -6,43 +6,33 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public partial class Result<TValue> : Result, IResult<TValue>
+public partial record Result<TValue>(TValue Value, IImmutableList<IReason> Reasons) : Result(Reasons), IResult<TValue>
 {
     /// <summary>
+    ///     Creates a new instance of <see cref="Result{TValue}" />
     /// </summary>
     public Result()
+        : this(default!, ImmutableList<IReason>.Empty)
     {
-        Value = default!;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Creates a new instance of <see cref="Result{TValue}" />
+    /// </summary>
+    /// <param name="value">Value of the result</param>
     public Result(TValue value)
+        : this(value, ImmutableList<IReason>.Empty)
     {
-        Value = value;
     }
 
     /// <summary>
+    ///     Creates a new instance of <see cref="Result{TValue}" />
     /// </summary>
-    /// <param name="reasons"></param>
+    /// <param name="reasons">Reasons of the result</param>
     public Result(IImmutableList<IReason> reasons)
-        : base(reasons)
+        : this(default!, reasons)
     {
-        Value = default!;
     }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="reasons"></param>
-    public Result(TValue value, IImmutableList<IReason> reasons)
-        : base(reasons)
-    {
-        Value = value;
-    }
-
-    /// <inheritdoc />
-    [Id(0)]
-    public TValue Value { get; }
 
     /// <inheritdoc />
     public TValue? ValueOrDefault => IsSuccess ? Value : default;
@@ -77,12 +67,12 @@ public partial class Result<TValue> : Result, IResult<TValue>
     /// <param name="isFailed"></param>
     /// <param name="valueOrDefault"></param>
     /// <param name="errors"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue? valueOrDefault, out IImmutableList<IError> errors)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue? valueOrDefault, out IImmutableList<Error> errors)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;
         valueOrDefault = ValueOrDefault;
-        errors = IsFailed ? Errors : ImmutableList.Create<IError>();
+        errors = IsFailed ? Errors : ImmutableList<Error>.Empty;
     }
 
     #endregion

@@ -2,25 +2,39 @@
 
 namespace Orleans.FluentResults;
 
+/// <inheritdoc />
 /// <summary>
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public partial class Result : ResultBase
+public partial record Result(IImmutableList<IReason> Reasons) : IResult
 {
+    /// <inheritdoc />
     /// <summary>
+    ///     Creates a new instance of <see cref="T:Orleans.FluentResults.Result" />
     /// </summary>
     public Result()
+        : this(ImmutableList<IReason>.Empty)
     {
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="reasons"></param>
-    public Result(IImmutableList<IReason> reasons)
-        : base(reasons)
-    {
-    }
+    /// <inheritdoc />
+    public bool IsFailed =>
+        Reasons.OfType<Error>()
+               .Any();
+
+    /// <inheritdoc />
+    public bool IsSuccess => !IsFailed;
+
+    /// <inheritdoc />
+    public IImmutableList<Error> Errors =>
+        Reasons.OfType<Error>()
+               .ToImmutableList();
+
+    /// <inheritdoc />
+    public IImmutableList<Success> Successes =>
+        Reasons.OfType<Success>()
+               .ToImmutableList();
 
     /// <summary>
     /// </summary>
@@ -50,11 +64,11 @@ public partial class Result : ResultBase
     /// <param name="isSuccess"></param>
     /// <param name="isFailed"></param>
     /// <param name="errors"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out IImmutableList<IError> errors)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out IImmutableList<Error> errors)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;
-        errors = IsFailed ? Errors : ImmutableList.Create<IError>();
+        errors = IsFailed ? Errors : ImmutableList<Error>.Empty;
     }
 
     #endregion

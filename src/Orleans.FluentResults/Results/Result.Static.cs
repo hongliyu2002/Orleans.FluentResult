@@ -2,8 +2,21 @@
 
 namespace Orleans.FluentResults;
 
-public partial class Result
+public partial record Result
 {
+
+    #region Merge
+
+    /// <summary>
+    ///     Merge multiple result objects to one result object together
+    /// </summary>
+    public static Result Merge(params Result[] results)
+    {
+        ArgumentNullException.ThrowIfNull(results);
+        return ResultHelper.Merge(results);
+    }
+
+    #endregion
 
     #region Ok
 
@@ -13,19 +26,6 @@ public partial class Result
     public static Result Ok()
     {
         return new Result();
-    }
-
-    #endregion
-
-    #region Merge
-
-    /// <summary>
-    ///     Merge multiple result objects to one result object together
-    /// </summary>
-    public static Result Merge(params IResultBase[] results)
-    {
-        ArgumentNullException.ThrowIfNull(results);
-        return ResultHelper.Merge(results);
     }
 
     #endregion
@@ -74,7 +74,7 @@ public partial class Result
     public static Result Fail(Exception exception)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return new Result(ImmutableList<IReason>.Empty.Add(new ExceptionalError(exception)));
+        return new Result(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public partial class Result
     public static Result Fail(IEnumerable<Exception> exceptions)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return new Result(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(ex => new ExceptionalError(ex))));
+        return new Result(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
     }
 
     #endregion
@@ -95,7 +95,6 @@ public partial class Result
     /// </summary>
     public static Result OkIf(bool isSuccess, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
         return isSuccess ? Ok() : Fail(error);
     }
 
@@ -104,7 +103,6 @@ public partial class Result
     /// </summary>
     public static Result OkIf(bool isSuccess, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
         return isSuccess ? Ok() : Fail(errorMessage);
     }
 
@@ -141,7 +139,6 @@ public partial class Result
     /// </summary>
     public static Result FailIf(bool isFailure, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
         return isFailure ? Fail(error) : Ok();
     }
 
@@ -150,7 +147,6 @@ public partial class Result
     /// </summary>
     public static Result FailIf(bool isFailure, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
         return isFailure ? Fail(errorMessage) : Ok();
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public abstract partial class ResultBase
+public partial record Result
 {
 
     #region Has Error
@@ -9,7 +9,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains an error from a specific type
     /// </summary>
     public bool HasError<TError>()
-        where TError : IError
+        where TError : Error
     {
         return HasError<TError>(out _);
     }
@@ -18,7 +18,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains an error from a specific type
     /// </summary>
     public bool HasError<TError>(out IEnumerable<TError> result)
-        where TError : IError
+        where TError : Error
     {
         return HasError(_ => true, out result);
     }
@@ -27,7 +27,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
     public bool HasError<TError>(Func<TError, bool> filter)
-        where TError : IError
+        where TError : Error
     {
         return HasError(filter, out _);
     }
@@ -36,7 +36,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
     public bool HasError<TError>(Func<TError, bool> filter, out IEnumerable<TError> result)
-        where TError : IError
+        where TError : Error
     {
         ArgumentNullException.ThrowIfNull(filter);
         return ResultHelper.HasError(Errors, filter, out result);
@@ -45,7 +45,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> filter)
+    public bool HasError(Func<Error, bool> filter)
     {
         return HasError(filter, out _);
     }
@@ -53,7 +53,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> filter, out IEnumerable<IError> result)
+    public bool HasError(Func<Error, bool> filter, out IEnumerable<Error> result)
     {
         ArgumentNullException.ThrowIfNull(filter);
         return ResultHelper.HasError(Errors, filter, out result);
@@ -75,7 +75,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an exception from a specific type
     /// </summary>
-    public bool HasException<TException>(out IEnumerable<IError> result)
+    public bool HasException<TException>(out IEnumerable<Error> result)
         where TException : Exception
     {
         return HasException<TException>(_ => true, out result);
@@ -93,7 +93,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
-    public bool HasException<TException>(Func<TException, bool> filter, out IEnumerable<IError> result)
+    public bool HasException<TException>(Func<TException, bool> filter, out IEnumerable<Error> result)
         where TException : Exception
     {
         ArgumentNullException.ThrowIfNull(filter);
@@ -108,7 +108,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains a success from a specific type
     /// </summary>
     public bool HasSuccess<TSuccess>()
-        where TSuccess : ISuccess
+        where TSuccess : Success
     {
         return HasSuccess<TSuccess>(_ => true, out _);
     }
@@ -117,7 +117,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains a success from a specific type
     /// </summary>
     public bool HasSuccess<TSuccess>(out IEnumerable<TSuccess> result)
-        where TSuccess : ISuccess
+        where TSuccess : Success
     {
         return HasSuccess(_ => true, out result);
     }
@@ -126,7 +126,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
     public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter)
-        where TSuccess : ISuccess
+        where TSuccess : Success
     {
         return HasSuccess(filter, out _);
     }
@@ -135,7 +135,7 @@ public abstract partial class ResultBase
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
     public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
-        where TSuccess : ISuccess
+        where TSuccess : Success
     {
         return ResultHelper.HasSuccess(Successes, filter, out result);
     }
@@ -143,7 +143,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> filter, out IEnumerable<ISuccess> result)
+    public bool HasSuccess(Func<Success, bool> filter, out IEnumerable<Success> result)
     {
         return ResultHelper.HasSuccess(Successes, filter, out result);
     }
@@ -151,7 +151,7 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> filter)
+    public bool HasSuccess(Func<Success, bool> filter)
     {
         return ResultHelper.HasSuccess(Successes, filter, out _);
     }

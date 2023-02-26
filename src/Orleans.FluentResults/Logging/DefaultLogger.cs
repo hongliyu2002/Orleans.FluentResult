@@ -7,12 +7,12 @@ namespace Orleans.FluentResults;
 public class DefaultLogger : IResultLogger
 {
     /// <inheritdoc />
-    public void Log(string context, string content, IResultBase result, LogLevel logLevel)
+    public void Log(string context, string content, Result result, LogLevel logLevel)
     {
     }
 
     /// <inheritdoc />
-    public void Log<TContext>(string content, IResultBase result, LogLevel logLevel)
+    public void Log<TContext>(string content, Result result, LogLevel logLevel)
     {
     }
 }

@@ -7,58 +7,44 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public class ExceptionalError : Error, IExceptionalError
+public record ExceptionalError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons, Exception Exception)
+    : Error(Message, Metadata, Reasons), IExceptionalError
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Creates a new instance of <see cref="ExceptionalError" />
     /// </summary>
     public ExceptionalError()
+        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, new Exception(string.Empty))
     {
-        Exception = null!;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Creates a new instance of <see cref="ExceptionalError" />
+    /// </summary>
+    /// <param name="message">Message of the error</param>
+    public ExceptionalError(string message)
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, new Exception(message))
+    {
+    }
+
     /// <summary>
     ///     Creates a new instance of <see cref="ExceptionalError" />
     /// </summary>
     /// <param name="exception">Exception of the error</param>
     public ExceptionalError(Exception exception)
-        : this(exception.Message, exception)
+        : this(exception.Message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, exception)
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
-    ///     Creates a new instance of <see cref="T:Orleans.FluentResults.ExceptionalError" />
+    ///     Creates a new instance of <see cref="ExceptionalError" />
     /// </summary>
     /// <param name="message">Message of the error</param>
     /// <param name="exception">Exception of the error</param>
     public ExceptionalError(string message, Exception exception)
-        : base(message)
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, exception)
     {
-        ArgumentNullException.ThrowIfNull(exception);
-        Exception = exception;
     }
-
-    /// <inheritdoc />
-    /// <summary>
-    ///     Creates a new instance of <see cref="T:Orleans.FluentResults.ExceptionalError" />
-    /// </summary>
-    /// <param name="message">Message of the error</param>
-    /// <param name="metadata"></param>
-    /// <param name="reasons"></param>
-    /// <param name="exception">Exception of the error</param>
-    public ExceptionalError(string message, IImmutableDictionary<string, object> metadata, IImmutableList<IError> reasons, Exception exception)
-        : base(message, metadata, reasons)
-    {
-        ArgumentNullException.ThrowIfNull(exception);
-        Exception = exception;
-    }
-
-    /// <inheritdoc />
-    [Id(0)]
-    public Exception Exception { get; }
 
     /// <summary>
     /// </summary>

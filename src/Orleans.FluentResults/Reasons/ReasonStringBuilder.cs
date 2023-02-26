@@ -2,7 +2,7 @@
 
 /// <summary>
 /// </summary>
-public class ReasonStringBuilder
+public sealed class ReasonStringBuilder
 {
     private readonly List<string> _infos = new();
     private string _reasonType = string.Empty;

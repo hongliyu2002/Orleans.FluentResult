@@ -8,16 +8,14 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public class Error : IError
+public record Error(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons) : IError
 {
     /// <summary>
     ///     Creates a new instance of <see cref="Error" />
     /// </summary>
-    protected Error()
+    public Error()
+        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
     {
-        Message = string.Empty;
-        Metadata = ImmutableDictionary.Create<string, object>();
-        Reasons = ImmutableList.Create<IError>();
     }
 
     /// <summary>
@@ -25,10 +23,8 @@ public class Error : IError
     /// </summary>
     /// <param name="message">Message of the error</param>
     public Error(string message)
-        : this()
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        Message = message;
     }
 
     /// <summary>
@@ -36,46 +32,10 @@ public class Error : IError
     /// </summary>
     /// <param name="message">Message of the error</param>
     /// <param name="causedBy">The root cause of the <see cref="Error" /></param>
-    public Error(string message, IError causedBy)
-        : this(message)
+    public Error(string message, Error causedBy)
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty.Add(causedBy))
     {
-        ArgumentNullException.ThrowIfNull(causedBy);
-        Reasons = Reasons.Add(causedBy);
     }
-
-    /// <summary>
-    ///     Creates a new instance of <see cref="Error" />
-    /// </summary>
-    /// <param name="message">Message of the error</param>
-    /// <param name="metadata">Metadata of the error</param>
-    /// <param name="reasons">Reasons of the error</param>
-    public Error(string message, IImmutableDictionary<string, object> metadata, IImmutableList<IError> reasons)
-    {
-        ArgumentNullException.ThrowIfNull(message);
-        ArgumentNullException.ThrowIfNull(metadata);
-        ArgumentNullException.ThrowIfNull(reasons);
-        Message = message;
-        Metadata = metadata;
-        Reasons = reasons;
-    }
-
-    /// <summary>
-    ///     Message of the error
-    /// </summary>
-    [Id(0)]
-    public string Message { get; }
-
-    /// <summary>
-    ///     Metadata of the error
-    /// </summary>
-    [Id(1)]
-    public IImmutableDictionary<string, object> Metadata { get; }
-
-    /// <summary>
-    ///     Get the reasons of an error
-    /// </summary>
-    [Id(2)]
-    public IImmutableList<IError> Reasons { get; }
 
     /// <summary>
     /// </summary>

@@ -15,11 +15,11 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static Result Bind<TValue>(this IResult<TValue> result, Func<IResultBase> bindAction)
+    public static Result Bind(this Result result, Func<Result> bindAction)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
+        var boundResult = result with { };
         if (result.IsFailed)
         {
             return boundResult;
@@ -38,11 +38,11 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static async Task<Result> Bind<TValue>(this IResult<TValue> result, Func<Task<IResultBase>> bindAction)
+    public static async Task<Result> Bind(this Result result, Func<Task<Result>> bindAction)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
+        var boundResult = result with { };
         if (result.IsFailed)
         {
             return boundResult;
@@ -61,11 +61,11 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static async ValueTask<Result> Bind<TValue>(this IResult<TValue> result, Func<ValueTask<IResultBase>> bindAction)
+    public static async ValueTask<Result> Bind(this Result result, Func<ValueTask<Result>> bindAction)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
+        var boundResult = result with { };
         if (result.IsFailed)
         {
             return boundResult;
@@ -84,159 +84,18 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Action that may fail.</param>
-    public static Result<TValue> Bind<TValue>(this IResult<TValue> result, Func<IResult<TValue>> bindAction)
+    public static Result<TValue> Bind<TValue>(this Result result, Func<Result<TValue>> bindAction)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
+        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
         }
         var bindResult = bindAction();
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
-    }
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result{TValue}" /> asynchronously.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static async Task<Result<TValue>> Bind<TValue>(this IResult<TValue> result, Func<Task<IResult<TValue>>> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = await bindAction();
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
-    }
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result{TValue}" /> asynchronously.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static async ValueTask<Result<TValue>> Bind<TValue>(this IResult<TValue> result, Func<ValueTask<IResult<TValue>>> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = await bindAction();
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
-    }
-
-    #endregion
-
-    #region Bind to Value Function
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static Result Bind<TValue>(this IResult<TValue> result, Func<TValue, IResultBase> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = bindAction(result.Value);
-        return boundResult.WithReasons(bindResult.Reasons);
-    }
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" /> asynchronously.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static async Task<Result> Bind<TValue>(this IResult<TValue> result, Func<TValue, Task<IResultBase>> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = await bindAction(result.Value);
-        return boundResult.WithReasons(bindResult.Reasons);
-    }
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" /> asynchronously.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static async ValueTask<Result> Bind<TValue>(this IResult<TValue> result, Func<TValue, ValueTask<IResultBase>> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result(result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = await bindAction(result.Value);
-        return boundResult.WithReasons(bindResult.Reasons);
-    }
-
-    /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result{TValue}" />.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    ///  var done = result.Bind(ActionWhichMayFail);
-    /// </code>
-    /// </example>
-    /// <param name="result"></param>
-    /// <param name="bindAction">Action that may fail.</param>
-    public static Result<TValue> Bind<TValue>(this IResult<TValue> result, Func<TValue, IResult<TValue>> bindAction)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
-        if (result.IsFailed)
-        {
-            return boundResult;
-        }
-        var bindResult = bindAction(result.Value);
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
+        return boundResult.WithValue(bindResult.Value)
+                          .WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -249,17 +108,18 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Transformation that may fail.</param>
-    public static async Task<Result<TValue>> Bind<TValue>(this IResult<TValue> result, Func<TValue, Task<IResult<TValue>>> bindAction)
+    public static async Task<Result<TValue>> Bind<TValue>(this Result result, Func<Task<Result<TValue>>> bindAction)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
+        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
         }
-        var bindResult = await bindAction(result.Value);
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
+        var bindResult = await bindAction();
+        return boundResult.WithValue(bindResult.Value)
+                          .WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -272,15 +132,18 @@ public static partial class ResultExtensions
     /// </example>
     /// <param name="result"></param>
     /// <param name="bindAction">Transformation that may fail.</param>
-    public static async ValueTask<Result<TValue>> Bind<TValue>(this IResult<TValue> result, Func<TValue, ValueTask<IResult<TValue>>> bindAction)
+    public static async ValueTask<Result<TValue>> Bind<TValue>(this Result result, Func<ValueTask<Result<TValue>>> bindAction)
     {
-        var boundResult = new Result<TValue>(result.Value, result.Reasons);
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(bindAction);
+        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
         }
-        var bindResult = await bindAction(result.Value);
-        return boundResult.WithValue(bindResult.Value).WithReasons(bindResult.Reasons);
+        var bindResult = await bindAction();
+        return boundResult.WithValue(bindResult.Value)
+                          .WithReasons(bindResult.Reasons);
     }
 
     #endregion

@@ -12,7 +12,7 @@ public interface IResultLogger
     /// <param name="content"></param>
     /// <param name="result"></param>
     /// <param name="logLevel"></param>
-    void Log(string context, string content, IResultBase result, LogLevel logLevel);
+    void Log(string context, string content, Result result, LogLevel logLevel);
 
     /// <summary>
     /// </summary>
@@ -20,5 +20,5 @@ public interface IResultLogger
     /// <param name="result"></param>
     /// <param name="logLevel"></param>
     /// <typeparam name="TContext"></typeparam>
-    void Log<TContext>(string content, IResultBase result, LogLevel logLevel);
+    void Log<TContext>(string content, Result result, LogLevel logLevel);
 }

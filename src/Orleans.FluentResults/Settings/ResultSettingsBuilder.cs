@@ -10,8 +10,9 @@ public sealed class ResultSettingsBuilder
     public IResultLogger Logger { get; set; } = new DefaultLogger();
 
     /// <summary>
+    ///  Handler that try to transform Exception to Error object.
     /// </summary>
-    public Func<Exception, IError> DefaultTryCatchHandler { get; set; } = ex => ResultSettings.Current.ExceptionalErrorFactory(ex.Message, ex);
+    public Func<Exception, Error> DefaultTryCatchHandler { get; set; } = ex => ResultSettings.Current.ExceptionalErrorFactory(ex.Message, ex);
 
     /// <summary>
     ///     Factory to create an ISuccess object. Used in all scenarios where a success is created within FluentResults.
@@ -19,14 +20,14 @@ public sealed class ResultSettingsBuilder
     public Func<string, ISuccess> SuccessFactory { get; set; } = successMessage => new Success(successMessage);
 
     /// <summary>
-    ///     Factory to create an IError object. Used in all scenarios where an error is created within FluentResults.
+    ///     Factory to create an Error object. Used in all scenarios where an error is created within FluentResults.
     /// </summary>
-    public Func<string, IError> ErrorFactory { get; set; } = errorMessage => new Error(errorMessage);
+    public Func<string, Error> ErrorFactory { get; set; } = errorMessage => new Error(errorMessage);
 
     /// <summary>
-    ///     Factory to create an IExceptionalError object. Used in all scenarios where an exceptional error is created within FluentResults.
+    ///     Factory to create an ExceptionalError object. Used in all scenarios where an exceptional error is created within FluentResults.
     /// </summary>
-    public Func<string, Exception, IExceptionalError> ExceptionalErrorFactory { get; set; } =
+    public Func<string, Exception, ExceptionalError> ExceptionalErrorFactory { get; set; } =
         (errorMessage, exception) => new ExceptionalError(string.IsNullOrEmpty(errorMessage) ? exception.Message : errorMessage, exception);
 
     /// <summary>

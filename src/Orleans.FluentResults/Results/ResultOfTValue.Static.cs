@@ -2,8 +2,21 @@
 
 namespace Orleans.FluentResults;
 
-public partial class Result<TValue>
+public partial record Result<TValue>
 {
+
+    #region Merge
+
+    /// <summary>
+    ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
+    /// </summary>
+    public static Result<IEnumerable<TValue>> Merge(params Result<TValue>[] results)
+    {
+        ArgumentNullException.ThrowIfNull(results);
+        return ResultHelper.Merge(results);
+    }
+
+    #endregion
 
     #region Ok
 
@@ -13,19 +26,6 @@ public partial class Result<TValue>
     public static Result<TValue> Ok(TValue value)
     {
         return new Result<TValue>(value);
-    }
-
-    #endregion
-
-    #region Merge
-
-    /// <summary>
-    ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
-    /// </summary>
-    public static Result<IEnumerable<TValue>> Merge(params IResult<TValue>[] results)
-    {
-        ArgumentNullException.ThrowIfNull(results);
-        return ResultHelper.Merge(results);
     }
 
     #endregion
@@ -74,7 +74,7 @@ public partial class Result<TValue>
     public new static Result<TValue> Fail(Exception exception)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(new ExceptionalError(exception)));
+        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     /// <summary>
@@ -83,7 +83,8 @@ public partial class Result<TValue>
     public new static Result<TValue> Fail(IEnumerable<Exception> exceptions)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(ex => new ExceptionalError(ex))));
+        return new
+            Result<TValue>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
     }
 
     #endregion
@@ -95,7 +96,6 @@ public partial class Result<TValue>
     /// </summary>
     public static Result<TValue> OkIf(TValue value, bool isSuccess, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
         return isSuccess ? Ok(value) : Fail(error);
     }
 
@@ -104,7 +104,6 @@ public partial class Result<TValue>
     /// </summary>
     public static Result<TValue> OkIf(TValue value, bool isSuccess, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
         return isSuccess ? Ok(value) : Fail(errorMessage);
     }
 
@@ -141,7 +140,6 @@ public partial class Result<TValue>
     /// </summary>
     public static Result<TValue> FailIf(TValue value, bool isFailure, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
         return isFailure ? Fail(error) : Ok(value);
     }
 
@@ -150,7 +148,6 @@ public partial class Result<TValue>
     /// </summary>
     public static Result<TValue> FailIf(TValue value, bool isFailure, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
         return isFailure ? Fail(errorMessage) : Ok(value);
     }
 
@@ -208,7 +205,8 @@ public partial class Result<TValue>
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            return Ok(await action());
+            var value = await action();
+            return Ok(value);
         }
         catch (Exception ex)
         {
@@ -225,7 +223,8 @@ public partial class Result<TValue>
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            return Ok(await action());
+            var value = await action();
+            return Ok(value);
         }
         catch (Exception ex)
         {

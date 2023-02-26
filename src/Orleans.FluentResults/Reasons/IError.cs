@@ -9,5 +9,5 @@ public interface IError : IReason
     /// <summary>
     ///     Reasons of the error
     /// </summary>
-    IImmutableList<IError> Reasons { get; }
+    IImmutableList<Error> Reasons { get; }
 }

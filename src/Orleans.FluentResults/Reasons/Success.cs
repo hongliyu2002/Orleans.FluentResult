@@ -8,15 +8,14 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public class Success : ISuccess
+public record Success(string Message, IImmutableDictionary<string, object> Metadata) : ISuccess
 {
     /// <summary>
     ///     Creates a new instance of <see cref="Success" />
     /// </summary>
-    protected Success()
+    public Success()
+        : this(string.Empty, ImmutableDictionary<string, object>.Empty)
     {
-        Message = string.Empty;
-        Metadata = ImmutableDictionary.Create<string, object>();
     }
 
     /// <summary>
@@ -24,43 +23,8 @@ public class Success : ISuccess
     /// </summary>
     /// <param name="message">Message of the success</param>
     public Success(string message)
-        : this()
+        : this(message, ImmutableDictionary<string, object>.Empty)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        Message = message;
-    }
-
-    /// <summary>
-    ///     Creates a new instance of <see cref="Success" />
-    /// </summary>
-    /// <param name="message">Message of the success</param>
-    /// <param name="metadata">Metadata of the success</param>
-    public Success(string message, IImmutableDictionary<string, object> metadata)
-    {
-        ArgumentNullException.ThrowIfNull(message);
-        ArgumentNullException.ThrowIfNull(metadata);
-        Message = message;
-        Metadata = metadata;
-    }
-
-    /// <inheritdoc />
-    /// <summary>
-    ///     Message of the success
-    /// </summary>
-    [Id(0)]
-    public string Message { get; }
-
-    /// <inheritdoc />
-    /// <summary>
-    ///     Metadata of the success
-    /// </summary>
-    [Id(1)]
-    public IImmutableDictionary<string, object> Metadata { get; }
-
-    /// <inheritdoc />
-    public virtual IReason Copy()
-    {
-        return new Success(Message, Metadata);
     }
 
     /// <summary>
@@ -68,6 +32,9 @@ public class Success : ISuccess
     /// <returns></returns>
     public override string ToString()
     {
-        return new ReasonStringBuilder().WithReasonType(GetType()).WithInfo(nameof(Message), Message).WithInfo(nameof(Metadata), string.Join("; ", Metadata)).Build();
+        return new ReasonStringBuilder().WithReasonType(GetType())
+                                        .WithInfo(nameof(Message), Message)
+                                        .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
+                                        .Build();
     }
 }

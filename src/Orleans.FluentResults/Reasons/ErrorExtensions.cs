@@ -10,22 +10,22 @@ public static class ErrorExtensions
     /// <summary>
     ///     Set the metadata
     /// </summary>
-    public static IError WithMetadata(this IError error, string metadataName, object metadataValue)
+    public static Error WithMetadata(this Error error, string metadataName, object metadataValue)
     {
         ArgumentNullException.ThrowIfNull(error);
         ArgumentNullException.ThrowIfNull(metadataName);
         ArgumentNullException.ThrowIfNull(metadataValue);
-        return new Error(error.Message, error.Metadata.SetItem(metadataName, metadataValue), error.Reasons);
+        return error with { Metadata = error.Metadata.SetItem(metadataName, metadataValue) };
     }
 
     /// <summary>
     ///     Set the metadata
     /// </summary>
-    public static IError WithMetadata(this IError error, Dictionary<string, object> metadata)
+    public static Error WithMetadata(this Error error, Dictionary<string, object> metadata)
     {
         ArgumentNullException.ThrowIfNull(error);
         ArgumentNullException.ThrowIfNull(metadata);
-        return new Error(error.Message, error.Metadata.SetItems(metadata), error.Reasons);
+        return error with { Metadata = error.Metadata.SetItems(metadata) };
     }
 
     #endregion
@@ -35,62 +35,62 @@ public static class ErrorExtensions
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static IError CausedBy(this IError error, IError otherError)
+    public static Error CausedBy(this Error error, Error causedBy)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentNullException.ThrowIfNull(otherError);
-        return new Error(error.Message, error.Metadata, error.Reasons.Add(otherError));
+        ArgumentNullException.ThrowIfNull(causedBy);
+        return error with { Reasons = error.Reasons.Add(causedBy) };
     }
 
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static IError CausedBy(this IError error, Exception exception)
+    public static Error CausedBy(this Error error, IEnumerable<Error> causedBys)
+    {
+        ArgumentNullException.ThrowIfNull(error);
+        ArgumentNullException.ThrowIfNull(causedBys);
+        return error with { Reasons = error.Reasons.AddRange(causedBys) };
+    }
+
+    /// <summary>
+    ///     Set the root cause of the error
+    /// </summary>
+    public static Error CausedBy(this Error error, Exception exception)
     {
         ArgumentNullException.ThrowIfNull(error);
         ArgumentNullException.ThrowIfNull(exception);
-        return new Error(error.Message, error.Metadata, error.Reasons.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return error with { Reasons = error.Reasons.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)) };
     }
 
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static IError CausedBy(this IError error, string message, Exception exception)
+    public static Error CausedBy(this Error error, string errorMessage, Exception exception)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentNullException.ThrowIfNull(message);
+        ArgumentNullException.ThrowIfNull(errorMessage);
         ArgumentNullException.ThrowIfNull(exception);
-        return new Error(error.Message, error.Metadata, error.Reasons.Add(ResultSettings.Current.ExceptionalErrorFactory(message, exception)));
+        return error with { Reasons = error.Reasons.Add(ResultSettings.Current.ExceptionalErrorFactory(errorMessage, exception)) };
     }
 
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static IError CausedBy(this IError error, string message)
+    public static Error CausedBy(this Error error, string errorMessage)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentNullException.ThrowIfNull(message);
-        return new Error(error.Message, error.Metadata, error.Reasons.Add(ResultSettings.Current.ErrorFactory(message)));
+        ArgumentNullException.ThrowIfNull(errorMessage);
+        return error with { Reasons = error.Reasons.Add(ResultSettings.Current.ErrorFactory(errorMessage)) };
     }
 
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static IError CausedBy(this IError error, IEnumerable<IError> otherErrors)
+    public static Error CausedBy(this Error error, IEnumerable<string> errorMessages)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentNullException.ThrowIfNull(otherErrors);
-        return new Error(error.Message, error.Metadata, error.Reasons.AddRange(otherErrors));
-    }
-
-    /// <summary>
-    ///     Set the root cause of the error
-    /// </summary>
-    public static IError CausedBy(this IError error, IEnumerable<string> messages)
-    {
-        ArgumentNullException.ThrowIfNull(error);
-        ArgumentNullException.ThrowIfNull(messages);
-        return new Error(error.Message, error.Metadata, error.Reasons.AddRange(messages.Select(errorMessage => ResultSettings.Current.ErrorFactory(errorMessage))));
+        ArgumentNullException.ThrowIfNull(errorMessages);
+        return error with { Reasons = error.Reasons.AddRange(errorMessages.Select(errorMessage => ResultSettings.Current.ErrorFactory(errorMessage))) };
     }
 
     #endregion
