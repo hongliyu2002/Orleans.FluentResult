@@ -16,6 +16,7 @@ public static class ErrorExtensions
         ArgumentNullException.ThrowIfNull(metadataName);
         ArgumentNullException.ThrowIfNull(metadataValue);
         return error with { Metadata = error.Metadata.SetItem(metadataName, metadataValue) };
+        // return error with { Metadata = error.Metadata.Add(metadataName, metadataValue) };
     }
 
     /// <summary>
@@ -26,6 +27,7 @@ public static class ErrorExtensions
         ArgumentNullException.ThrowIfNull(error);
         ArgumentNullException.ThrowIfNull(metadata);
         return error with { Metadata = error.Metadata.SetItems(metadata) };
+        // return error with { Metadata = error.Metadata.AddRange(metadata) };
     }
 
     #endregion
