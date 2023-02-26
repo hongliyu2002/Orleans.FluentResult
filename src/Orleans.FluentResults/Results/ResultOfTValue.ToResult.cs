@@ -18,8 +18,15 @@ public partial record Result<TValue>
     /// </summary>
     public new Result<TNewValue> ToResult<TNewValue>()
     {
-        var value = Convert.ChangeType(Value, typeof(TNewValue));
-        return value == null ? Result<TNewValue>.Fail(new InvalidCastException()).WithReasons(Reasons) : new Result<TNewValue>((TNewValue)value, Reasons);
+        try
+        {
+            var value = Convert.ChangeType(Value, typeof(TNewValue)) ?? new object();
+            return new Result<TNewValue>((TNewValue)value, Reasons);
+        }
+        catch (Exception ex)
+        {
+            return Result<TNewValue>.Fail(ex.InnerException ?? ex).WithReasons(Reasons);
+        }
     }
 
     /// <summary>

@@ -154,9 +154,19 @@ public class ResultWithValueTests
     [Fact]
     public void ToResult_ToAnotherValueTypeWithOkResultAndNoConverter_ReturnFailedResult()
     {
-        var valueResult = Result<int>.Ok(10);
+        var valueResult = Result<int>.Ok(4);
         var result = valueResult.ToResult<float>();
         result.IsSuccess.Should().BeTrue();
+        result.Value.Should().Be(4);
+    }
+    
+    [Fact]
+    public void ToResult_ToAnotherValueTypeWithOkResultAndConverter_ReturnSuccessResult()
+    {
+        var valueResult = Result<int>.Ok(4);
+        var result = valueResult.ToResult<float>(v => v);
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().Be(4);
     }
     
     private class TestValue
