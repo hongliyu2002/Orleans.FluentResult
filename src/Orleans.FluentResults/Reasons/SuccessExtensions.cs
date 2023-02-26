@@ -13,7 +13,7 @@ public static class SuccessExtensions
     public static ISuccess WithMetadata(this ISuccess success, string metadataName, object metadataValue)
     {
         ArgumentNullException.ThrowIfNull(success);
-        ArgumentException.ThrowIfNullOrEmpty(metadataName);
+        ArgumentNullException.ThrowIfNull(metadataName);
         ArgumentNullException.ThrowIfNull(metadataValue);
         return new Success(success.Message, success.Metadata.SetItem(metadataName, metadataValue));
     }

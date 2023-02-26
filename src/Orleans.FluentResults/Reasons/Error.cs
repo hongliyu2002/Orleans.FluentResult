@@ -27,7 +27,7 @@ public class Error : IError
     public Error(string message)
         : this()
     {
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         Message = message;
     }
 
@@ -51,7 +51,7 @@ public class Error : IError
     /// <param name="reasons">Reasons of the error</param>
     public Error(string message, IImmutableDictionary<string, object> metadata, IImmutableList<IError> reasons)
     {
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(metadata);
         ArgumentNullException.ThrowIfNull(reasons);
         Message = message;

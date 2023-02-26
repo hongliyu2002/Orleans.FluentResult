@@ -35,7 +35,7 @@ public static partial class ResultBaseExtensions
     /// </summary>
     public static Result WithSuccess(this IResultBase result, string successMessage)
     {
-        ArgumentException.ThrowIfNullOrEmpty(successMessage);
+        ArgumentNullException.ThrowIfNull(successMessage);
         return WithSuccess(result, ResultSettings.Current.SuccessFactory(successMessage));
     }
 
@@ -87,7 +87,7 @@ public static partial class ResultBaseExtensions
     /// </summary>
     public static Result WithError(this IResultBase result, string errorMessage)
     {
-        ArgumentException.ThrowIfNullOrEmpty(errorMessage);
+        ArgumentNullException.ThrowIfNull(errorMessage);
         return WithError(result, ResultSettings.Current.ErrorFactory(errorMessage));
     }
 

@@ -33,15 +33,6 @@ public partial class Result
     #region Fail
 
     /// <summary>
-    ///     Creates a failed result with the given error
-    /// </summary>
-    public static Result Fail(IError error)
-    {
-        ArgumentNullException.ThrowIfNull(error);
-        return new Result(ImmutableList<IReason>.Empty.Add(error));
-    }
-
-    /// <summary>
     ///     Creates a failed result with the given error message. Internally an error object from the error factory is created.
     /// </summary>
     public static Result Fail(string errorMessage)
@@ -60,12 +51,39 @@ public partial class Result
     }
 
     /// <summary>
+    ///     Creates a failed result with the given error
+    /// </summary>
+    public static Result Fail(IError error)
+    {
+        ArgumentNullException.ThrowIfNull(error);
+        return new Result(ImmutableList<IReason>.Empty.Add(error));
+    }
+
+    /// <summary>
     ///     Creates a failed result with the given errors.
     /// </summary>
     public static Result Fail(IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return new Result(ImmutableList<IReason>.Empty.AddRange(errors));
+    }
+
+    /// <summary>
+    ///     Creates a failed result with the given exception
+    /// </summary>
+    public static Result Fail(Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return new Result(ImmutableList<IReason>.Empty.Add(new ExceptionalError(exception)));
+    }
+
+    /// <summary>
+    ///     Creates a failed result with the given exceptions.
+    /// </summary>
+    public static Result Fail(IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return new Result(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(ex => new ExceptionalError(ex))));
     }
 
     #endregion

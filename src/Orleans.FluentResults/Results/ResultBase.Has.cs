@@ -26,37 +26,37 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
-    public bool HasError<TError>(Func<TError, bool> predicate)
+    public bool HasError<TError>(Func<TError, bool> filter)
         where TError : IError
     {
-        return HasError(predicate, out _);
+        return HasError(filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
-    public bool HasError<TError>(Func<TError, bool> predicate, out IEnumerable<TError> result)
+    public bool HasError<TError>(Func<TError, bool> filter, out IEnumerable<TError> result)
         where TError : IError
     {
-        ArgumentNullException.ThrowIfNull(predicate);
-        return ResultHelper.HasError(Errors, predicate, out result);
+        ArgumentNullException.ThrowIfNull(filter);
+        return ResultHelper.HasError(Errors, filter, out result);
     }
 
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> predicate)
+    public bool HasError(Func<IError, bool> filter)
     {
-        return HasError(predicate, out _);
+        return HasError(filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> predicate, out IEnumerable<IError> result)
+    public bool HasError(Func<IError, bool> filter, out IEnumerable<IError> result)
     {
-        ArgumentNullException.ThrowIfNull(predicate);
-        return ResultHelper.HasError(Errors, predicate, out result);
+        ArgumentNullException.ThrowIfNull(filter);
+        return ResultHelper.HasError(Errors, filter, out result);
     }
 
     #endregion
@@ -84,20 +84,20 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
-    public bool HasException<TException>(Func<TException, bool> predicate)
+    public bool HasException<TException>(Func<TException, bool> filter)
         where TException : Exception
     {
-        return HasException(predicate, out _);
+        return HasException(filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
-    public bool HasException<TException>(Func<TException, bool> predicate, out IEnumerable<IError> result)
+    public bool HasException<TException>(Func<TException, bool> filter, out IEnumerable<IError> result)
         where TException : Exception
     {
-        ArgumentNullException.ThrowIfNull(predicate);
-        return ResultHelper.HasException(Errors, predicate, out result);
+        ArgumentNullException.ThrowIfNull(filter);
+        return ResultHelper.HasException(Errors, filter, out result);
     }
 
     #endregion
@@ -125,35 +125,35 @@ public abstract partial class ResultBase
     /// <summary>
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
-    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> predicate)
+    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter)
         where TSuccess : ISuccess
     {
-        return HasSuccess(predicate, out _);
+        return HasSuccess(filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
-    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> predicate, out IEnumerable<TSuccess> result)
+    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
         where TSuccess : ISuccess
     {
-        return ResultHelper.HasSuccess(Successes, predicate, out result);
+        return ResultHelper.HasSuccess(Successes, filter, out result);
     }
 
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> predicate, out IEnumerable<ISuccess> result)
+    public bool HasSuccess(Func<ISuccess, bool> filter, out IEnumerable<ISuccess> result)
     {
-        return ResultHelper.HasSuccess(Successes, predicate, out result);
+        return ResultHelper.HasSuccess(Successes, filter, out result);
     }
 
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> predicate)
+    public bool HasSuccess(Func<ISuccess, bool> filter)
     {
-        return ResultHelper.HasSuccess(Successes, predicate, out _);
+        return ResultHelper.HasSuccess(Successes, filter, out _);
     }
 
     #endregion

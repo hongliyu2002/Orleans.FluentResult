@@ -13,7 +13,7 @@ public static class ErrorExtensions
     public static IError WithMetadata(this IError error, string metadataName, object metadataValue)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentException.ThrowIfNullOrEmpty(metadataName);
+        ArgumentNullException.ThrowIfNull(metadataName);
         ArgumentNullException.ThrowIfNull(metadataValue);
         return new Error(error.Message, error.Metadata.SetItem(metadataName, metadataValue), error.Reasons);
     }
@@ -58,7 +58,7 @@ public static class ErrorExtensions
     public static IError CausedBy(this IError error, string message, Exception exception)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(exception);
         return new Error(error.Message, error.Metadata, error.Reasons.Add(ResultSettings.Current.ExceptionalErrorFactory(message, exception)));
     }
@@ -69,7 +69,7 @@ public static class ErrorExtensions
     public static IError CausedBy(this IError error, string message)
     {
         ArgumentNullException.ThrowIfNull(error);
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         return new Error(error.Message, error.Metadata, error.Reasons.Add(ResultSettings.Current.ErrorFactory(message)));
     }
 

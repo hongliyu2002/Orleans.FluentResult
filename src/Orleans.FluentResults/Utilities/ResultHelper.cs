@@ -44,15 +44,15 @@ internal static class ResultHelper
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
     /// <param name="errors"></param>
-    /// <param name="predicate"></param>
+    /// <param name="filter"></param>
     /// <param name="result"></param>
     /// <typeparam name="TError"></typeparam>
     /// <returns></returns>
-    public static bool HasError<TError>(IEnumerable<IError> errors, Func<TError, bool> predicate, out IEnumerable<TError> result)
+    public static bool HasError<TError>(IEnumerable<IError> errors, Func<TError, bool> filter, out IEnumerable<TError> result)
         where TError : IError
     {
         var errorsList = errors.ToList();
-        var foundErrors = errorsList.OfType<TError>().Where(predicate).ToList();
+        var foundErrors = errorsList.OfType<TError>().Where(filter).ToList();
         if (foundErrors.Any())
         {
             result = foundErrors;
@@ -60,7 +60,7 @@ internal static class ResultHelper
         }
         foreach (var error in errorsList)
         {
-            if (HasError(error.Reasons, predicate, out var fErrors))
+            if (HasError(error.Reasons, filter, out var fErrors))
             {
                 result = fErrors;
                 return true;
@@ -74,15 +74,15 @@ internal static class ResultHelper
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
     /// <param name="errors"></param>
-    /// <param name="predicate"></param>
+    /// <param name="filter"></param>
     /// <param name="result"></param>
     /// <typeparam name="TException"></typeparam>
     /// <returns></returns>
-    public static bool HasException<TException>(IEnumerable<IError> errors, Func<TException, bool> predicate, out IEnumerable<IError> result)
+    public static bool HasException<TException>(IEnumerable<IError> errors, Func<TException, bool> filter, out IEnumerable<IError> result)
         where TException : Exception
     {
         var errorsList = errors.ToList();
-        var foundErrors = errorsList.OfType<ExceptionalError>().Where(e => e.Exception is TException rootExceptionOfTException && predicate(rootExceptionOfTException)).ToList();
+        var foundErrors = errorsList.OfType<ExceptionalError>().Where(e => e.Exception is TException rootExceptionOfTException && filter(rootExceptionOfTException)).ToList();
         if (foundErrors.Any())
         {
             result = foundErrors;
@@ -90,7 +90,7 @@ internal static class ResultHelper
         }
         foreach (var error in errorsList)
         {
-            if (HasException(error.Reasons, predicate, out var fErrors))
+            if (HasException(error.Reasons, filter, out var fErrors))
             {
                 result = fErrors;
                 return true;
@@ -104,14 +104,14 @@ internal static class ResultHelper
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
     /// <param name="successes"></param>
-    /// <param name="predicate"></param>
+    /// <param name="filter"></param>
     /// <param name="result"></param>
     /// <typeparam name="TSuccess"></typeparam>
     /// <returns></returns>
-    public static bool HasSuccess<TSuccess>(IEnumerable<ISuccess> successes, Func<TSuccess, bool> predicate, out IEnumerable<TSuccess> result)
+    public static bool HasSuccess<TSuccess>(IEnumerable<ISuccess> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
         where TSuccess : ISuccess
     {
-        var foundSuccesses = successes.OfType<TSuccess>().Where(predicate).ToList();
+        var foundSuccesses = successes.OfType<TSuccess>().Where(filter).ToList();
         if (foundSuccesses.Any())
         {
             result = foundSuccesses;

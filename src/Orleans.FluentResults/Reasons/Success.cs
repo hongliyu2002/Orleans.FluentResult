@@ -26,7 +26,7 @@ public class Success : ISuccess
     public Success(string message)
         : this()
     {
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         Message = message;
     }
 
@@ -37,7 +37,7 @@ public class Success : ISuccess
     /// <param name="metadata">Metadata of the success</param>
     public Success(string message, IImmutableDictionary<string, object> metadata)
     {
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(metadata);
         Message = message;
         Metadata = metadata;
@@ -56,6 +56,12 @@ public class Success : ISuccess
     /// </summary>
     [Id(1)]
     public IImmutableDictionary<string, object> Metadata { get; }
+
+    /// <inheritdoc />
+    public virtual IReason Copy()
+    {
+        return new Success(Message, Metadata);
+    }
 
     /// <summary>
     /// </summary>

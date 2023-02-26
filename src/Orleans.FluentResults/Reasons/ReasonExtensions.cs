@@ -15,7 +15,7 @@ public static class ReasonExtensions
     public static bool HasMetadataKey(this IReason reason, string key)
     {
         ArgumentNullException.ThrowIfNull(reason);
-        ArgumentException.ThrowIfNullOrEmpty(key);
+        ArgumentNullException.ThrowIfNull(key);
         return reason.Metadata.ContainsKey(key);
     }
 
@@ -28,7 +28,7 @@ public static class ReasonExtensions
     public static bool HasMetadata(this IReason reason, string key, Func<object, bool> valueFilter)
     {
         ArgumentNullException.ThrowIfNull(reason);
-        ArgumentException.ThrowIfNullOrEmpty(key);
+        ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(valueFilter);
         return reason.Metadata.TryGetValue(key, out var actualValue) && valueFilter(actualValue);
     }

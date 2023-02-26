@@ -38,7 +38,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static Result<TValue> WithSuccess<TValue>(this IResult<TValue> result, string message)
     {
-        ArgumentException.ThrowIfNullOrEmpty(message);
+        ArgumentNullException.ThrowIfNull(message);
         return WithSuccess(result, ResultSettings.Current.SuccessFactory(message));
     }
 
@@ -90,7 +90,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static Result<TValue> WithError<TValue>(this IResult<TValue> result, string errorMessage)
     {
-        ArgumentException.ThrowIfNullOrEmpty(errorMessage);
+        ArgumentNullException.ThrowIfNull(errorMessage);
         return WithError(result, ResultSettings.Current.ErrorFactory(errorMessage));
     }
 
