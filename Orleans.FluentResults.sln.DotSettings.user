@@ -24,6 +24,9 @@
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithValueTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.BindMethodTests.Bind_ToAnotherValueTypeWithFailedResult_ReturnFailedResult&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.BindMethodTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithoutValueTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.SuccessStringifyTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.SuccessTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
