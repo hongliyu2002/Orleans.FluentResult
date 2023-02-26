@@ -5,20 +5,6 @@
 public static partial class ResultOfTValueExtensions
 {
 
-    #region To Result
-
-    /// <summary>
-    ///     Convert result with value to result with another value. Use valueConverter parameter to specify the value transformation logic.
-    /// </summary>
-    public static Result<TNewValue> ToResult<TValue, TNewValue>(this Result<TValue> result, Func<TValue, TNewValue> valueMapper)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(valueMapper);
-        return new Result<TNewValue>(valueMapper(result.Value), result.Reasons);
-    }
-
-    #endregion
-
     #region With Value
 
     /// <summary>
@@ -182,8 +168,7 @@ public static partial class ResultOfTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(successMapper);
-        return new Result<TValue>(result.Value).WithErrors(result.Errors)
-                                               .WithSuccesses(result.Successes.Select(successMapper));
+        return new Result<TValue>(result.Value).WithErrors(result.Errors).WithSuccesses(result.Successes.Select(successMapper));
     }
 
     /// <summary>
@@ -196,8 +181,7 @@ public static partial class ResultOfTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(errorMapper);
-        return new Result<TValue>(result.Value).WithErrors(result.Errors.Select(errorMapper))
-                                               .WithSuccesses(result.Successes);
+        return new Result<TValue>(result.Value).WithErrors(result.Errors.Select(errorMapper)).WithSuccesses(result.Successes);
     }
 
     #endregion

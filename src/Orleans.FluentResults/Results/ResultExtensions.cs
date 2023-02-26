@@ -5,19 +5,6 @@
 public static partial class ResultExtensions
 {
 
-    #region To Result
-
-    /// <summary>
-    ///     Convert result to result with a new value
-    /// </summary>
-    public static Result<TValue> ToResult<TValue>(this Result result, TValue value)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        return new Result<TValue>(value, result.Reasons);
-    }
-
-    #endregion
-
     #region With Success
 
     /// <summary>
@@ -155,8 +142,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(successMapper);
-        return new Result().WithErrors(result.Errors)
-                           .WithSuccesses(result.Successes.Select(successMapper));
+        return new Result().WithErrors(result.Errors).WithSuccesses(result.Successes.Select(successMapper));
     }
 
     /// <summary>
@@ -169,8 +155,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(errorMapper);
-        return new Result().WithErrors(result.Errors.Select(errorMapper))
-                           .WithSuccesses(result.Successes);
+        return new Result().WithErrors(result.Errors.Select(errorMapper)).WithSuccesses(result.Successes);
     }
 
     #endregion

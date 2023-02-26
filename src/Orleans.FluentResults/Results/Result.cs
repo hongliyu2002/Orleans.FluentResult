@@ -19,22 +19,16 @@ public partial record Result(IImmutableList<IReason> Reasons) : IResult
     }
 
     /// <inheritdoc />
-    public bool IsFailed =>
-        Reasons.OfType<Error>()
-               .Any();
+    public bool IsFailed => Reasons.OfType<Error>().Any();
 
     /// <inheritdoc />
     public bool IsSuccess => !IsFailed;
 
     /// <inheritdoc />
-    public IImmutableList<Error> Errors =>
-        Reasons.OfType<Error>()
-               .ToImmutableList();
+    public IImmutableList<Error> Errors => Reasons.OfType<Error>().ToImmutableList();
 
     /// <inheritdoc />
-    public IImmutableList<Success> Successes =>
-        Reasons.OfType<Success>()
-               .ToImmutableList();
+    public IImmutableList<Success> Successes => Reasons.OfType<Success>().ToImmutableList();
 
     /// <summary>
     /// </summary>
@@ -127,6 +121,30 @@ public partial record Result(IImmutableList<IReason> Reasons) : IResult
     public static implicit operator Result(List<Exception> exceptions)
     {
         return Fail(exceptions);
+    }
+
+    #endregion
+
+    #region To Result
+
+    /// <summary>
+    ///     Convert result to result with a value
+    /// </summary>
+    public Result<TValue> ToResult<TValue>()
+    {
+        if (this is Result<TValue> result)
+        {
+            return new Result<TValue>(result.Value, Reasons);
+        }
+        return new Result<TValue>(Reasons);
+    }
+
+    /// <summary>
+    ///     Convert result to result with a new value
+    /// </summary>
+    public Result<TValue> ToResult<TValue>(TValue value)
+    {
+        return new Result<TValue>(value, Reasons);
     }
 
     #endregion
