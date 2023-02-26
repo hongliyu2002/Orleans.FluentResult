@@ -10,19 +10,9 @@ public static partial class ResultExtensions
     /// <summary>
     ///     Convert result to result with a new value
     /// </summary>
-    public static Result ToResult(this Result result)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        return result with {};
-    }
-
-    /// <summary>
-    ///     Convert result to result with a new value
-    /// </summary>
     public static Result<TValue> ToResult<TValue>(this Result result, TValue value)
     {
         ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(value);
         return new Result<TValue>(value, result.Reasons);
     }
 

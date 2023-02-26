@@ -8,12 +8,13 @@ public static partial class ResultOfTValueExtensions
     #region To Result
 
     /// <summary>
-    ///     Convert result with value to result without value
+    ///     Convert result with value to result with another value. Use valueConverter parameter to specify the value transformation logic.
     /// </summary>
-    public static Result<TValue> ToResult<TValue>(this Result<TValue> result)
+    public static Result<TNewValue> ToResult<TValue, TNewValue>(this Result<TValue> result, Func<TValue, TNewValue> valueMapper)
     {
         ArgumentNullException.ThrowIfNull(result);
-        return result with {};
+        ArgumentNullException.ThrowIfNull(valueMapper);
+        return new Result<TNewValue>(valueMapper(result.Value), result.Reasons);
     }
 
     #endregion
@@ -159,6 +160,19 @@ public static partial class ResultOfTValueExtensions
     #region Map
 
     /// <summary>
+    ///     Convert result with value to result with another value. Use valueMapper parameter to specify the value transformation logic.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="valueMapper"></param>
+    /// <returns></returns>
+    public static Result<TNewValue> Map<TValue, TNewValue>(this Result<TValue> result, Func<TValue, TNewValue> valueMapper)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(valueMapper);
+        return new Result<TNewValue>(valueMapper(result.Value), result.Reasons);
+    }
+
+    /// <summary>
     ///     Map all successMessages of the result via successMapper
     /// </summary>
     /// <param name="result"></param>
@@ -184,7 +198,7 @@ public static partial class ResultOfTValueExtensions
         ArgumentNullException.ThrowIfNull(errorMapper);
         if (result.IsSuccess)
         {
-            return result with {};
+            return result with { };
         }
         return new Result<TValue>().WithErrors(result.Errors.Select(errorMapper))
                                    .WithSuccesses(result.Successes);

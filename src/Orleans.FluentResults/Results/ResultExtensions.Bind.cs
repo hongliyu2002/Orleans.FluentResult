@@ -19,13 +19,12 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result with { };
         if (result.IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = bindAction();
-        return boundResult.WithReasons(bindResult.Reasons);
+        return result.WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -42,13 +41,12 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result with { };
         if (result.IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = await bindAction();
-        return boundResult.WithReasons(bindResult.Reasons);
+        return result.WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -65,13 +63,12 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result with { };
         if (result.IsFailed)
         {
-            return boundResult;
+            return result;
         }
         var bindResult = await bindAction();
-        return boundResult.WithReasons(bindResult.Reasons);
+        return result.WithReasons(bindResult.Reasons);
     }
 
     /// <summary>
@@ -88,7 +85,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
+        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
@@ -112,7 +109,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
+        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
@@ -136,7 +133,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(bindAction);
-        var boundResult = result is Result<TValue> resultOfTValue ? resultOfTValue with { } : new Result<TValue>(result.Reasons);
+        var boundResult = result as Result<TValue> ?? new Result<TValue>(result.Reasons);
         if (result.IsFailed)
         {
             return boundResult;
