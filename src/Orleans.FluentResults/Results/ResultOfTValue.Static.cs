@@ -94,17 +94,17 @@ public partial record Result<TValue>
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, Error error)
+    public static Result<TValue> OkIf(bool isSuccess, TValue successValue, Error error)
     {
-        return isSuccess ? Ok(value) : Fail(error);
+        return isSuccess ? Ok(successValue) : Fail(error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, string errorMessage)
+    public static Result<TValue> OkIf(bool isSuccess, TValue successValue, string errorMessage)
     {
-        return isSuccess ? Ok(value) : Fail(errorMessage);
+        return isSuccess ? Ok(successValue) : Fail(errorMessage);
     }
 
     /// <summary>
@@ -113,10 +113,10 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, Func<Error> errorFactory)
+    public static Result<TValue> OkIf(bool isSuccess, TValue successValue, Func<Error> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
-        return isSuccess ? Ok(value) : Fail(errorFactory.Invoke());
+        return isSuccess ? Ok(successValue) : Fail(errorFactory.Invoke());
     }
 
     /// <summary>
@@ -125,10 +125,10 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, Func<string> errorMessageFactory)
+    public static Result<TValue> OkIf(bool isSuccess, TValue successValue, Func<string> errorMessageFactory)
     {
         ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return isSuccess ? Ok(value) : Fail(errorMessageFactory.Invoke());
+        return isSuccess ? Ok(successValue) : Fail(errorMessageFactory.Invoke());
     }
 
     #endregion
@@ -138,17 +138,17 @@ public partial record Result<TValue>
     /// <summary>
     ///     Create a success/failed result depending on the parameter isFailure
     /// </summary>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, Error error)
+    public static Result<TValue> FailIf(bool isFailure, Error error, TValue successValue)
     {
-        return isFailure ? Fail(error) : Ok(value);
+        return isFailure ? Fail(error) : Ok(successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter isFailure
     /// </summary>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, string errorMessage)
+    public static Result<TValue> FailIf(bool isFailure, string errorMessage, TValue successValue)
     {
-        return isFailure ? Fail(errorMessage) : Ok(value);
+        return isFailure ? Fail(errorMessage) : Ok(successValue);
     }
 
     /// <summary>
@@ -157,10 +157,10 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, Func<Error> errorFactory)
+    public static Result<TValue> FailIf(bool isFailure, Func<Error> errorFactory, TValue successValue)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
-        return isFailure ? Fail(errorFactory.Invoke()) : Ok(value);
+        return isFailure ? Fail(errorFactory.Invoke()) : Ok(successValue);
     }
 
     /// <summary>
@@ -169,10 +169,10 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, Func<string> errorMessageFactory)
+    public static Result<TValue> FailIf(bool isFailure, Func<string> errorMessageFactory, TValue successValue)
     {
         ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return isFailure ? Fail(errorMessageFactory.Invoke()) : Ok(value);
+        return isFailure ? Fail(errorMessageFactory.Invoke()) : Ok(successValue);
     }
 
     #endregion

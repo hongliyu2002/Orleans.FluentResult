@@ -16,21 +16,30 @@ public partial record Result<TValue>
 
     /// <summary>
     /// </summary>
-    /// <param name="errorMessage"></param>
+    /// <param name="result"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(string errorMessage)
+    public static implicit operator Result<object>(Result<TValue> result)
     {
-        return Fail(errorMessage);
+        return result.ToResult<object>();
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="errorMessages"></param>
-    /// <returns></returns>
-    public static implicit operator Result<TValue>(List<string> errorMessages)
-    {
-        return Fail(errorMessages);
-    }
+    // /// <summary>
+    // /// </summary>
+    // /// <param name="errorMessage"></param>
+    // /// <returns></returns>
+    // public static implicit operator Result<TValue>(string errorMessage)
+    // {
+    //     return Fail(errorMessage);
+    // }
+    //
+    // /// <summary>
+    // /// </summary>
+    // /// <param name="errorMessages"></param>
+    // /// <returns></returns>
+    // public static implicit operator Result<TValue>(List<string> errorMessages)
+    // {
+    //     return Fail(errorMessages);
+    // }
 
     /// <summary>
     /// </summary>

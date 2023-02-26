@@ -5,23 +5,23 @@ public partial record Result
 
     #region Implicit Operator
 
-    /// <summary>
-    /// </summary>
-    /// <param name="errorMessage"></param>
-    /// <returns></returns>
-    public static implicit operator Result(string errorMessage)
-    {
-        return Fail(errorMessage);
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="errorMessages"></param>
-    /// <returns></returns>
-    public static implicit operator Result(List<string> errorMessages)
-    {
-        return Fail(errorMessages);
-    }
+    // /// <summary>
+    // /// </summary>
+    // /// <param name="errorMessage"></param>
+    // /// <returns></returns>
+    // public static implicit operator Result(string errorMessage)
+    // {
+    //     return Fail(errorMessage);
+    // }
+    //
+    // /// <summary>
+    // /// </summary>
+    // /// <param name="errorMessages"></param>
+    // /// <returns></returns>
+    // public static implicit operator Result(List<string> errorMessages)
+    // {
+    //     return Fail(errorMessages);
+    // }
 
     /// <summary>
     /// </summary>

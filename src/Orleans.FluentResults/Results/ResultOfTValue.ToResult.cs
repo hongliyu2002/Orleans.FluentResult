@@ -20,8 +20,8 @@ public partial record Result<TValue>
     {
         try
         {
-            var value = Convert.ChangeType(Value, typeof(TNewValue)) ?? new object();
-            return new Result<TNewValue>((TNewValue)value, Reasons);
+            var value = Convert.ChangeType(Value, typeof(TNewValue));
+            return value != null ? new Result<TNewValue>((TNewValue)value, Reasons) : new Result<TNewValue>(Reasons);
         }
         catch (Exception ex)
         {

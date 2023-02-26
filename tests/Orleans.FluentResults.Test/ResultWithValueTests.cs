@@ -120,7 +120,7 @@ public class ResultWithValueTests
     [Fact]
     public void ValueOrDefault_WithObject_ShouldReturnFailedResult()
     {
-        var result = Result<TestValue>.Fail("Error message");
+        var result = Result<TestClass>.Fail("Error message");
         var valueOrDefault = result.ValueOrDefault;
         valueOrDefault.Should().BeNull();
     }
@@ -143,7 +143,7 @@ public class ResultWithValueTests
         var result = valueResult.ToResult();
         result.IsFailed.Should().BeTrue();
     }
-    
+
     [Fact]
     public void ToResult_ToAnotherValueType_ReturnFailedResult()
     {
@@ -151,6 +151,7 @@ public class ResultWithValueTests
         var result = valueResult.ToResult<float>();
         result.IsFailed.Should().BeTrue();
     }
+
     [Fact]
     public void ToResult_ToAnotherValueTypeWithOkResultAndNoConverter_ReturnFailedResult()
     {
@@ -159,7 +160,7 @@ public class ResultWithValueTests
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(4);
     }
-    
+
     [Fact]
     public void ToResult_ToAnotherValueTypeWithOkResultAndConverter_ReturnSuccessResult()
     {
@@ -168,8 +169,265 @@ public class ResultWithValueTests
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(4);
     }
-    
-    private class TestValue
+
+    [Fact]
+    public void ImplicitCastOperator_ReturnFailedResult()
+    {
+        var valueResult = Result<int>.Fail("First error message");
+        var result = valueResult.ToResult();
+        result.IsFailed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Try_execute_successfully_action_return_success_result()
+    {
+        static int Action() => 5;
+        var result = Result<int>.Try(Action);
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().Be(5);
+    }
+
+    [Fact]
+    public void Try_execute_failed_action_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        int Action() => throw exception;
+        var result = Result<int>.Try(Action);
+        result.IsFailed.Should().BeTrue();
+        result.Errors.Should().HaveCount(1);
+        var error = (ExceptionalError)result.Errors.First();
+        error.Message.Should().Be(exception.Message);
+        error.Exception.Should().Be(exception);
+    }
+
+    [Fact]
+    public void Try_execute_failed_action_with_custom_catchHandler_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        int Action() => throw exception;
+        var result = Result<int>.Try(Action, _ => new Error("xy"));
+        result.IsSuccess.Should().BeFalse();
+        result.Errors.Should().HaveCount(1);
+        var error = result.Errors.First();
+        error.Message.Should().Be("xy");
+    }
+
+    [Fact]
+    public async Task Try_execute_successfully_task_async_action_return_success_result()
+    {
+        static Task<int> Action() => Task.FromResult(5);
+        var result = await Result<int>.Try(Action);
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().Be(5);
+    }
+
+    [Fact]
+    public async Task Try_execute_successfully_valuetask_async_action_return_success_result()
+    {
+        static ValueTask<int> Action() => new(5);
+        var result = await Result<int>.Try(Action);
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().Be(5);
+    }
+
+    [Fact]
+    public async Task Try_execute_failed_task_async_action_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        Task<int> Action() => throw exception;
+        var result = await Result<int>.Try(Action);
+        result.IsFailed.Should().BeTrue();
+        result.Errors.Should().HaveCount(1);
+        var error = (ExceptionalError)result.Errors.First();
+        error.Message.Should().Be(exception.Message);
+        error.Exception.Should().Be(exception);
+    }
+
+    [Fact]
+    public async Task Try_execute_failed_valuetask_async_action_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        ValueTask<int> Action() => throw exception;
+        var result = await Result<int>.Try(Action);
+        result.IsFailed.Should().BeTrue();
+        result.Errors.Should().HaveCount(1);
+        var error = (ExceptionalError)result.Errors.First();
+        error.Message.Should().Be(exception.Message);
+        error.Exception.Should().Be(exception);
+    }
+
+    [Fact]
+    public async Task Try_execute_failed_task_async_action_with_custom_catchHandler_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        Task<int> Action() => throw exception;
+        var result = await Result<int>.Try(Action, _ => new Error("xy"));
+        result.IsSuccess.Should().BeFalse();
+        result.Errors.Should().HaveCount(1);
+        var error = result.Errors.First();
+        error.Message.Should().Be("xy");
+    }
+
+    [Fact]
+    public async Task Try_execute_failed_valuetask_async_action_with_custom_catchHandler_return_failed_result()
+    {
+        var exception = new Exception("ex message");
+        ValueTask<int> Action() => throw exception;
+        var result = await Result<int>.Try(Action, _ => new Error("xy"));
+        result.IsSuccess.Should().BeFalse();
+        result.Errors.Should().HaveCount(1);
+        var error = result.Errors.First();
+        error.Message.Should().Be("xy");
+    }
+
+    [Fact]
+    public void Implicit_conversion_T_is_converted_to_Success_result_of_T()
+    {
+        var value = "result";
+        Result<string> result = value;
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailed.Should().BeFalse();
+        result.Reasons.Should().BeEmpty();
+        result.Errors.Should().BeEmpty();
+        result.Value.Should().Be(value);
+        result.Value.Should().BeOfType<string>();
+        result.ValueOrDefault.Should().Be(value);
+        result.ValueOrDefault.Should().BeOfType<string>();
+    }
+
+    [Fact]
+    public void Implicit_conversion_Null_is_converted_to_Success_result_of_Null()
+    {
+        Result<object> result = (object)null;
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailed.Should().BeFalse();
+        result.Reasons.Should().BeEmpty();
+        result.Errors.Should().BeEmpty();
+        result.Value.Should().BeNull();
+        result.ValueOrDefault.Should().BeNull();
+    }
+
+    [Fact]
+    public void Implicit_conversion_Result_Value_is_converted_to_Result_object()
+    {
+        Result<object> result = new Result<int>().WithValue(42);
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailed.Should().BeFalse();
+        result.Reasons.Should().BeEmpty();
+        result.Errors.Should().BeEmpty();
+        result.Value.Should().NotBeNull();
+        result.ValueOrDefault.Should().NotBeNull();
+        result.Value.Should().Be(42);
+    }
+
+    [Fact]
+    public void Implicit_conversion_Result_Value_is_converted_to_Result_object_with_Reasons()
+    {
+        Result<object> result = new Result<int>().WithValue(42).WithReason(new CustomSuccess());
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailed.Should().BeFalse();
+        result.Errors.Should().BeEmpty();
+        result.Value.Should().NotBeNull();
+        result.ValueOrDefault.Should().NotBeNull();
+        result.Value.Should().Be(42);
+        result.Reasons.Should().ContainSingle();
+        result.Reasons.Should().AllBeEquivalentTo(new CustomSuccess());
+    }
+
+    [Fact]
+    public void Implicit_conversion_Result_Value_is_converted_to_Result_object_with_Errors()
+    {
+        Result<object> result = new Result<int>().WithValue(42).WithError("foo");
+        result.IsSuccess.Should().BeFalse();
+        result.IsFailed.Should().BeTrue();
+        result.Reasons.Should().ContainSingle();
+        result.Reasons.Should().AllBeEquivalentTo(new Error("foo"));
+        result.Errors.Should().ContainSingle();
+        result.Errors.Should().AllBeEquivalentTo(new Error("foo"));
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailed()
+    {
+        var (isSuccess, isFailed, _) = Result<bool>.Ok(true);
+        isSuccess.Should().Be(true);
+        isFailed.Should().Be(false);
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Fail_to_isSuccess_and_isFailed()
+    {
+        var (isSuccess, isFailed, _) = Result<bool>.Fail("fail");
+        isSuccess.Should().Be(false);
+        isFailed.Should().Be(true);
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailed_and_value()
+    {
+        var (isSuccess, isFailed, valueOrDefault) = Result<int>.Ok(100);
+        isSuccess.Should().Be(true);
+        isFailed.Should().Be(false);
+        valueOrDefault.Should().Be(100);
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Fail_to_isSuccess_and_isFailed_and_value()
+    {
+        var (isSuccess, isFailed, valueOrDefault) = Result<int>.Fail("fail");
+        isSuccess.Should().Be(false);
+        isFailed.Should().Be(true);
+        valueOrDefault.Should().Be(default);
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailed_and_value_with_errors()
+    {
+        var (isSuccess, isFailed, valueOrDefault, errors) = Result<int>.Ok(100);
+        isSuccess.Should().Be(true);
+        isFailed.Should().Be(false);
+        valueOrDefault.Should().Be(100);
+        errors.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Can_deconstruct_generic_Fail_to_isSuccess_and_isFailed_and_errors_with_value()
+    {
+        var error = new Error("fail");
+        var (isSuccess, isFailed, valueOrDefault, errors) = Result<bool>.Fail(error);
+        isSuccess.Should().Be(false);
+        isFailed.Should().Be(true);
+        valueOrDefault.Should().Be(default);
+        errors.Count.Should().Be(1);
+        errors.FirstOrDefault().Should().Be(error);
+    }
+
+    [Fact]
+    public void Dynamic_value_is_implicit_converted_to_ValueResult()
+    {
+        var result = DynamicConvert("100", typeof(int));
+        ((object)result.Value).Should().Be(100);
+        ((object)result.Value).Should().BeOfType(typeof(int));
+    }
+
+    private static Result<dynamic> DynamicConvert(dynamic source, Type dest)
+    {
+        var result = new Result<dynamic>();
+        var convertedValue = Convert.ChangeType(source, dest);
+        var dynamicResult = result.WithValue(convertedValue);
+        return dynamicResult;
+    }
+
+    #region Custom
+
+    private class TestClass
     {
     }
+
+    public record CustomSuccess : Success
+    {
+    }
+
+    #endregion
+
 }
