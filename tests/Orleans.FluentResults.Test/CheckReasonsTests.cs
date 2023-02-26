@@ -332,8 +332,6 @@ public class CheckReasonsTests
             : this(id, "Not Found", ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
         {
         }
-
-        public int Id { get; }
     }
 
     private record FoundSuccess(int Id, string Message, IImmutableDictionary<string, object> Metadata) : Success(Message, Metadata)
@@ -343,8 +341,6 @@ public class CheckReasonsTests
             : this(id, "OK", ImmutableDictionary<string, object>.Empty)
         {
         }
-
-        public int Id { get; }
     }
 
     #endregion

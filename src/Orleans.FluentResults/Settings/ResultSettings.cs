@@ -2,7 +2,7 @@
 
 /// <summary>
 /// </summary>
-public record ResultSettings(IResultLogger Logger, Func<Exception, Error> DefaultTryCatchHandler, Func<string, ISuccess> SuccessFactory, Func<string, Error> ErrorFactory,
+public record ResultSettings(IResultLogger Logger, Func<Exception, Error> DefaultTryCatchHandler, Func<string, Success> SuccessFactory, Func<string, Error> ErrorFactory,
                              Func<string, Exception, ExceptionalError> ExceptionalErrorFactory)
 {
 

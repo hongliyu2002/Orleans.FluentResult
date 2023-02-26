@@ -45,7 +45,7 @@ public static partial class ResultOfTValueExtensions
     /// <summary>
     ///     Add a success
     /// </summary>
-    public static Result<TValue> WithSuccess<TValue>(this Result<TValue> result, ISuccess success)
+    public static Result<TValue> WithSuccess<TValue>(this Result<TValue> result, Success success)
     {
         ArgumentNullException.ThrowIfNull(success);
         return WithReason(result, success);
@@ -55,7 +55,7 @@ public static partial class ResultOfTValueExtensions
     ///     Add a success
     /// </summary>
     public static Result<TValue> WithSuccess<TValue, TSuccess>(this Result<TValue> result)
-        where TSuccess : ISuccess, new()
+        where TSuccess : Success, new()
     {
         return WithSuccess(result, new TSuccess());
     }
@@ -66,7 +66,7 @@ public static partial class ResultOfTValueExtensions
     /// <param name="result"></param>
     /// <param name="successes"></param>
     /// <returns></returns>
-    public static Result<TValue> WithSuccesses<TValue>(this Result<TValue> result, IEnumerable<ISuccess> successes)
+    public static Result<TValue> WithSuccesses<TValue>(this Result<TValue> result, IEnumerable<Success> successes)
     {
         ArgumentNullException.ThrowIfNull(successes);
         return WithReasons(result, successes);
@@ -97,7 +97,7 @@ public static partial class ResultOfTValueExtensions
     /// <summary>
     ///     Add an error
     /// </summary>
-    public static Result<TValue> WithError<TValue>(this Result<TValue> result, IError error)
+    public static Result<TValue> WithError<TValue>(this Result<TValue> result, Error error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return WithReason(result, error);
@@ -107,7 +107,7 @@ public static partial class ResultOfTValueExtensions
     ///     Add an error
     /// </summary>
     public static Result<TValue> WithError<TValue, TError>(this Result<TValue> result)
-        where TError : IError, new()
+        where TError : Error, new()
     {
         return WithError(result, new TError());
     }
@@ -115,7 +115,7 @@ public static partial class ResultOfTValueExtensions
     /// <summary>
     ///     Add multiple errors
     /// </summary>
-    public static Result<TValue> WithErrors<TValue>(this Result<TValue> result, IEnumerable<IError> errors)
+    public static Result<TValue> WithErrors<TValue>(this Result<TValue> result, IEnumerable<Error> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return WithReasons(result, errors);
@@ -164,7 +164,7 @@ public static partial class ResultOfTValueExtensions
     /// <param name="result"></param>
     /// <param name="successMapper"></param>
     /// <returns></returns>
-    public static Result<TValue> MapSuccesses<TValue>(this Result<TValue> result, Func<ISuccess, ISuccess> successMapper)
+    public static Result<TValue> MapSuccesses<TValue>(this Result<TValue> result, Func<Success, Success> successMapper)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(successMapper);
@@ -178,7 +178,7 @@ public static partial class ResultOfTValueExtensions
     /// <param name="result"></param>
     /// <param name="errorMapper"></param>
     /// <returns></returns>
-    public static Result<TValue> MapErrors<TValue>(this Result<TValue> result, Func<IError, IError> errorMapper)
+    public static Result<TValue> MapErrors<TValue>(this Result<TValue> result, Func<Error, Error> errorMapper)
     {
         ArgumentNullException.ThrowIfNull(result);
         ArgumentNullException.ThrowIfNull(errorMapper);

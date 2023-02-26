@@ -15,9 +15,9 @@ public sealed class ResultSettingsBuilder
     public Func<Exception, Error> DefaultTryCatchHandler { get; set; } = ex => ResultSettings.Current.ExceptionalErrorFactory(ex.Message, ex);
 
     /// <summary>
-    ///     Factory to create an ISuccess object. Used in all scenarios where a success is created within FluentResults.
+    ///     Factory to create an Success object. Used in all scenarios where a success is created within FluentResults.
     /// </summary>
-    public Func<string, ISuccess> SuccessFactory { get; set; } = successMessage => new Success(successMessage);
+    public Func<string, Success> SuccessFactory { get; set; } = successMessage => new Success(successMessage);
 
     /// <summary>
     ///     Factory to create an Error object. Used in all scenarios where an error is created within FluentResults.

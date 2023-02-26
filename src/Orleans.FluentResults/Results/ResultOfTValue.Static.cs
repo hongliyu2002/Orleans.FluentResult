@@ -53,7 +53,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a failed result with the given error
     /// </summary>
-    public new static Result<TValue> Fail(IError error)
+    public new static Result<TValue> Fail(Error error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return new Result<TValue>(ImmutableList<IReason>.Empty.Add(error));
@@ -62,7 +62,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a failed result with the given errors.
     /// </summary>
-    public new static Result<TValue> Fail(IEnumerable<IError> errors)
+    public new static Result<TValue> Fail(IEnumerable<Error> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(errors));
@@ -94,7 +94,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, IError error)
+    public static Result<TValue> OkIf(TValue value, bool isSuccess, Error error)
     {
         return isSuccess ? Ok(value) : Fail(error);
     }
@@ -113,7 +113,7 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> OkIf(TValue value, bool isSuccess, Func<IError> errorFactory)
+    public static Result<TValue> OkIf(TValue value, bool isSuccess, Func<Error> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         return isSuccess ? Ok(value) : Fail(errorFactory.Invoke());
@@ -138,7 +138,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Create a success/failed result depending on the parameter isFailure
     /// </summary>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, IError error)
+    public static Result<TValue> FailIf(TValue value, bool isFailure, Error error)
     {
         return isFailure ? Fail(error) : Ok(value);
     }
@@ -157,7 +157,7 @@ public partial record Result<TValue>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<TValue> FailIf(TValue value, bool isFailure, Func<IError> errorFactory)
+    public static Result<TValue> FailIf(TValue value, bool isFailure, Func<Error> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         return isFailure ? Fail(errorFactory.Invoke()) : Ok(value);
@@ -182,7 +182,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static Result<TValue> Try(Func<TValue> action, Func<Exception, IError>? catchHandler = null)
+    public static Result<TValue> Try(Func<TValue> action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -199,7 +199,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async Task<Result<TValue>> Try(Func<Task<TValue>> action, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TValue>> Try(Func<Task<TValue>> action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -217,7 +217,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async ValueTask<Result<TValue>> Try(Func<ValueTask<TValue>> action, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TValue>> Try(Func<ValueTask<TValue>> action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
