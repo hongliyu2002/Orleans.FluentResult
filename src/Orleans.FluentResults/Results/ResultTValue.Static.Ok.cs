@@ -10,7 +10,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok()
+    public new static Result<TValue> Ok()
     {
         return new Result<TValue>();
     }
@@ -18,7 +18,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok(string successMessage)
+    public new static Result<TValue> Ok(string successMessage)
     {
         return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
     }

@@ -16,8 +16,7 @@ internal static class ResultHelper
     /// <returns></returns>
     public static Result Merge(IEnumerable<Result> results)
     {
-        return new Result(results.SelectMany(result => result.Reasons)
-                                 .ToImmutableList());
+        return new Result(results.SelectMany(result => result.Reasons).ToImmutableList());
     }
 
     /// <summary>
@@ -29,8 +28,7 @@ internal static class ResultHelper
     public static Result<IEnumerable<TValue>> Merge<TValue>(IEnumerable<Result<TValue>> results)
     {
         var resultsList = results.ToList();
-        return new Result<IEnumerable<TValue>>(resultsList.Select(result => result.Value), resultsList.SelectMany(result => result.Reasons)
-                                                                                                      .ToImmutableList());
+        return new Result<IEnumerable<TValue>>(resultsList.Select(result => result.Value), resultsList.SelectMany(result => result.Reasons).ToImmutableList());
     }
 
     #endregion
@@ -49,9 +47,7 @@ internal static class ResultHelper
         where TError : Error
     {
         var errorsList = errors.ToList();
-        var foundErrors = errorsList.OfType<TError>()
-                                    .Where(filter)
-                                    .ToList();
+        var foundErrors = errorsList.OfType<TError>().Where(filter).ToList();
         if (foundErrors.Any())
         {
             result = foundErrors;
@@ -81,9 +77,7 @@ internal static class ResultHelper
         where TException : Exception
     {
         var errorsList = errors.ToList();
-        var foundErrors = errorsList.OfType<ExceptionalError>()
-                                    .Where(e => e.Exception is TException rootExceptionOfTException && filter(rootExceptionOfTException))
-                                    .ToList();
+        var foundErrors = errorsList.OfType<ExceptionalError>().Where(e => e.Exception is TException rootExceptionOfTException && filter(rootExceptionOfTException)).ToList();
         if (foundErrors.Any())
         {
             result = foundErrors;
@@ -112,9 +106,7 @@ internal static class ResultHelper
     public static bool HasSuccess<TSuccess>(IEnumerable<Success> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
         where TSuccess : Success
     {
-        var foundSuccesses = successes.OfType<TSuccess>()
-                                      .Where(filter)
-                                      .ToList();
+        var foundSuccesses = successes.OfType<TSuccess>().Where(filter).ToList();
         if (foundSuccesses.Any())
         {
             result = foundSuccesses;

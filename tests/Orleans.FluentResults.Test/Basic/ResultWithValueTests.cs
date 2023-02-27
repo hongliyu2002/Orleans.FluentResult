@@ -216,7 +216,7 @@ public class ResultWithValueTests
     public async Task Try_execute_successfully_task_async_action_return_success_result()
     {
         static Task<int> Action() => Task.FromResult(5);
-        var result = await Result<int>.Try(Action);
+        var result = await Result.TryAsync(Action);
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(5);
     }
@@ -225,7 +225,7 @@ public class ResultWithValueTests
     public async Task Try_execute_successfully_valuetask_async_action_return_success_result()
     {
         static ValueTask<int> Action() => new(5);
-        var result = await Result<int>.Try(Action);
+        var result = await Result.TryAsync(Action);
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(5);
     }
@@ -235,7 +235,7 @@ public class ResultWithValueTests
     {
         var exception = new Exception("ex message");
         Task<int> Action() => throw exception;
-        var result = await Result<int>.Try(Action);
+        var result = await Result.TryAsync(Action);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().HaveCount(1);
         var error = (ExceptionalError)result.Errors.First();
@@ -248,7 +248,7 @@ public class ResultWithValueTests
     {
         var exception = new Exception("ex message");
         ValueTask<int> Action() => throw exception;
-        var result = await Result<int>.Try(Action);
+        var result = await Result.TryAsync(Action);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().HaveCount(1);
         var error = (ExceptionalError)result.Errors.First();
@@ -261,7 +261,7 @@ public class ResultWithValueTests
     {
         var exception = new Exception("ex message");
         Task<int> Action() => throw exception;
-        var result = await Result<int>.Try(Action, _ => new Error("xy"));
+        var result = await Result.TryAsync(Action, _ => new Error("xy"));
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCount(1);
         var error = result.Errors.First();
@@ -273,7 +273,7 @@ public class ResultWithValueTests
     {
         var exception = new Exception("ex message");
         ValueTask<int> Action() => throw exception;
-        var result = await Result<int>.Try(Action, _ => new Error("xy"));
+        var result = await Result.TryAsync(Action, _ => new Error("xy"));
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCount(1);
         var error = result.Errors.First();

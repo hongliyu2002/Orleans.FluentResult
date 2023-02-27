@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result
 {
 
     #region Try Action
@@ -8,7 +8,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public new static Result<TValue> Try(Action action, Func<Exception, Error>? catchHandler = null)
+    public static Result Try(Action action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -26,7 +26,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public new static async Task<Result<TValue>> TryAsync(Func<Task> action, Func<Exception, Error>? catchHandler = null)
+    public static async Task<Result> TryAsync(Func<Task> action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -44,7 +44,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public new static async ValueTask<Result<TValue>> TryAsync(Func<ValueTask> action, Func<Exception, Error>? catchHandler = null)
+    public static async ValueTask<Result> TryAsync(Func<ValueTask> action, Func<Exception, Error>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -61,60 +61,58 @@ public partial record Result<TValue>
 
     #endregion
 
-    #region Try Function
+    #region Try Generic Action
 
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static Result<TValue> Try(Func<TValue> func, Func<Exception, Error>? catchHandler = null)
+    public static Result<TValue> Try<TValue>(Action action, Func<Exception, Error>? catchHandler = null)
     {
-        ArgumentNullException.ThrowIfNull(func);
-        catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
-        try
-        {
-            var value = func();
-            return Ok(value);
-        }
-        catch (Exception ex)
-        {
-            return Fail(catchHandler(ex));
-        }
+        return Result<TValue>.Try(action, catchHandler);
     }
 
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async Task<Result<TValue>> TryAsync(Func<Task<TValue>> func, Func<Exception, Error>? catchHandler = null)
+    public static Task<Result<TValue>> TryAsync<TValue>(Func<Task> action, Func<Exception, Error>? catchHandler = null)
     {
-        ArgumentNullException.ThrowIfNull(func);
-        catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
-        try
-        {
-            var value = await func();
-            return Ok(value);
-        }
-        catch (Exception ex)
-        {
-            return Fail(catchHandler(ex));
-        }
+        return Result<TValue>.TryAsync(action, catchHandler);
     }
 
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async ValueTask<Result<TValue>> TryAsync(Func<ValueTask<TValue>> func, Func<Exception, Error>? catchHandler = null)
+    public static ValueTask<Result<TValue>> TryAsync<TValue>(Func<ValueTask> action, Func<Exception, Error>? catchHandler = null)
     {
-        ArgumentNullException.ThrowIfNull(func);
-        catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
-        try
-        {
-            var value = await func();
-            return Ok(value);
-        }
-        catch (Exception ex)
-        {
-            return Fail(catchHandler(ex));
-        }
+        return Result<TValue>.TryAsync(action, catchHandler);
+    }
+
+    #endregion
+
+    #region Try Generic Function
+
+    /// <summary>
+    ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
+    /// </summary>
+    public static Result<TValue> Try<TValue>(Func<TValue> func, Func<Exception, Error>? catchHandler = null)
+    {
+        return Result<TValue>.Try(func, catchHandler);
+    }
+
+    /// <summary>
+    ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
+    /// </summary>
+    public static Task<Result<TValue>> TryAsync<TValue>(Func<Task<TValue>> func, Func<Exception, Error>? catchHandler = null)
+    {
+        return Result<TValue>.TryAsync(func, catchHandler);
+    }
+
+    /// <summary>
+    ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
+    /// </summary>
+    public static ValueTask<Result<TValue>> TryAsync<TValue>(Func<ValueTask<TValue>> func, Func<Exception, Error>? catchHandler = null)
+    {
+        return Result<TValue>.TryAsync(func, catchHandler);
     }
 
     #endregion
