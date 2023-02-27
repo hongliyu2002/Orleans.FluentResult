@@ -23,7 +23,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="successMapper"></param>
     /// <returns></returns>
-    public new Result<TValue> MapSuccesses(Func<Success, Success> successMapper)
+    public Result<TValue> MapSuccesses(Func<Success, Success> successMapper)
     {
         ArgumentNullException.ThrowIfNull(successMapper);
         return new Result<TValue>(Value).WithErrors(Errors).WithSuccesses(Successes.Select(successMapper));
@@ -34,7 +34,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="errorMapper"></param>
     /// <returns></returns>
-    public new Result<TValue> MapErrors(Func<Error, Error> errorMapper)
+    public Result<TValue> MapErrors(Func<Error, Error> errorMapper)
     {
         ArgumentNullException.ThrowIfNull(errorMapper);
         return new Result<TValue>(Value).WithErrors(Errors.Select(errorMapper)).WithSuccesses(Successes);

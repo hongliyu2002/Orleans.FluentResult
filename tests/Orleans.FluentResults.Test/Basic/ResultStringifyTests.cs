@@ -22,7 +22,7 @@ public class ResultStringifyTests
     [Fact]
     public void OkResultWithValueToString_OkResult()
     {
-        var result = Result<int>.Ok(default);
+        var result = Result.Ok(0);
         result.ToString().Should().Be("Result: IsSuccess='True', Value='0'");
     }
 

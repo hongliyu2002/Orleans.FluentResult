@@ -31,8 +31,4 @@
         <ProjectReference Include="..\..\src\Orleans.FluentResults\Orleans.FluentResults.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Foundation" />
-    </ItemGroup>
-
 </Project>

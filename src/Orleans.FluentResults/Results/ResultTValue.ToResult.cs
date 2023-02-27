@@ -16,7 +16,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Convert result with value to result.
     /// </summary>
-    public new Result<TNewValue> ToResult<TNewValue>()
+    public Result<TNewValue> ToResult<TNewValue>()
     {
         try
         {
@@ -32,7 +32,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Convert result with value to result with another value.
     /// </summary>
-    public new Result<TNewValue> ToResult<TNewValue>(TNewValue value)
+    public Result<TNewValue> ToResult<TNewValue>(TNewValue value)
     {
         return new Result<TNewValue>(value, Reasons);
     }

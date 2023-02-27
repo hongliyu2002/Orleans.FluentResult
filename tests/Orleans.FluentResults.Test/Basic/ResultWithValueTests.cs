@@ -8,7 +8,7 @@ public class ResultWithValueTests
     [Fact]
     public void Ok_WithNoParams_ShouldReturnSuccessResult()
     {
-        var okResult = Result<int>.Ok(default);
+        var okResult = Result.Ok(0);
         okResult.IsFailed.Should().BeFalse();
         okResult.IsSuccess.Should().BeTrue();
         okResult.Reasons.Should().BeEmpty();
@@ -30,7 +30,7 @@ public class ResultWithValueTests
     [Fact]
     public void WithValue_WithValidParam_ShouldReturnSuccessResult()
     {
-        var okResult = Result<int>.Ok(default);
+        var okResult = Result.Ok<int>();
         okResult = okResult.WithValue(5);
         okResult.Value.Should().Be(5);
         okResult.ValueOrDefault.Should().Be(5);
@@ -40,7 +40,7 @@ public class ResultWithValueTests
     public void CreateOkResultWithSuccess_SuccessResultWithSuccess()
     {
         // Act
-        var okResult = Result<int>.Ok(default).WithSuccess("First success message");
+        var okResult = Result.Ok(0).WithSuccess("First success message");
         okResult.Reasons.Should().HaveCount(1);
         okResult.Reasons.First().Should().BeOfType<Success>();
         okResult.Reasons.First().Message.Should().Be("First success message");

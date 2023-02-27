@@ -11,17 +11,21 @@ public partial record Result<TValue>
     /// <returns></returns>
     public static implicit operator Result<TValue>(TValue value)
     {
-        return value as Result<TValue> ?? Ok(value);
+        if (value is Result result)
+        {
+            return result.ToResult<TValue>();
+        }
+        return Ok(value);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="result"></param>
-    /// <returns></returns>
-    public static implicit operator Result<object>(Result<TValue> result)
-    {
-        return result.ToResult<object>();
-    }
+    // /// <summary>
+    // /// </summary>
+    // /// <param name="result"></param>
+    // /// <returns></returns>
+    // public static implicit operator Result<object>(Result<TValue> result)
+    // {
+    //     return result.ToResult<object>();
+    // }
 
     // /// <summary>
     // /// </summary>
