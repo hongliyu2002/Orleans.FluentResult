@@ -52,7 +52,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -155,7 +155,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -172,7 +172,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -189,7 +189,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -261,7 +261,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -278,7 +278,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -295,7 +295,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -312,7 +312,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -364,7 +364,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -380,7 +380,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -396,7 +396,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -412,7 +412,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -464,7 +464,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -480,7 +480,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -496,7 +496,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -512,7 +512,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = await bind(result.Value).ConfigureAwait(false);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -567,7 +567,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -584,7 +584,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -601,7 +601,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -618,7 +618,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -673,7 +673,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -690,7 +690,7 @@ public static partial class ResultTExtensions
             return new Result<T>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -707,7 +707,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind();
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     /// <summary>
@@ -724,7 +724,7 @@ public static partial class ResultTExtensions
             return new Result<T2>(result.Reasons);
         }
         var bindResult = bind(result.Value);
-        return new Result<T2>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
