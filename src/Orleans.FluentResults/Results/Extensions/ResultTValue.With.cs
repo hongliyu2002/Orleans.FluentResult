@@ -41,7 +41,7 @@ public static partial class ResultTExtensions
     ///     Add a success
     /// </summary>
     public static Result<T> WithSuccess<T, TSuccess>(this Result<T> result)
-        where TSuccess : Success, new()
+        where TSuccess : ISuccess, new()
     {
         return WithSuccess(result, new TSuccess());
     }
@@ -49,7 +49,7 @@ public static partial class ResultTExtensions
     /// <summary>
     ///     Add a success
     /// </summary>
-    public static Result<T> WithSuccess<T>(this Result<T> result, Success success)
+    public static Result<T> WithSuccess<T>(this Result<T> result, ISuccess success)
     {
         ArgumentNullException.ThrowIfNull(success);
         return WithReason(result, success);
@@ -58,7 +58,7 @@ public static partial class ResultTExtensions
     /// <summary>
     ///     Add multiple successes
     /// </summary>
-    public static Result<T> WithSuccesses<T>(this Result<T> result, IEnumerable<Success> successes)
+    public static Result<T> WithSuccesses<T>(this Result<T> result, IEnumerable<ISuccess> successes)
     {
         ArgumentNullException.ThrowIfNull(successes);
         return WithReasons(result, successes);
@@ -90,7 +90,7 @@ public static partial class ResultTExtensions
     ///     Add an error
     /// </summary>
     public static Result<T> WithError<T, TError>(this Result<T> result)
-        where TError : Error, new()
+        where TError : IError, new()
     {
         return WithError(result, new TError());
     }
@@ -98,7 +98,7 @@ public static partial class ResultTExtensions
     /// <summary>
     ///     Add an error
     /// </summary>
-    public static Result<T> WithError<T>(this Result<T> result, Error error)
+    public static Result<T> WithError<T>(this Result<T> result, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return WithReason(result, error);
@@ -107,7 +107,7 @@ public static partial class ResultTExtensions
     /// <summary>
     ///     Add multiple errors
     /// </summary>
-    public static Result<T> WithErrors<T>(this Result<T> result, IEnumerable<Error> errors)
+    public static Result<T> WithErrors<T>(this Result<T> result, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return WithReasons(result, errors);

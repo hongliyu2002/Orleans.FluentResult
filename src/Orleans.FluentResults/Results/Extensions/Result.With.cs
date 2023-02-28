@@ -29,7 +29,7 @@ public static partial class ResultExtensions
     ///     Add a success
     /// </summary>
     public static Result WithSuccess<TSuccess>(this Result result)
-        where TSuccess : Success, new()
+        where TSuccess : ISuccess, new()
     {
         return WithSuccess(result, new TSuccess());
     }
@@ -37,7 +37,7 @@ public static partial class ResultExtensions
     /// <summary>
     ///     Add a success
     /// </summary>
-    public static Result WithSuccess(this Result result, Success success)
+    public static Result WithSuccess(this Result result, ISuccess success)
     {
         ArgumentNullException.ThrowIfNull(success);
         return WithReason(result, success);
@@ -46,7 +46,7 @@ public static partial class ResultExtensions
     /// <summary>
     ///     Add multiple successes
     /// </summary>
-    public static Result WithSuccesses(this Result result, IEnumerable<Success> successes)
+    public static Result WithSuccesses(this Result result, IEnumerable<ISuccess> successes)
     {
         ArgumentNullException.ThrowIfNull(successes);
         return WithReasons(result, successes);
@@ -78,7 +78,7 @@ public static partial class ResultExtensions
     ///     Add an error
     /// </summary>
     public static Result WithError<TError>(this Result result)
-        where TError : Error, new()
+        where TError : IError, new()
     {
         return WithError(result, new TError());
     }
@@ -86,7 +86,7 @@ public static partial class ResultExtensions
     /// <summary>
     ///     Add an error
     /// </summary>
-    public static Result WithError(this Result result, Error error)
+    public static Result WithError(this Result result, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return WithReason(result, error);
@@ -95,7 +95,7 @@ public static partial class ResultExtensions
     /// <summary>
     ///     Add multiple errors
     /// </summary>
-    public static Result WithErrors(this Result result, IEnumerable<Error> errors)
+    public static Result WithErrors(this Result result, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return WithReasons(result, errors);
