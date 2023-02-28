@@ -8,7 +8,7 @@ public static partial class ResultTExtensions
     #region BindIf
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -19,7 +19,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -30,7 +30,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -41,7 +41,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -52,7 +52,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -63,7 +63,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -78,7 +78,7 @@ public static partial class ResultTExtensions
     #region BindIf Full Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -89,7 +89,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -100,7 +100,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -111,7 +111,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -122,7 +122,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -133,7 +133,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -148,7 +148,7 @@ public static partial class ResultTExtensions
     #region BindIf Full ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -159,7 +159,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -170,7 +170,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -181,7 +181,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -192,7 +192,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -203,7 +203,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -218,7 +218,7 @@ public static partial class ResultTExtensions
     #region BindIf Right Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -229,7 +229,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -240,7 +240,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -251,7 +251,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -262,7 +262,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -273,7 +273,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -288,7 +288,7 @@ public static partial class ResultTExtensions
     #region BindIf Right ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -299,7 +299,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -310,7 +310,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -321,7 +321,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -332,7 +332,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -343,7 +343,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bindCondition"></param>
@@ -358,7 +358,7 @@ public static partial class ResultTExtensions
     #region BindIf Left Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -369,7 +369,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -380,7 +380,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -391,7 +391,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -402,7 +402,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -413,7 +413,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -428,7 +428,7 @@ public static partial class ResultTExtensions
     #region BindIf Left ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -439,7 +439,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -450,7 +450,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -461,7 +461,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -472,7 +472,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
@@ -483,7 +483,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bindCondition"></param>
