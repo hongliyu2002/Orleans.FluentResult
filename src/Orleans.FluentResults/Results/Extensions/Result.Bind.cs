@@ -1,5 +1,7 @@
 ﻿namespace Orleans.FluentResults;
 
+/// <summary>
+/// </summary>
 public static partial class ResultExtensions
 {
 
