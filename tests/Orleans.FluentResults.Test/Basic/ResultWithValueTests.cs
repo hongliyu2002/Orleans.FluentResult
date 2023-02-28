@@ -53,7 +53,7 @@ public class ResultWithValueTests
     [Fact]
     public void Fail_WithValidErrorMessage_ShouldReturnFailedResult()
     {
-        var result = Result<int>.Fail("Error message");
+        var result = Result.Fail<int>("Error message");
         result.IsFailed.Should().BeTrue();
         result.ValueOrDefault.Should().Be(0);
     }
@@ -66,7 +66,7 @@ public class ResultWithValueTests
                          "First error message",
                          "Second error message"
                      };
-        var result = Result<int>.Fail(errors);
+        var result = Result.Fail<int>(errors);
         result.IsFailed.Should().BeTrue();
         result.Reasons.Should().HaveCount(2);
         result.Reasons[0].Should().BeOfType<Error>();
@@ -79,7 +79,7 @@ public class ResultWithValueTests
     [Fact]
     public void Fail_WithNullEnumerableOfErrorMessages_ShouldThrow()
     {
-        Action act = () => Result<int>.Fail((IEnumerable<string>)null);
+        Action act = () => Result.Fail<int>((IEnumerable<string>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 
@@ -91,7 +91,7 @@ public class ResultWithValueTests
                          new("First error message"),
                          new("Second error message")
                      };
-        var result = Result<int>.Fail(errors);
+        var result = Result.Fail<int>(errors);
         result.IsFailed.Should().BeTrue();
         result.Reasons.Should().HaveCount(2);
         result.Reasons[0].Should().BeOfType<Error>();
@@ -104,7 +104,7 @@ public class ResultWithValueTests
     [Fact]
     public void Fail_WithNullEnumerableOfErrors_ShouldThrow()
     {
-        Action act = () => Result<int>.Fail((IEnumerable<IError>)null);
+        Action act = () => Result.Fail<int>((IEnumerable<IError>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 
@@ -128,7 +128,7 @@ public class ResultWithValueTests
     [Fact]
     public void WithValue_WithResultInFailedState_ShouldThrowException()
     {
-        var failedResult = Result<int>.Fail("Error message");
+        var failedResult = Result.Fail<int>("Error message");
         // var action = () => { failedResult.WithValue(5); };
         // action.Should().Throw<InvalidOperationException>().WithMessage("Result is in status failed. Value is not set. Having: Error with Message='Error message'");
         failedResult = failedResult.WithValue(5);
@@ -139,7 +139,7 @@ public class ResultWithValueTests
     [Fact]
     public void ToResult_ReturnFailedResult()
     {
-        var valueResult = Result<int>.Fail("First error message");
+        var valueResult = Result.Fail<int>("First error message");
         var result = valueResult.ToResult();
         result.IsFailed.Should().BeTrue();
     }
@@ -147,7 +147,7 @@ public class ResultWithValueTests
     [Fact]
     public void ToResult_ToAnotherValueType_ReturnFailedResult()
     {
-        var valueResult = Result<int>.Fail("First error message");
+        var valueResult = Result.Fail<int>("First error message");
         var result = valueResult.ToResult<float>();
         result.IsFailed.Should().BeTrue();
     }
@@ -173,7 +173,7 @@ public class ResultWithValueTests
     [Fact]
     public void ImplicitCastOperator_ReturnFailedResult()
     {
-        var valueResult = Result<int>.Fail("First error message");
+        var valueResult = Result.Fail<int>("First error message");
         var result = valueResult.ToResult();
         result.IsFailed.Should().BeTrue();
     }
@@ -374,7 +374,7 @@ public class ResultWithValueTests
     [Fact]
     public void Can_deconstruct_generic_Fail_to_isSuccess_and_isFailed_and_value()
     {
-        var (isSuccess, isFailed, valueOrDefault) = Result<int>.Fail("fail");
+        var (isSuccess, isFailed, valueOrDefault) = Result.Fail<int>("fail");
         isSuccess.Should().Be(false);
         isFailed.Should().Be(true);
         valueOrDefault.Should().Be(default);

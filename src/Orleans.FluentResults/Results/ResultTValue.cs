@@ -36,16 +36,16 @@ public partial record Result<T>(T Value, IImmutableList<IReason> Reasons) : IRes
     }
 
     /// <inheritdoc />
-    public bool IsFailed => Reasons.OfType<Error>().Any();
+    public bool IsFailed => Reasons.OfType<IError>().Any();
 
     /// <inheritdoc />
     public bool IsSuccess => !IsFailed;
 
     /// <inheritdoc />
-    public IImmutableList<Error> Errors => Reasons.OfType<Error>().ToImmutableList();
+    public IImmutableList<IError> Errors => Reasons.OfType<IError>().ToImmutableList();
 
     /// <inheritdoc />
-    public IImmutableList<Success> Successes => Reasons.OfType<Success>().ToImmutableList();
+    public IImmutableList<ISuccess> Successes => Reasons.OfType<ISuccess>().ToImmutableList();
 
     /// <inheritdoc />
     public T? ValueOrDefault => IsSuccess ? Value : default;

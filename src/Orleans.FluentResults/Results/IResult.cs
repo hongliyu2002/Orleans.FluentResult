@@ -24,10 +24,10 @@ public interface IResult
     /// <summary>
     ///     Get all errors
     /// </summary>
-    IImmutableList<Error> Errors { get; }
+    IImmutableList<IError> Errors { get; }
 
     /// <summary>
     ///     Get all successes
     /// </summary>
-    IImmutableList<Success> Successes { get; }
+    IImmutableList<ISuccess> Successes { get; }
 }

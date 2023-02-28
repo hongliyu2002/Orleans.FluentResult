@@ -33,7 +33,7 @@ internal static class ResultHelper
 
     #endregion
 
-    #region Has Error Exception Success
+    #region Has
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
@@ -91,7 +91,7 @@ internal static class ResultHelper
                 return true;
             }
         }
-        result = Array.Empty<Error>();
+        result = Array.Empty<IError>();
         return false;
     }
 

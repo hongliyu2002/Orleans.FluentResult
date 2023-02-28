@@ -27,12 +27,12 @@ public partial record Result<T>
     /// <param name="isFailed"></param>
     /// <param name="valueOrDefault"></param>
     /// <param name="errors"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out T? valueOrDefault, out IImmutableList<Error> errors)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out T? valueOrDefault, out IImmutableList<IError> errors)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;
         valueOrDefault = ValueOrDefault;
-        errors = IsFailed ? Errors : ImmutableList<Error>.Empty;
+        errors = IsFailed ? Errors : ImmutableList<IError>.Empty;
     }
 
     #endregion

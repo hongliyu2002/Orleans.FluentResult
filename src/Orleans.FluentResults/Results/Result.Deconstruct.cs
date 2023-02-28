@@ -24,11 +24,11 @@ public partial record Result
     /// <param name="isSuccess"></param>
     /// <param name="isFailed"></param>
     /// <param name="errors"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out IImmutableList<Error> errors)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out IImmutableList<IError> errors)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;
-        errors = IsFailed ? Errors : ImmutableList<Error>.Empty;
+        errors = IsFailed ? Errors : ImmutableList<IError>.Empty;
     }
 
     #endregion

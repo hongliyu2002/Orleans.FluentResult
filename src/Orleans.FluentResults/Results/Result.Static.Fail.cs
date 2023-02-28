@@ -86,7 +86,7 @@ public partial record Result
     /// <summary>
     ///     Creates a failed result with the given error
     /// </summary>
-    public static Result<T> Fail<T>(Error error)
+    public static Result<T> Fail<T>(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return new Result<T>(ImmutableList<IReason>.Empty.Add(error));

@@ -8,7 +8,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result OkIf(bool isSuccess, Error error)
+    public static Result OkIf(bool isSuccess, IError error)
     {
         return isSuccess ? Ok() : Fail(error);
     }
@@ -25,7 +25,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result OkIf(bool isSuccess, Func<IError> errorFactory)
     {
@@ -37,7 +37,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result OkIf(bool isSuccess, Func<string> errorMessageFactory)
     {
@@ -52,7 +52,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, Error error)
+    public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, IError error)
     {
         var isSuccess = await predicate();
         return OkIf(isSuccess, error);
@@ -71,7 +71,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
@@ -84,7 +84,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
     {
@@ -100,7 +100,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, Error error)
+    public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, IError error)
     {
         var isSuccess = await predicate();
         return OkIf(isSuccess, error);
@@ -119,7 +119,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
@@ -132,7 +132,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
     {
@@ -148,7 +148,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result OkIf(bool isSuccess, string successMessage, Error error)
+    public static Result OkIf(bool isSuccess, string successMessage, IError error)
     {
         return isSuccess ? Ok(successMessage) : Fail(error);
     }
@@ -165,7 +165,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result OkIf(bool isSuccess, string successMessage, Func<IError> errorFactory)
     {
@@ -177,7 +177,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result OkIf(bool isSuccess, string successMessage, Func<string> errorMessageFactory)
     {
@@ -192,7 +192,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, string successMessage, Error error)
+    public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, string successMessage, IError error)
     {
         var isSuccess = await predicate();
         return OkIf(isSuccess, successMessage, error);
@@ -211,7 +211,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, string successMessage, Func<IError> errorFactory)
     {
@@ -224,7 +224,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async Task<Result> OkIfAsync(Func<Task<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
     {
@@ -240,7 +240,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, Error error)
+    public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, IError error)
     {
         var isSuccess = await predicate();
         return OkIf(isSuccess, successMessage, error);
@@ -259,7 +259,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, Func<IError> errorFactory)
     {
@@ -272,7 +272,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static async ValueTask<Result> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
     {
@@ -288,7 +288,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<T> OkIf<T>(bool isSuccess, Error error)
+    public static Result<T> OkIf<T>(bool isSuccess, IError error)
     {
         return Result<T>.OkIf(isSuccess, error);
     }
@@ -305,7 +305,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, Func<IError> errorFactory)
     {
@@ -316,7 +316,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, Func<string> errorMessageFactory)
     {
@@ -330,7 +330,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, Error error)
+    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, IError error)
     {
         return Result<T>.OkIfAsync(predicate, error);
     }
@@ -347,7 +347,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
@@ -358,7 +358,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
     {
@@ -372,7 +372,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, Error error)
+    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, IError error)
     {
         return Result<T>.OkIfAsync(predicate, error);
     }
@@ -389,7 +389,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
@@ -400,7 +400,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
     {
@@ -414,7 +414,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<T> OkIf<T>(bool isSuccess, string successMessage, Error error)
+    public static Result<T> OkIf<T>(bool isSuccess, string successMessage, IError error)
     {
         return Result<T>.OkIf(isSuccess, successMessage, error);
     }
@@ -431,7 +431,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, string successMessage, Func<IError> errorFactory)
     {
@@ -442,7 +442,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, string successMessage, Func<string> errorMessageFactory)
     {
@@ -456,7 +456,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, string successMessage, Error error)
+    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, string successMessage, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successMessage, error);
     }
@@ -473,7 +473,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, string successMessage, Func<IError> errorFactory)
     {
@@ -484,7 +484,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
     {
@@ -498,7 +498,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, string successMessage, Error error)
+    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, string successMessage, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successMessage, error);
     }
@@ -515,7 +515,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, string successMessage, Func<IError> errorFactory)
     {
@@ -526,7 +526,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
     {
@@ -540,7 +540,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<T> OkIf<T>(bool isSuccess, T successValue, Error error)
+    public static Result<T> OkIf<T>(bool isSuccess, T successValue, IError error)
     {
         return Result<T>.OkIf(isSuccess, successValue, error);
     }
@@ -557,7 +557,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, T successValue, Func<IError> errorFactory)
     {
@@ -568,7 +568,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, T successValue, Func<string> errorMessageFactory)
     {
@@ -582,7 +582,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, Error error)
+    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successValue, error);
     }
@@ -599,7 +599,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
@@ -610,7 +610,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<string> errorMessageFactory)
     {
@@ -624,7 +624,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Error error)
+    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successValue, error);
     }
@@ -641,7 +641,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
@@ -652,7 +652,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<string> errorMessageFactory)
     {
@@ -666,7 +666,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Result<T> OkIf<T>(bool isSuccess, T successValue, string successMessage, Error error)
+    public static Result<T> OkIf<T>(bool isSuccess, T successValue, string successMessage, IError error)
     {
         return Result<T>.OkIf(isSuccess, successValue, successMessage, error);
     }
@@ -683,7 +683,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, T successValue, string successMessage, Func<IError> errorFactory)
     {
@@ -694,7 +694,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Result<T> OkIf<T>(bool isSuccess, T successValue, string successMessage, Func<string> errorMessageFactory)
     {
@@ -708,7 +708,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, string successMessage, Error error)
+    public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, string successMessage, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successValue, successMessage, error);
     }
@@ -725,7 +725,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, string successMessage, Func<IError> errorFactory)
     {
@@ -736,7 +736,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static Task<Result<T>> OkIfAsync<T>(Func<Task<bool>> predicate, T successValue, string successMessage, Func<string> errorMessageFactory)
     {
@@ -750,7 +750,7 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
-    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string successMessage, Error error)
+    public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string successMessage, IError error)
     {
         return Result<T>.OkIfAsync(predicate, successValue, successMessage, error);
     }
@@ -767,7 +767,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string successMessage, Func<IError> errorFactory)
     {
@@ -778,7 +778,7 @@ public partial record Result
     ///     Create a success/failed result depending on the parameter isSuccess
     /// </summary>
     /// <remarks>
-    ///     Error is lazily evaluated.
+    ///     IError is lazily evaluated.
     /// </remarks>
     public static ValueTask<Result<T>> OkIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string successMessage, Func<string> errorMessageFactory)
     {
