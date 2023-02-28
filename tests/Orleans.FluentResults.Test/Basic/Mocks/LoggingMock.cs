@@ -6,11 +6,11 @@ public class LoggingMock : IResultLogger
 {
     public string LoggedContext { get; private set; }
     public string LoggedContent { get; private set; }
-    public Result LoggedResult { get; private set; }
+    public IResult LoggedResult { get; private set; }
     public LogLevel LoggedLevel { get; private set; }
 
     /// <inheritdoc />
-    public void Log(string context, string content, Result result, LogLevel logLevel = LogLevel.Information)
+    public void Log(string context, string content, IResult result, LogLevel logLevel = LogLevel.Information)
     {
         LoggedContext = context;
         LoggedContent = content;
@@ -19,7 +19,7 @@ public class LoggingMock : IResultLogger
     }
 
     /// <inheritdoc />
-    public void Log<TContext>(string content, Result result, LogLevel logLevel = LogLevel.Information)
+    public void Log<TContext>(string content, IResult result, LogLevel logLevel = LogLevel.Information)
     {
         LoggedContext = typeof(TContext).ToString();
         LoggedContent = content;
