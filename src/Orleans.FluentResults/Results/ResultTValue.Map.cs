@@ -2,7 +2,7 @@
 
 /// <summary>
 /// </summary>
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Map
@@ -12,10 +12,10 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="valueMapper"></param>
     /// <returns></returns>
-    public Result<TNewValue> Map<TNewValue>(Func<TValue, TNewValue> valueMapper)
+    public Result<T2> Map<T2>(Func<T, T2> valueMapper)
     {
         ArgumentNullException.ThrowIfNull(valueMapper);
-        return new Result<TNewValue>(valueMapper(Value), Reasons);
+        return new Result<T2>(valueMapper(Value), Reasons);
     }
 
     /// <summary>
@@ -23,10 +23,10 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="successMapper"></param>
     /// <returns></returns>
-    public Result<TValue> MapSuccesses(Func<Success, Success> successMapper)
+    public Result<T> MapSuccesses(Func<Success, Success> successMapper)
     {
         ArgumentNullException.ThrowIfNull(successMapper);
-        return new Result<TValue>(Value).WithErrors(Errors).WithSuccesses(Successes.Select(successMapper));
+        return new Result<T>(Value).WithErrors(Errors).WithSuccesses(Successes.Select(successMapper));
     }
 
     /// <summary>
@@ -34,10 +34,10 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="errorMapper"></param>
     /// <returns></returns>
-    public Result<TValue> MapErrors(Func<Error, Error> errorMapper)
+    public Result<T> MapErrors(Func<Error, Error> errorMapper)
     {
         ArgumentNullException.ThrowIfNull(errorMapper);
-        return new Result<TValue>(Value).WithErrors(Errors.Select(errorMapper)).WithSuccesses(Successes);
+        return new Result<T>(Value).WithErrors(Errors.Select(errorMapper)).WithSuccesses(Successes);
     }
 
     #endregion

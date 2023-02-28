@@ -2,7 +2,7 @@
 
 namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Ok
@@ -10,33 +10,33 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public new static Result<TValue> Ok()
+    public static Result<T> Ok()
     {
-        return new Result<TValue>();
+        return new Result<T>();
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public new static Result<TValue> Ok(string successMessage)
+    public static Result<T> Ok(string successMessage)
     {
-        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
+        return new Result<T>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok(TValue value)
+    public static Result<T> Ok(T value)
     {
-        return new Result<TValue>(value);
+        return new Result<T>(value);
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok(TValue value, string successMessage)
+    public static Result<T> Ok(T value, string successMessage)
     {
-        return new Result<TValue>(value, ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
+        return new Result<T>(value, ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
     }
 
     #endregion

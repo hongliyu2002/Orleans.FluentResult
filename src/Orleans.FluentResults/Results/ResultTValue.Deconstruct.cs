@@ -2,7 +2,7 @@
 
 namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Deconstruct
@@ -13,7 +13,7 @@ public partial record Result<TValue>
     /// <param name="isSuccess"></param>
     /// <param name="isFailed"></param>
     /// <param name="valueOrDefault"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue? valueOrDefault)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out T? valueOrDefault)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;
@@ -27,7 +27,7 @@ public partial record Result<TValue>
     /// <param name="isFailed"></param>
     /// <param name="valueOrDefault"></param>
     /// <param name="errors"></param>
-    public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue? valueOrDefault, out IImmutableList<Error> errors)
+    public void Deconstruct(out bool isSuccess, out bool isFailed, out T? valueOrDefault, out IImmutableList<Error> errors)
     {
         isSuccess = IsSuccess;
         isFailed = IsFailed;

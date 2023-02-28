@@ -2,7 +2,7 @@
 
 namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Fail
@@ -10,56 +10,55 @@ public partial record Result<TValue>
     /// <summary>
     ///     Creates a failed result with the given error message. Internally an error object from the error factory is created.
     /// </summary>
-    public static Result<TValue> Fail(string errorMessage)
+    public static Result<T> Fail(string errorMessage)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ErrorFactory(errorMessage)));
+        return new Result<T>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ErrorFactory(errorMessage)));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created.
     /// </summary>
-    public static Result<TValue> Fail(IEnumerable<string> errorMessages)
+    public static Result<T> Fail(IEnumerable<string> errorMessages)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(errorMessages.Select(ResultSettings.Current.ErrorFactory)));
+        return new Result<T>(ImmutableList<IReason>.Empty.AddRange(errorMessages.Select(ResultSettings.Current.ErrorFactory)));
     }
 
     /// <summary>
     ///     Creates a failed result with the given error
     /// </summary>
-    public static Result<TValue> Fail(Error error)
+    public static Result<T> Fail(Error error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(error));
+        return new Result<T>(ImmutableList<IReason>.Empty.Add(error));
     }
 
     /// <summary>
     ///     Creates a failed result with the given errors.
     /// </summary>
-    public static Result<TValue> Fail(IEnumerable<Error> errors)
+    public static Result<T> Fail(IEnumerable<Error> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.AddRange(errors));
+        return new Result<T>(ImmutableList<IReason>.Empty.AddRange(errors));
     }
 
     /// <summary>
     ///     Creates a failed result with the given exception
     /// </summary>
-    public static Result<TValue> Fail(Exception exception)
+    public static Result<T> Fail(Exception exception)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return new Result<TValue>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return new Result<T>(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     /// <summary>
     ///     Creates a failed result with the given exceptions.
     /// </summary>
-    public static Result<TValue> Fail(IEnumerable<Exception> exceptions)
+    public static Result<T> Fail(IEnumerable<Exception> exceptions)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return new
-            Result<TValue>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
+        return new Result<T>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
     }
 
     #endregion

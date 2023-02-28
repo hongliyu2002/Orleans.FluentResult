@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Implicit Operator
@@ -9,29 +9,43 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(TValue value)
+    public static implicit operator Result<T>(T value)
     {
-        if (value is Result result)
-        {
-            return result.ToResult<TValue>();
-        }
-        return Ok(value);
+        return value.ToResult();
     }
 
-    // /// <summary>
-    // /// </summary>
-    // /// <param name="result"></param>
-    // /// <returns></returns>
-    // public static implicit operator Result<object>(Result<TValue> result)
-    // {
-    //     return result.ToResult<object>();
-    // }
+    /// <summary>
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    public static implicit operator Result<T>(Result result)
+    {
+        return result.ToResult<T>();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    public static implicit operator Result<object>(Result<T> result)
+    {
+        return result.ToResult<object>();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    public static implicit operator Result(Result<T> result)
+    {
+        return result.ToResult();
+    }
 
     // /// <summary>
     // /// </summary>
     // /// <param name="errorMessage"></param>
     // /// <returns></returns>
-    // public static implicit operator Result<TValue>(string errorMessage)
+    // public static implicit operator Result<T>(string errorMessage)
     // {
     //     return Fail(errorMessage);
     // }
@@ -40,7 +54,7 @@ public partial record Result<TValue>
     // /// </summary>
     // /// <param name="errorMessages"></param>
     // /// <returns></returns>
-    // public static implicit operator Result<TValue>(List<string> errorMessages)
+    // public static implicit operator Result<T>(List<string> errorMessages)
     // {
     //     return Fail(errorMessages);
     // }
@@ -49,7 +63,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="error"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(Error error)
+    public static implicit operator Result<T>(Error error)
     {
         return Fail(error);
     }
@@ -58,7 +72,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="errors"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(List<Error> errors)
+    public static implicit operator Result<T>(List<Error> errors)
     {
         return Fail(errors);
     }
@@ -67,7 +81,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(Exception exception)
+    public static implicit operator Result<T>(Exception exception)
     {
         return Fail(exception);
     }
@@ -76,7 +90,7 @@ public partial record Result<TValue>
     /// </summary>
     /// <param name="exceptions"></param>
     /// <returns></returns>
-    public static implicit operator Result<TValue>(List<Exception> exceptions)
+    public static implicit operator Result<T>(List<Exception> exceptions)
     {
         return Fail(exceptions);
     }

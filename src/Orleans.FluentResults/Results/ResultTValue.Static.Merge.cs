@@ -2,7 +2,7 @@
 
 namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region Merge
@@ -10,7 +10,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
     /// </summary>
-    public static Result<IEnumerable<TValue>> Merge(IEnumerable<Result<TValue>> results)
+    public static Result<IEnumerable<T>> Merge(IEnumerable<Result<T>> results)
     {
         return Merge(results.ToArray());
     }
@@ -18,10 +18,10 @@ public partial record Result<TValue>
     /// <summary>
     ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
     /// </summary>
-    public static Result<IEnumerable<TValue>> Merge(params Result<TValue>[] results)
+    public static Result<IEnumerable<T>> Merge(params Result<T>[] results)
     {
         ArgumentNullException.ThrowIfNull(results);
-        return new Result<IEnumerable<TValue>>(results.Select(result => result.Value), results.SelectMany(result => result.Reasons).ToImmutableList());
+        return new Result<IEnumerable<T>>(results.Select(result => result.Value), results.SelectMany(result => result.Reasons).ToImmutableList());
     }
 
     #endregion

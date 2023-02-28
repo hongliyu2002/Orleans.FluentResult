@@ -109,7 +109,7 @@ public partial record Result
     public Result WithReason(IReason reason)
     {
         ArgumentNullException.ThrowIfNull(reason);
-        return this with { Reasons = Reasons.Add(reason) };
+        return new Result(Reasons.Add(reason));
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ public partial record Result
     public Result WithReasons(IEnumerable<IReason> reasons)
     {
         ArgumentNullException.ThrowIfNull(reasons);
-        return this with { Reasons = Reasons.AddRange(reasons) };
+        return new Result(Reasons.AddRange(reasons));
     }
 
     #endregion

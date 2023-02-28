@@ -23,12 +23,12 @@ internal static class ResultHelper
     ///     Merge multiple result objects to one result together
     /// </summary>
     /// <param name="results"></param>
-    /// <typeparam name="TValue"></typeparam>
+    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static Result<IEnumerable<TValue>> Merge<TValue>(IEnumerable<Result<TValue>> results)
+    public static Result<IEnumerable<T>> Merge<T>(IEnumerable<Result<T>> results)
     {
         var resultsList = results.ToList();
-        return new Result<IEnumerable<TValue>>(resultsList.Select(result => result.Value), resultsList.SelectMany(result => result.Reasons).ToImmutableList());
+        return new Result<IEnumerable<T>>(resultsList.Select(result => result.Value), resultsList.SelectMany(result => result.Reasons).ToImmutableList());
     }
 
     #endregion

@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public partial record Result<TValue>
+public partial record Result<T>
 {
 
     #region With Value
@@ -8,7 +8,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Set value
     /// </summary>
-    public Result<TValue> WithValue(TValue value)
+    public Result<T> WithValue(T value)
     {
         return this with { Value = value };
     }
@@ -20,7 +20,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add a success message
     /// </summary>
-    public Result<TValue> WithSuccess(string successMessage)
+    public Result<T> WithSuccess(string successMessage)
     {
         ArgumentNullException.ThrowIfNull(successMessage);
         return WithSuccess(ResultSettings.Current.SuccessFactory(successMessage));
@@ -29,7 +29,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add a success
     /// </summary>
-    public Result<TValue> WithSuccess(Success success)
+    public Result<T> WithSuccess(Success success)
     {
         ArgumentNullException.ThrowIfNull(success);
         return WithReason(success);
@@ -38,7 +38,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add a success
     /// </summary>
-    public Result<TValue> WithSuccess<TSuccess>()
+    public Result<T> WithSuccess<TSuccess>()
         where TSuccess : Success, new()
     {
         return WithSuccess(new TSuccess());
@@ -47,7 +47,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add multiple successes
     /// </summary>
-    public Result<TValue> WithSuccesses(IEnumerable<Success> successes)
+    public Result<T> WithSuccesses(IEnumerable<Success> successes)
     {
         ArgumentNullException.ThrowIfNull(successes);
         return WithReasons(successes);
@@ -56,7 +56,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add multiple success messages
     /// </summary>
-    public Result<TValue> WithSuccesses(IEnumerable<string> successMessages)
+    public Result<T> WithSuccesses(IEnumerable<string> successMessages)
     {
         ArgumentNullException.ThrowIfNull(successMessages);
         return WithReasons(successMessages.Select(successMessage => ResultSettings.Current.SuccessFactory(successMessage)));
@@ -69,7 +69,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add an error message
     /// </summary>
-    public Result<TValue> WithError(string errorMessage)
+    public Result<T> WithError(string errorMessage)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
         return WithError(ResultSettings.Current.ErrorFactory(errorMessage));
@@ -78,7 +78,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add an error
     /// </summary>
-    public Result<TValue> WithError(Error error)
+    public Result<T> WithError(Error error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return WithReason(error);
@@ -87,7 +87,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add an error
     /// </summary>
-    public Result<TValue> WithError<TError>()
+    public Result<T> WithError<TError>()
         where TError : Error, new()
     {
         return WithError(new TError());
@@ -96,7 +96,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add multiple errors
     /// </summary>
-    public Result<TValue> WithErrors(IEnumerable<Error> errors)
+    public Result<T> WithErrors(IEnumerable<Error> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return WithReasons(errors);
@@ -105,7 +105,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add multiple error messages
     /// </summary>
-    public Result<TValue> WithErrors(IEnumerable<string> errorMessages)
+    public Result<T> WithErrors(IEnumerable<string> errorMessages)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
         return WithReasons(errorMessages.Select(errorMessage => ResultSettings.Current.ErrorFactory(errorMessage)));
@@ -118,7 +118,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add a reason (success or error)
     /// </summary>
-    public Result<TValue> WithReason(IReason reason)
+    public Result<T> WithReason(IReason reason)
     {
         ArgumentNullException.ThrowIfNull(reason);
         return this with { Reasons = Reasons.Add(reason) };
@@ -127,7 +127,7 @@ public partial record Result<TValue>
     /// <summary>
     ///     Add multiple reasons (success or error)
     /// </summary>
-    public Result<TValue> WithReasons(IEnumerable<IReason> reasons)
+    public Result<T> WithReasons(IEnumerable<IReason> reasons)
     {
         ArgumentNullException.ThrowIfNull(reasons);
         return this with { Reasons = Reasons.AddRange(reasons) };

@@ -10,27 +10,23 @@ public partial record Result
     /// </summary>
     public Result ToResult()
     {
-        return this;
+        return new Result(Reasons);
     }
-    
+
     /// <summary>
     ///     Convert result to result with a value
     /// </summary>
-    public Result<TValue> ToResult<TValue>()
+    public Result<T> ToResult<T>()
     {
-        if (this is Result<TValue> result)
-        {
-            return result;
-        }
-        return new Result<TValue>(Reasons);
+        return new Result<T>(Reasons);
     }
 
     /// <summary>
     ///     Convert result to result with a new value
     /// </summary>
-    public Result<TValue> ToResult<TValue>(TValue value)
+    public Result<T> ToResult<T>(T value)
     {
-        return new Result<TValue>(value, Reasons);
+        return new Result<T>(value, Reasons);
     }
 
     #endregion

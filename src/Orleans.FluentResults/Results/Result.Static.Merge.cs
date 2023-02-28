@@ -31,17 +31,17 @@ public partial record Result
     /// <summary>
     ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
     /// </summary>
-    public static Result<IEnumerable<TValue>> Merge<TValue>(IEnumerable<Result<TValue>> results)
+    public static Result<IEnumerable<T>> Merge<T>(IEnumerable<Result<T>> results)
     {
-        return Result<TValue>.Merge(results);
+        return Result<T>.Merge(results);
     }
 
     /// <summary>
     ///     Merge multiple result objects to one result object together. Return one result with a list of merged values.
     /// </summary>
-    public static Result<IEnumerable<TValue>> Merge<TValue>(params Result<TValue>[] results)
+    public static Result<IEnumerable<T>> Merge<T>(params Result<T>[] results)
     {
-        return Result<TValue>.Merge(results);
+        return Result<T>.Merge(results);
     }
 
     #endregion

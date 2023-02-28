@@ -7,11 +7,19 @@ public static class ObjectExtensions
     /// <summary>
     /// </summary>
     /// <param name="value"></param>
-    /// <typeparam name="TValue"></typeparam>
+    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static Result<TValue> ToResult<TValue>(this TValue value)
+    public static Result<T> ToResult<T>(this T value)
     {
-        return new Result<TValue>(value);
+        if (value is Result<T> resultOfT)
+        {
+            return resultOfT;
+        }
+        if (value is Result result)
+        {
+            return result.ToResult<T>();
+        }
+        return new Result<T>(value);
     }
 
     /// <summary>

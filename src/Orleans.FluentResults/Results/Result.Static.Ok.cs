@@ -30,33 +30,33 @@ public partial record Result
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok<TValue>()
+    public static Result<T> Ok<T>()
     {
-        return Result<TValue>.Ok();
+        return Result<T>.Ok();
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok<TValue>(string successMessage)
+    public static Result<T> Ok<T>(string successMessage)
     {
-        return Result<TValue>.Ok(successMessage);
+        return Result<T>.Ok(successMessage);
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok<TValue>(TValue value)
+    public static Result<T> Ok<T>(T value)
     {
-        return Result<TValue>.Ok(value);
+        return Result<T>.Ok(value);
     }
 
     /// <summary>
     ///     Creates a success result with the given value
     /// </summary>
-    public static Result<TValue> Ok<TValue>(TValue value, string successMessage)
+    public static Result<T> Ok<T>(T value, string successMessage)
     {
-        return Result<TValue>.Ok(value, successMessage);
+        return Result<T>.Ok(value, successMessage);
     }
 
     #endregion

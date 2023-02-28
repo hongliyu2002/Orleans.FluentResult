@@ -19,7 +19,7 @@ public static class EnumerableExtensions
     /// <summary>
     ///     Merge multiple result objects to one result together
     /// </summary>
-    public static Result<IEnumerable<TValue>> Merge<TValue>(this IEnumerable<Result<TValue>> results)
+    public static Result<IEnumerable<T>> Merge<T>(this IEnumerable<Result<T>> results)
     {
         ArgumentNullException.ThrowIfNull(results);
         return ResultHelper.Merge(results);
