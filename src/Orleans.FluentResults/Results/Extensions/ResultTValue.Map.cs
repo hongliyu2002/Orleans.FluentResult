@@ -17,7 +17,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map();
         return new Result<T1>(value, result.Reasons);
@@ -33,7 +33,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map(result.Value);
         return new Result<T1>(value, result.Reasons);
@@ -54,7 +54,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -71,7 +71,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -92,7 +92,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -109,7 +109,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -129,7 +129,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -145,7 +145,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -165,7 +165,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -181,7 +181,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
         return new Result<T1>(value, result.Reasons);
@@ -202,7 +202,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map();
         return new Result<T1>(value, result.Reasons);
@@ -219,7 +219,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map(result.Value);
         return new Result<T1>(value, result.Reasons);
@@ -240,7 +240,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map();
         return new Result<T1>(value, result.Reasons);
@@ -257,7 +257,7 @@ public static partial class ResultTExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T1>(result.Reasons);
+            return Result<T1>.Fail(result.Errors);
         }
         var value = map(result.Value);
         return new Result<T1>(value, result.Reasons);

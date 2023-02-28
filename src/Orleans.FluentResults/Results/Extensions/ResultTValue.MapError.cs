@@ -17,7 +17,7 @@ public static partial class ResultTExtensions
     public static Result<T> MapError<T>(this Result<T> result, Func<IError, IError> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = result.Errors.Select(error => mapError(error));
+        var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -34,7 +34,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error))).ConfigureAwait(false);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(false);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -67,7 +67,7 @@ public static partial class ResultTExtensions
     public static async Task<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, Task<IError>> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error))).ConfigureAwait(false);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(false);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -100,7 +100,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
-        var errors = result.Errors.Select(error => mapError(error));
+        var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -117,7 +117,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
-        var errors = result.Errors.Select(error => mapError(error));
+        var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 

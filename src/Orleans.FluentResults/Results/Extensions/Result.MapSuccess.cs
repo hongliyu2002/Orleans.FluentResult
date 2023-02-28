@@ -17,7 +17,7 @@ public static partial class ResultExtensions
     public static Result MapSuccess(this Result result, Func<ISuccess, ISuccess> mapSuccess)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var successes = result.Successes.Select(success => mapSuccess(success));
+        var successes = result.Successes.Select(mapSuccess);
         return new Result(ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors));
     }
 
@@ -34,7 +34,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
         var result = await resultTask.ConfigureAwait(false);
-        var successes = await Task.WhenAll(result.Successes.Select(success => mapSuccess(success))).ConfigureAwait(false);
+        var successes = await Task.WhenAll(result.Successes.Select(mapSuccess)).ConfigureAwait(false);
         return new Result(ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors));
     }
 
@@ -67,7 +67,7 @@ public static partial class ResultExtensions
     public static async Task<Result> MapSuccessAsync(this Result result, Func<ISuccess, Task<ISuccess>> mapSuccess)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var successes = await Task.WhenAll(result.Successes.Select(success => mapSuccess(success))).ConfigureAwait(false);
+        var successes = await Task.WhenAll(result.Successes.Select(mapSuccess)).ConfigureAwait(false);
         return new Result(ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors));
     }
 
@@ -100,7 +100,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
         var result = await resultTask.ConfigureAwait(false);
-        var successes = result.Successes.Select(success => mapSuccess(success));
+        var successes = result.Successes.Select(mapSuccess);
         return new Result(ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors));
     }
 
@@ -117,7 +117,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
         var result = await resultTask.ConfigureAwait(false);
-        var successes = result.Successes.Select(success => mapSuccess(success));
+        var successes = result.Successes.Select(mapSuccess);
         return new Result(ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors));
     }
 
