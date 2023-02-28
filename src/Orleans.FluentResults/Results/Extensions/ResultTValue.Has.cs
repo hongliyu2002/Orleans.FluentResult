@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public partial record Result
+public static partial class ResultTExtensions
 {
 
     #region Has Error
@@ -8,55 +8,55 @@ public partial record Result
     /// <summary>
     ///     Check if the result object contains an error from a specific type
     /// </summary>
-    public bool HasError<TError>()
+    public static bool HasError<T, TError>(this Result<T> result)
         where TError : IError
     {
-        return HasError<TError>(out _);
+        return HasError<T, TError>(result, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type
     /// </summary>
-    public bool HasError<TError>(out IEnumerable<TError> result)
+    public static bool HasError<T, TError>(this Result<T> result, out IEnumerable<TError> foundErrors)
         where TError : IError
     {
-        return HasError(_ => true, out result);
+        return HasError(result, _ => true, out foundErrors);
     }
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
-    public bool HasError<TError>(Func<TError, bool> filter)
+    public static bool HasError<T, TError>(this Result<T> result, Func<TError, bool> filter)
         where TError : IError
     {
-        return HasError(filter, out _);
+        return HasError(result, filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
     /// </summary>
-    public bool HasError<TError>(Func<TError, bool> filter, out IEnumerable<TError> result)
+    public static bool HasError<T, TError>(this Result<T> result, Func<TError, bool> filter, out IEnumerable<TError> foundErrors)
         where TError : IError
     {
         ArgumentNullException.ThrowIfNull(filter);
-        return ResultHelper.HasError(Errors, filter, out result);
+        return ResultHelper.HasError(result.Errors, filter, out foundErrors);
     }
 
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> filter)
+    public static bool HasError<T>(this Result<T> result, Func<IError, bool> filter)
     {
-        return HasError(filter, out _);
+        return HasError(result, filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an error with a specific condition
     /// </summary>
-    public bool HasError(Func<IError, bool> filter, out IEnumerable<IError> result)
+    public static bool HasError<T>(this Result<T> result, Func<IError, bool> filter, out IEnumerable<IError> foundErrors)
     {
         ArgumentNullException.ThrowIfNull(filter);
-        return ResultHelper.HasError(Errors, filter, out result);
+        return ResultHelper.HasError(result.Errors, filter, out foundErrors);
     }
 
     #endregion
@@ -66,38 +66,38 @@ public partial record Result
     /// <summary>
     ///     Check if the result object contains an exception from a specific type
     /// </summary>
-    public bool HasException<TException>()
+    public static bool HasException<T, TException>(this Result<T> result)
         where TException : Exception
     {
-        return HasException<TException>(out _);
+        return HasException<T, TException>(result, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an exception from a specific type
     /// </summary>
-    public bool HasException<TException>(out IEnumerable<IError> result)
+    public static bool HasException<T, TException>(this Result<T> result, out IEnumerable<IError> foundErrors)
         where TException : Exception
     {
-        return HasException<TException>(_ => true, out result);
+        return HasException<T, TException>(result, _ => true, out foundErrors);
     }
 
     /// <summary>
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
-    public bool HasException<TException>(Func<TException, bool> filter)
+    public static bool HasException<T, TException>(this Result<T> result, Func<TException, bool> filter)
         where TException : Exception
     {
-        return HasException(filter, out _);
+        return HasException(result, filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains an exception from a specific type and with a specific condition
     /// </summary>
-    public bool HasException<TException>(Func<TException, bool> filter, out IEnumerable<IError> result)
+    public static bool HasException<T, TException>(this Result<T> result, Func<TException, bool> filter, out IEnumerable<IError> foundErrors)
         where TException : Exception
     {
         ArgumentNullException.ThrowIfNull(filter);
-        return ResultHelper.HasException(Errors, filter, out result);
+        return ResultHelper.HasException(result.Errors, filter, out foundErrors);
     }
 
     #endregion
@@ -107,53 +107,53 @@ public partial record Result
     /// <summary>
     ///     Check if the result object contains a success from a specific type
     /// </summary>
-    public bool HasSuccess<TSuccess>()
+    public static bool HasSuccess<T, TSuccess>(this Result<T> result)
         where TSuccess : ISuccess
     {
-        return HasSuccess<TSuccess>(_ => true, out _);
+        return HasSuccess<T, TSuccess>(result, _ => true, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains a success from a specific type
     /// </summary>
-    public bool HasSuccess<TSuccess>(out IEnumerable<TSuccess> result)
+    public static bool HasSuccess<T, TSuccess>(this Result<T> result, out IEnumerable<TSuccess> foundSuccesses)
         where TSuccess : ISuccess
     {
-        return HasSuccess(_ => true, out result);
+        return HasSuccess(result, _ => true, out foundSuccesses);
     }
 
     /// <summary>
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
-    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter)
+    public static bool HasSuccess<T, TSuccess>(this Result<T> result, Func<TSuccess, bool> filter)
         where TSuccess : ISuccess
     {
-        return HasSuccess(filter, out _);
+        return HasSuccess(result, filter, out _);
     }
 
     /// <summary>
     ///     Check if the result object contains a success from a specific type and with a specific condition
     /// </summary>
-    public bool HasSuccess<TSuccess>(Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
+    public static bool HasSuccess<T, TSuccess>(this Result<T> result, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> foundSuccesses)
         where TSuccess : ISuccess
     {
-        return ResultHelper.HasSuccess(Successes, filter, out result);
+        return ResultHelper.HasSuccess(result.Successes, filter, out foundSuccesses);
     }
 
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> filter, out IEnumerable<ISuccess> result)
+    public static bool HasSuccess<T>(this Result<T> result, Func<ISuccess, bool> filter, out IEnumerable<ISuccess> foundSuccesses)
     {
-        return ResultHelper.HasSuccess(Successes, filter, out result);
+        return ResultHelper.HasSuccess(result.Successes, filter, out foundSuccesses);
     }
 
     /// <summary>
     ///     Check if the result object contains a success with a specific condition
     /// </summary>
-    public bool HasSuccess(Func<ISuccess, bool> filter)
+    public static bool HasSuccess<T>(this Result<T> result, Func<ISuccess, bool> filter)
     {
-        return ResultHelper.HasSuccess(Successes, filter, out _);
+        return ResultHelper.HasSuccess(result.Successes, filter, out _);
     }
 
     #endregion

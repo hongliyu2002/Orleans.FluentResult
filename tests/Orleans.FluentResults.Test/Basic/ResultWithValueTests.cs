@@ -323,7 +323,8 @@ public class ResultWithValueTests
     [Fact]
     public void Implicit_conversion_Result_Value_is_converted_to_Result_object_with_Reasons()
     {
-        Result<object> result = new Result<int>().WithValue(42).WithReason(new CustomSuccess());
+        var intResult = new Result<int>().WithValue(42).WithReason(new CustomSuccess());
+        Result<object> result = intResult;
         result.IsSuccess.Should().BeTrue();
         result.IsFailed.Should().BeFalse();
         result.Errors.Should().BeEmpty();

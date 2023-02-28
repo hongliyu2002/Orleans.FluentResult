@@ -29,7 +29,7 @@ public partial record Result<T>
     /// <returns></returns>
     public static implicit operator Result<object>(Result<T> result)
     {
-        return result.ToResult<object>();
+        return result.ToResult<T, object>();
     }
 
     /// <summary>

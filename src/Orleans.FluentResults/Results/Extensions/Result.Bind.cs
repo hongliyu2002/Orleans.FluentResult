@@ -8,7 +8,7 @@ public static partial class ResultExtensions
     #region Bind
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -24,7 +24,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -44,7 +44,7 @@ public static partial class ResultExtensions
     #region Bind Full Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -61,7 +61,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -82,7 +82,7 @@ public static partial class ResultExtensions
     #region Bind Full ValueTask Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -99,7 +99,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -120,7 +120,7 @@ public static partial class ResultExtensions
     #region Bind Right Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -136,7 +136,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -156,7 +156,7 @@ public static partial class ResultExtensions
     #region Bind Right ValueTask Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -172,7 +172,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -192,7 +192,7 @@ public static partial class ResultExtensions
     #region Bind Left Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -209,7 +209,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -230,7 +230,7 @@ public static partial class ResultExtensions
     #region Bind Left ValueTask Async
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -247,7 +247,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Execute an bindAction which returns a <see cref="Result" />.
+    ///     Execute an bindAction which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>

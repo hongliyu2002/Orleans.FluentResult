@@ -2,8 +2,13 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\7.0.1\ref\net7.0\System.Linq.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1d6673a0_002Dbb84_002D40ad_002Da576_002D862a28837d96/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Implicit_conversion_Result_Value_is_converted_to_Result_object_with_Reasons" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithValueTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=73282df6_002Dc453_002D4ab7_002D9bb1_002D9aadd9e274d8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HasExceptionWithPredicate_WithRootError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=73282df6_002Dc453_002D4ab7_002D9bb1_002D9aadd9e274d8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HasExceptionWithPredicate_WithRootError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.CheckReasonsTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorStringifyTests.EmptyErrorToString_OnlyType&lt;/TestId&gt;&#xD;

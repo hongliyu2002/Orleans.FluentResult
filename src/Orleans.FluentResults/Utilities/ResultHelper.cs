@@ -10,28 +10,29 @@ internal static class ResultHelper
     /// </summary>
     /// <param name="errors"></param>
     /// <param name="filter"></param>
-    /// <param name="result"></param>
+    /// <param name="filterErrors"></param>
     /// <typeparam name="TError"></typeparam>
     /// <returns></returns>
-    public static bool HasError<TError>(IEnumerable<IError> errors, Func<TError, bool> filter, out IEnumerable<TError> result)
+    public static bool HasError<TError>(IEnumerable<IError> errors, Func<TError, bool> filter, out IEnumerable<TError> filterErrors)
         where TError : IError
     {
-        var errorsList = errors.ToList();
+        var errorsList = errors as IList<IError> ?? errors.ToList();
         var foundErrors = errorsList.OfType<TError>().Where(filter).ToList();
         if (foundErrors.Any())
         {
-            result = foundErrors;
+            filterErrors = foundErrors;
             return true;
         }
         foreach (var error in errorsList)
         {
-            if (HasError(error.Reasons, filter, out var fErrors))
+            if (!HasError(error.Reasons, filter, out var fErrors))
             {
-                result = fErrors;
-                return true;
+                continue;
             }
+            filterErrors = fErrors;
+            return true;
         }
-        result = Array.Empty<TError>();
+        filterErrors = Array.Empty<TError>();
         return false;
     }
 
@@ -40,28 +41,29 @@ internal static class ResultHelper
     /// </summary>
     /// <param name="errors"></param>
     /// <param name="filter"></param>
-    /// <param name="result"></param>
+    /// <param name="filterErrors"></param>
     /// <typeparam name="TException"></typeparam>
     /// <returns></returns>
-    public static bool HasException<TException>(IEnumerable<IError> errors, Func<TException, bool> filter, out IEnumerable<IError> result)
+    public static bool HasException<TException>(IEnumerable<IError> errors, Func<TException, bool> filter, out IEnumerable<IError> filterErrors)
         where TException : Exception
     {
-        var errorsList = errors.ToList();
+        var errorsList = errors as IList<IError> ?? errors.ToList();
         var foundErrors = errorsList.OfType<ExceptionalError>().Where(e => e.Exception is TException rootExceptionOfTException && filter(rootExceptionOfTException)).ToList();
         if (foundErrors.Any())
         {
-            result = foundErrors;
+            filterErrors = foundErrors;
             return true;
         }
         foreach (var error in errorsList)
         {
-            if (HasException(error.Reasons, filter, out var fErrors))
+            if (!HasException(error.Reasons, filter, out var fErrors))
             {
-                result = fErrors;
-                return true;
+                continue;
             }
+            filterErrors = fErrors;
+            return true;
         }
-        result = Array.Empty<IError>();
+        filterErrors = Array.Empty<IError>();
         return false;
     }
 
@@ -70,19 +72,20 @@ internal static class ResultHelper
     /// </summary>
     /// <param name="successes"></param>
     /// <param name="filter"></param>
-    /// <param name="result"></param>
+    /// <param name="filterSuccesses"></param>
     /// <typeparam name="TSuccess"></typeparam>
     /// <returns></returns>
-    public static bool HasSuccess<TSuccess>(IEnumerable<ISuccess> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
+    public static bool HasSuccess<TSuccess>(IEnumerable<ISuccess> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> filterSuccesses)
         where TSuccess : ISuccess
     {
-        var foundSuccesses = successes.OfType<TSuccess>().Where(filter).ToList();
+        var successesList = successes as IList<ISuccess> ?? successes.ToList();
+        var foundSuccesses = successesList.OfType<TSuccess>().Where(filter).ToList();
         if (foundSuccesses.Any())
         {
-            result = foundSuccesses;
+            filterSuccesses = foundSuccesses;
             return true;
         }
-        result = Array.Empty<TSuccess>();
+        filterSuccesses = Array.Empty<TSuccess>();
         return false;
     }
 }
