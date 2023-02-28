@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public static class ResultExtensions
+public static partial class ResultExtensions
 {
 
     #region Bind
