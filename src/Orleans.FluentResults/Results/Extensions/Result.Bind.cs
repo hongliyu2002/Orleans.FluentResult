@@ -17,7 +17,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = bind();
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -33,10 +33,10 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -71,10 +71,10 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -92,7 +92,7 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -109,10 +109,10 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -129,7 +129,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -145,10 +145,10 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -165,7 +165,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -181,10 +181,10 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = await bind().ConfigureAwait(false);
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -202,7 +202,7 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = bind();
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -219,10 +219,10 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
@@ -240,7 +240,7 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result(result.Reasons);
+            return Result.Fail(result.Errors);
         }
         var bindResult = bind();
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
@@ -257,10 +257,10 @@ public static partial class ResultExtensions
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return new Result<T>(result.Reasons);
+            return Result.Fail<T>(result.Errors);
         }
         var bindResult = bind();
-        return new Result<T>(bindResult.Value, result.Reasons.AddRange(bindResult.Reasons));
+        return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
     #endregion
