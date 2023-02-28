@@ -21,7 +21,7 @@ public partial record Result
     public static Result Merge(params Result[] results)
     {
         ArgumentNullException.ThrowIfNull(results);
-        return new Result(results.SelectMany(result => result.Reasons).ToImmutableList());
+        return new Result(ImmutableList<IReason>.Empty.AddRange(results.SelectMany(result => result.Reasons)));
     }
 
     #endregion

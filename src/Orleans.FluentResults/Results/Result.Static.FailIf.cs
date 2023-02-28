@@ -6,43 +6,43 @@ public partial record Result
     #region FailIf
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result FailIf(bool isFailure, IError error)
+    public static Result FailIf(bool failureCondition, IError error)
     {
-        return isFailure ? Fail(error) : Ok();
+        return failureCondition ? Fail(error) : Ok();
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result FailIf(bool isFailure, string errorMessage)
+    public static Result FailIf(bool failureCondition, string errorMessage)
     {
-        return isFailure ? Fail(errorMessage) : Ok();
+        return failureCondition ? Fail(errorMessage) : Ok();
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result FailIf(bool isFailure, Func<IError> errorFactory)
+    public static Result FailIf(bool failureCondition, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
-        return isFailure ? Fail(errorFactory.Invoke()) : Ok();
+        return failureCondition ? Fail(errorFactory.Invoke()) : Ok();
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result FailIf(bool isFailure, Func<string> errorMessageFactory)
+    public static Result FailIf(bool failureCondition, Func<string> errorMessageFactory)
     {
         ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return isFailure ? Fail(errorMessageFactory.Invoke()) : Ok();
+        return failureCondition ? Fail(errorMessageFactory.Invoke()) : Ok();
     }
 
     #endregion
@@ -50,25 +50,25 @@ public partial record Result
     #region FailIf Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, IError error)
     {
-        var isFailure = await predicate();
-        return FailIf(isFailure, error);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, string errorMessage)
     {
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorMessage);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -76,12 +76,12 @@ public partial record Result
     public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorFactory);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorFactory);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -89,8 +89,8 @@ public partial record Result
     public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
     {
         ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorMessageFactory);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorMessageFactory);
     }
 
     #endregion
@@ -98,25 +98,25 @@ public partial record Result
     #region FailIf ValueTask Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, IError error)
     {
-        var isFailure = await predicate();
-        return FailIf(isFailure, error);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, string errorMessage)
     {
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorMessage);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -124,12 +124,12 @@ public partial record Result
     public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorFactory);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorFactory);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -137,8 +137,8 @@ public partial record Result
     public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
     {
         ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var isFailure = await predicate();
-        return FailIf(isFailure, errorMessageFactory);
+        var failureCondition = await predicate();
+        return FailIf(failureCondition, errorMessageFactory);
     }
 
     #endregion
@@ -146,41 +146,41 @@ public partial record Result
     #region FailIf Generic
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool isFailure, IError error)
+    public static Result<T> FailIf<T>(bool failureCondition, IError error)
     {
-        return Result<T>.FailIf(isFailure, error);
+        return Result<T>.FailIf(failureCondition, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool isFailure, string errorMessage)
+    public static Result<T> FailIf<T>(bool failureCondition, string errorMessage)
     {
-        return Result<T>.FailIf(isFailure, errorMessage);
+        return Result<T>.FailIf(failureCondition, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, Func<IError> errorFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, Func<IError> errorFactory)
     {
-        return Result<T>.FailIf(isFailure, errorFactory);
+        return Result<T>.FailIf(failureCondition, errorFactory);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, Func<string> errorMessageFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, Func<string> errorMessageFactory)
     {
-        return Result<T>.FailIf(isFailure, errorMessageFactory);
+        return Result<T>.FailIf(failureCondition, errorMessageFactory);
     }
 
     #endregion
@@ -188,7 +188,7 @@ public partial record Result
     #region FailIf Generic Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, IError error)
     {
@@ -196,7 +196,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, string errorMessage)
     {
@@ -204,7 +204,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -215,7 +215,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -230,7 +230,7 @@ public partial record Result
     #region FailIf Generic ValueTask Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, IError error)
     {
@@ -238,7 +238,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, string errorMessage)
     {
@@ -246,7 +246,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -257,7 +257,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -272,41 +272,41 @@ public partial record Result
     #region FailIf Generic With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool isFailure, T successValue, IError error)
+    public static Result<T> FailIf<T>(bool failureCondition, T successValue, IError error)
     {
-        return Result<T>.FailIf(isFailure, successValue, error);
+        return Result<T>.FailIf(failureCondition, successValue, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool isFailure, T successValue, string errorMessage)
+    public static Result<T> FailIf<T>(bool failureCondition, T successValue, string errorMessage)
     {
-        return Result<T>.FailIf(isFailure, successValue, errorMessage);
+        return Result<T>.FailIf(failureCondition, successValue, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, T successValue, Func<IError> errorFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, T successValue, Func<IError> errorFactory)
     {
-        return Result<T>.FailIf(isFailure, successValue, errorFactory);
+        return Result<T>.FailIf(failureCondition, successValue, errorFactory);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, T successValue, Func<string> errorMessageFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, T successValue, Func<string> errorMessageFactory)
     {
-        return Result<T>.FailIf(isFailure, successValue, errorMessageFactory);
+        return Result<T>.FailIf(failureCondition, successValue, errorMessageFactory);
     }
 
     #endregion
@@ -314,7 +314,7 @@ public partial record Result
     #region FailIf Generic Async With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, IError error)
     {
@@ -322,7 +322,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, string errorMessage)
     {
@@ -330,7 +330,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -341,7 +341,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -356,7 +356,7 @@ public partial record Result
     #region FailIf Generic ValueTask Async With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, IError error)
     {
@@ -364,7 +364,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string errorMessage)
     {
@@ -372,7 +372,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.
@@ -383,7 +383,7 @@ public partial record Result
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter isFailure
+    ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
     /// <remarks>
     ///     IError is lazily evaluated.

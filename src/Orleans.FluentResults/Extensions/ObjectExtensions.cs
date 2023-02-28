@@ -11,15 +11,7 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static Result<T> ToResult<T>(this T value)
     {
-        if (value is Result<T> resultOfT)
-        {
-            return resultOfT;
-        }
-        if (value is Result result)
-        {
-            return result.ToResult<T>();
-        }
-        return new Result<T>(value);
+        return value switch { Result<T> resultOfT => resultOfT, Result result => result.ToResult<T>(), _ => new Result<T>(value) };
     }
 
     /// <summary>

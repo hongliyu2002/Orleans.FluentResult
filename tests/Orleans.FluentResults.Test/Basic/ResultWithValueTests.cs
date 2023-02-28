@@ -21,7 +21,7 @@ public class ResultWithValueTests
     [Fact]
     public void Ok_WithValidValue_ShouldReturnSuccessResult()
     {
-        var okResult = Result<int>.Ok(5);
+        var okResult = Result.Ok(5);
         okResult.IsSuccess.Should().BeTrue();
         okResult.Value.Should().Be(5);
         okResult.ValueOrDefault.Should().Be(5);
@@ -148,15 +148,15 @@ public class ResultWithValueTests
     public void ToResult_ToAnotherValueType_ReturnFailedResult()
     {
         var valueResult = Result.Fail<int>("First error message");
-        var result = valueResult.ToResult<float>();
+        var result = valueResult.ToResult<int, float>();
         result.IsFailed.Should().BeTrue();
     }
 
     [Fact]
     public void ToResult_ToAnotherValueTypeWithOkResultAndNoConverter_ReturnFailedResult()
     {
-        var valueResult = Result<int>.Ok(4);
-        var result = valueResult.ToResult<float>();
+        var valueResult = Result.Ok(4);
+        var result = valueResult.ToResult<int, float>();
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().Be(4);
     }
@@ -164,10 +164,10 @@ public class ResultWithValueTests
     [Fact]
     public void ToResult_ToAnotherValueTypeWithOkResultAndConverter_ReturnSuccessResult()
     {
-        var valueResult = Result<int>.Ok(4);
-        var result = valueResult.ToResult<float>(v => v);
+        var valueResult = Result.Ok(4);
+        var result = valueResult.Map<int, float>(v => v + 1);
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(4);
+        result.Value.Should().Be(5);
     }
 
     [Fact]
@@ -365,7 +365,7 @@ public class ResultWithValueTests
     [Fact]
     public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailed_and_value()
     {
-        var (isSuccess, isFailed, valueOrDefault) = Result<int>.Ok(100);
+        var (isSuccess, isFailed, valueOrDefault) = Result.Ok(100);
         isSuccess.Should().Be(true);
         isFailed.Should().Be(false);
         valueOrDefault.Should().Be(100);
@@ -383,7 +383,7 @@ public class ResultWithValueTests
     [Fact]
     public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailed_and_value_with_errors()
     {
-        var (isSuccess, isFailed, valueOrDefault, errors) = Result<int>.Ok(100);
+        var (isSuccess, isFailed, valueOrDefault, errors) = Result.Ok(100);
         isSuccess.Should().Be(true);
         isFailed.Should().Be(false);
         valueOrDefault.Should().Be(100);

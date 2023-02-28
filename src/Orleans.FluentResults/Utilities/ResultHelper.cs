@@ -1,39 +1,9 @@
-﻿using System.Collections.Immutable;
-
-namespace Orleans.FluentResults;
+﻿namespace Orleans.FluentResults;
 
 /// <summary>
 /// </summary>
 internal static class ResultHelper
 {
-
-    #region Merge
-
-    /// <summary>
-    ///     Merge multiple result objects to one result together
-    /// </summary>
-    /// <param name="results"></param>
-    /// <returns></returns>
-    public static Result Merge(IEnumerable<Result> results)
-    {
-        return new Result(results.SelectMany(result => result.Reasons).ToImmutableList());
-    }
-
-    /// <summary>
-    ///     Merge multiple result objects to one result together
-    /// </summary>
-    /// <param name="results"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static Result<IEnumerable<T>> Merge<T>(IEnumerable<Result<T>> results)
-    {
-        var resultsList = results.ToList();
-        return new Result<IEnumerable<T>>(resultsList.Select(result => result.Value), resultsList.SelectMany(result => result.Reasons).ToImmutableList());
-    }
-
-    #endregion
-
-    #region Has
 
     /// <summary>
     ///     Check if the result object contains an error from a specific type and with a specific condition
@@ -115,7 +85,4 @@ internal static class ResultHelper
         result = Array.Empty<TSuccess>();
         return false;
     }
-
-    #endregion
-
 }

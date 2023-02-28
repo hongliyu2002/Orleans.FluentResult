@@ -1,4 +1,6 @@
-﻿namespace Orleans.FluentResults;
+﻿using System.Collections.Immutable;
+
+namespace Orleans.FluentResults;
 
 /// <summary>
 /// </summary>
@@ -12,8 +14,7 @@ public static class EnumerableExtensions
     /// </summary>
     public static Result Merge(this IEnumerable<Result> results)
     {
-        ArgumentNullException.ThrowIfNull(results);
-        return ResultHelper.Merge(results);
+        return new Result(ImmutableList<IReason>.Empty.AddRange(results.SelectMany(result => result.Reasons)));
     }
 
     /// <summary>
@@ -21,8 +22,8 @@ public static class EnumerableExtensions
     /// </summary>
     public static Result<IEnumerable<T>> Merge<T>(this IEnumerable<Result<T>> results)
     {
-        ArgumentNullException.ThrowIfNull(results);
-        return ResultHelper.Merge(results);
+        var resultsList = results as Result<T>[] ?? results.ToArray();
+        return new Result<IEnumerable<T>>(resultsList.Select(result => result.Value), ImmutableList<IReason>.Empty.AddRange(resultsList.SelectMany(result => result.Reasons)));
     }
 
     #endregion
