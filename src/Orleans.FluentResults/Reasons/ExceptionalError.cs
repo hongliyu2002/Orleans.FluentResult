@@ -7,14 +7,14 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public record ExceptionalError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons, Exception Exception)
+public record ExceptionalError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons, Exception Exception)
     : Error(Message, Metadata, Reasons), IExceptionalError
 {
     /// <summary>
     ///     Creates a new instance of <see cref="ExceptionalError" />
     /// </summary>
     public ExceptionalError()
-        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, new Exception(string.Empty))
+        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty, new Exception(string.Empty))
     {
     }
 
@@ -23,7 +23,7 @@ public record ExceptionalError(string Message, IImmutableDictionary<string, obje
     /// </summary>
     /// <param name="message">Message of the error</param>
     public ExceptionalError(string message)
-        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, new Exception(message))
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty, new Exception(message))
     {
     }
 
@@ -32,7 +32,7 @@ public record ExceptionalError(string Message, IImmutableDictionary<string, obje
     /// </summary>
     /// <param name="exception">Exception of the error</param>
     public ExceptionalError(Exception exception)
-        : this(exception.Message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, exception)
+        : this(exception.Message, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty, exception)
     {
     }
 
@@ -42,7 +42,7 @@ public record ExceptionalError(string Message, IImmutableDictionary<string, obje
     /// <param name="message">Message of the error</param>
     /// <param name="exception">Exception of the error</param>
     public ExceptionalError(string message, Exception exception)
-        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty, exception)
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty, exception)
     {
     }
 

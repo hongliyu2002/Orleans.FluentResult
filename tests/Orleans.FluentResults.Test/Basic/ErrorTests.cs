@@ -137,10 +137,10 @@ public class ErrorTests
 
     #region Custom
 
-    private record CustomError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons) : Error(Message, Metadata, Reasons)
+    private record CustomError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons) : Error(Message, Metadata, Reasons)
     {
         public CustomError()
-            : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
+            : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty)
         {
         }
     }

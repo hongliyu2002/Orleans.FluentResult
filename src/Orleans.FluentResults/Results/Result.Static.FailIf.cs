@@ -27,7 +27,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result FailIf(bool isFailure, Func<Error> errorFactory)
+    public static Result FailIf(bool isFailure, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         return isFailure ? Fail(errorFactory.Invoke()) : Ok();
@@ -73,7 +73,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<Error> errorFactory)
+    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();
@@ -121,7 +121,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<Error> errorFactory)
+    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();
@@ -167,7 +167,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, Func<Error> errorFactory)
+    public static Result<T> FailIf<T>(bool isFailure, Func<IError> errorFactory)
     {
         return Result<T>.FailIf(isFailure, errorFactory);
     }
@@ -209,7 +209,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, Func<Error> errorFactory)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
         return Result<T>.FailIfAsync(predicate, errorFactory);
     }
@@ -251,7 +251,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, Func<Error> errorFactory)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
         return Result<T>.FailIfAsync(predicate, errorFactory);
     }
@@ -293,7 +293,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf<T>(bool isFailure, T successValue, Func<Error> errorFactory)
+    public static Result<T> FailIf<T>(bool isFailure, T successValue, Func<IError> errorFactory)
     {
         return Result<T>.FailIf(isFailure, successValue, errorFactory);
     }
@@ -335,7 +335,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<Error> errorFactory)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
         return Result<T>.FailIfAsync(predicate, successValue, errorFactory);
     }
@@ -377,7 +377,7 @@ public partial record Result
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<Error> errorFactory)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
         return Result<T>.FailIfAsync(predicate, successValue, errorFactory);
     }

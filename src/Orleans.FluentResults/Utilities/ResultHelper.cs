@@ -43,8 +43,8 @@ internal static class ResultHelper
     /// <param name="result"></param>
     /// <typeparam name="TError"></typeparam>
     /// <returns></returns>
-    public static bool HasError<TError>(IEnumerable<Error> errors, Func<TError, bool> filter, out IEnumerable<TError> result)
-        where TError : Error
+    public static bool HasError<TError>(IEnumerable<IError> errors, Func<TError, bool> filter, out IEnumerable<TError> result)
+        where TError : IError
     {
         var errorsList = errors.ToList();
         var foundErrors = errorsList.OfType<TError>().Where(filter).ToList();
@@ -73,7 +73,7 @@ internal static class ResultHelper
     /// <param name="result"></param>
     /// <typeparam name="TException"></typeparam>
     /// <returns></returns>
-    public static bool HasException<TException>(IEnumerable<Error> errors, Func<TException, bool> filter, out IEnumerable<Error> result)
+    public static bool HasException<TException>(IEnumerable<IError> errors, Func<TException, bool> filter, out IEnumerable<IError> result)
         where TException : Exception
     {
         var errorsList = errors.ToList();
@@ -103,8 +103,8 @@ internal static class ResultHelper
     /// <param name="result"></param>
     /// <typeparam name="TSuccess"></typeparam>
     /// <returns></returns>
-    public static bool HasSuccess<TSuccess>(IEnumerable<Success> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
-        where TSuccess : Success
+    public static bool HasSuccess<TSuccess>(IEnumerable<ISuccess> successes, Func<TSuccess, bool> filter, out IEnumerable<TSuccess> result)
+        where TSuccess : ISuccess
     {
         var foundSuccesses = successes.OfType<TSuccess>().Where(filter).ToList();
         if (foundSuccesses.Any())

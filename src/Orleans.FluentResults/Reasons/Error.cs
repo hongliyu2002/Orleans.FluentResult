@@ -8,13 +8,13 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public record Error(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons) : IError
+public record Error(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons) : IError
 {
     /// <summary>
     ///     Creates a new instance of <see cref="Error" />
     /// </summary>
     public Error()
-        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
+        : this(string.Empty, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty)
     {
     }
 
@@ -23,7 +23,7 @@ public record Error(string Message, IImmutableDictionary<string, object> Metadat
     /// </summary>
     /// <param name="message">Message of the error</param>
     public Error(string message)
-        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty)
     {
     }
 
@@ -33,7 +33,7 @@ public record Error(string Message, IImmutableDictionary<string, object> Metadat
     /// <param name="message">Message of the error</param>
     /// <param name="causedBy">The root cause of the <see cref="Error" /></param>
     public Error(string message, Error causedBy)
-        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty.Add(causedBy))
+        : this(message, ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty.Add(causedBy))
     {
     }
 

@@ -1,4 +1,6 @@
-﻿namespace Orleans.FluentResults;
+﻿using System.Collections.Immutable;
+
+namespace Orleans.FluentResults;
 
 /// <summary>
 /// </summary>
@@ -16,7 +18,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var errors = result.Errors.Select(error => mapError(error));
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -33,7 +35,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
         var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error))).ConfigureAwait(false);
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -50,7 +52,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
         var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(false);
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -66,7 +68,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error))).ConfigureAwait(false);
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -82,7 +84,7 @@ public static partial class ResultTExtensions
     {
         ArgumentNullException.ThrowIfNull(mapError);
         var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(false);
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -99,7 +101,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
         var errors = result.Errors.Select(error => mapError(error));
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion
@@ -116,7 +118,7 @@ public static partial class ResultTExtensions
         ArgumentNullException.ThrowIfNull(mapError);
         var result = await resultTask.ConfigureAwait(false);
         var errors = result.Errors.Select(error => mapError(error));
-        return result with { Reasons = result.Reasons.AddRange(errors).AddRange(result.Successes) };
+        return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
     #endregion

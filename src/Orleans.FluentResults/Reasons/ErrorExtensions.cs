@@ -47,7 +47,7 @@ public static class ErrorExtensions
     /// <summary>
     ///     Set the root cause of the error
     /// </summary>
-    public static Error CausedBy(this Error error, IEnumerable<Error> causedBys)
+    public static Error CausedBy(this Error error, IEnumerable<IError> causedBys)
     {
         ArgumentNullException.ThrowIfNull(error);
         ArgumentNullException.ThrowIfNull(causedBys);

@@ -24,7 +24,7 @@ public class Tenant : Grain, ITenantGrain
     {
         // if (!_users.State.Repository.TryGetValue(id, out string? name))
         // {
-        //     return Result<string>.Fail(Errors.UserNotFound(id));
+        //     return Result<string>.Fail(IErrors.UserNotFound(id));
         // }
         // return Result<string>.Ok(name);
         return Task.FromResult(Result<string>.OkIf(_users.State.Repository.TryGetValue(id, out var name), name!, Errors.UserNotFound(id)));

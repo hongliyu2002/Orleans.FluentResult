@@ -28,7 +28,7 @@ public partial record Result
     /// <summary>
     ///     Creates a failed result with the given error
     /// </summary>
-    public static Result Fail(Error error)
+    public static Result Fail(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
         return new Result(ImmutableList<IReason>.Empty.Add(error));
@@ -37,7 +37,7 @@ public partial record Result
     /// <summary>
     ///     Creates a failed result with the given errors.
     /// </summary>
-    public static Result Fail(IEnumerable<Error> errors)
+    public static Result Fail(IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return new Result(ImmutableList<IReason>.Empty.AddRange(errors));
@@ -95,7 +95,7 @@ public partial record Result
     /// <summary>
     ///     Creates a failed result with the given errors.
     /// </summary>
-    public static Result<T> Fail<T>(IEnumerable<Error> errors)
+    public static Result<T> Fail<T>(IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
         return new Result<T>(ImmutableList<IReason>.Empty.AddRange(errors));

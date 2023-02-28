@@ -112,7 +112,7 @@ public class ResultWithoutValueTests
     [Fact]
     public void Fail_WithNullEnumerableOfErrors_ShouldThrow()
     {
-        Action act = () => Result.Fail((IEnumerable<Error>)null);
+        Action act = () => Result.Fail((IEnumerable<IError>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 

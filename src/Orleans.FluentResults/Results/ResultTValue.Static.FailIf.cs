@@ -27,7 +27,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf(bool isFailure, Func<Error> errorFactory)
+    public static Result<T> FailIf(bool isFailure, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         return isFailure ? Fail(errorFactory.Invoke()) : Ok();
@@ -73,7 +73,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> predicate, Func<Error> errorFactory)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();
@@ -121,7 +121,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> predicate, Func<Error> errorFactory)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();
@@ -167,7 +167,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static Result<T> FailIf(bool isFailure, T successValue, Func<Error> errorFactory)
+    public static Result<T> FailIf(bool isFailure, T successValue, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         return isFailure ? Fail(errorFactory.Invoke()) : Ok(successValue);
@@ -213,7 +213,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> predicate, T successValue, Func<Error> errorFactory)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();
@@ -261,7 +261,7 @@ public partial record Result<T>
     /// <remarks>
     ///     Error is lazily evaluated.
     /// </remarks>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> predicate, T successValue, Func<Error> errorFactory)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> predicate, T successValue, Func<IError> errorFactory)
     {
         ArgumentNullException.ThrowIfNull(errorFactory);
         var isFailure = await predicate();

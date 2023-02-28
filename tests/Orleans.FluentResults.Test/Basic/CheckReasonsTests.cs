@@ -237,11 +237,11 @@ public class CheckReasonsTests
         public int Id { get; }
     }
 
-    private record NotFoundError(int Id, string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<Error> Reasons) : Error(Message, Metadata, Reasons)
+    private record NotFoundError(int Id, string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons) : Error(Message, Metadata, Reasons)
     {
 
         public NotFoundError(int id)
-            : this(id, "Not Found", ImmutableDictionary<string, object>.Empty, ImmutableList<Error>.Empty)
+            : this(id, "Not Found", ImmutableDictionary<string, object>.Empty, ImmutableList<IError>.Empty)
         {
         }
     }
