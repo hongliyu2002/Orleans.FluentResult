@@ -8,25 +8,25 @@ public static partial class ResultExtensions
     #region CheckIf
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Result CheckIf(this Result result, bool checkCondition, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Result CheckIf(this Result result, bool checkCondition, Func<Result> check)
     {
-        return checkCondition ? result.Check(bind) : result;
+        return checkCondition ? result.Check(check) : result;
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Result CheckIf<T1>(this Result result, bool checkCondition, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Result CheckIf<T1>(this Result result, bool checkCondition, Func<Result<T1>> check)
     {
-        return checkCondition ? result.Check(bind) : result;
+        return checkCondition ? result.Check(check) : result;
     }
 
     #endregion
@@ -34,25 +34,25 @@ public static partial class ResultExtensions
     #region CheckIf Full Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync(this Task<Result> resultTask, bool checkCondition, Func<Task<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync(this Task<Result> resultTask, bool checkCondition, Func<Task<Result>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync<T1>(this Task<Result> resultTask, bool checkCondition, Func<Task<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync<T1>(this Task<Result> resultTask, bool checkCondition, Func<Task<Result<T1>>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     #endregion
@@ -60,25 +60,25 @@ public static partial class ResultExtensions
     #region CheckIf Full ValueTask Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, bool checkCondition, Func<ValueTask<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, bool checkCondition, Func<ValueTask<Result>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync<T1>(this ValueTask<Result> resultTask, bool checkCondition, Func<ValueTask<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync<T1>(this ValueTask<Result> resultTask, bool checkCondition, Func<ValueTask<Result<T1>>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     #endregion
@@ -86,25 +86,25 @@ public static partial class ResultExtensions
     #region CheckIf Right Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync(this Result result, bool checkCondition, Func<Task<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync(this Result result, bool checkCondition, Func<Task<Result>> check)
     {
-        return checkCondition ? result.CheckAsync(bind) : Task.FromResult(result);
+        return checkCondition ? result.CheckAsync(check) : Task.FromResult(result);
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync<T1>(this Result result, bool checkCondition, Func<Task<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync<T1>(this Result result, bool checkCondition, Func<Task<Result<T1>>> check)
     {
-        return checkCondition ? result.CheckAsync(bind) : Task.FromResult(result);
+        return checkCondition ? result.CheckAsync(check) : Task.FromResult(result);
     }
 
     #endregion
@@ -112,25 +112,25 @@ public static partial class ResultExtensions
     #region CheckIf Right ValueTask Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync(this Result result, bool checkCondition, Func<ValueTask<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync(this Result result, bool checkCondition, Func<ValueTask<Result>> check)
     {
-        return checkCondition ? result.CheckAsync(bind) : ValueTask.FromResult(result);
+        return checkCondition ? result.CheckAsync(check) : ValueTask.FromResult(result);
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync<T1>(this Result result, bool checkCondition, Func<ValueTask<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync<T1>(this Result result, bool checkCondition, Func<ValueTask<Result<T1>>> check)
     {
-        return checkCondition ? result.CheckAsync(bind) : ValueTask.FromResult(result);
+        return checkCondition ? result.CheckAsync(check) : ValueTask.FromResult(result);
     }
 
     #endregion
@@ -138,25 +138,25 @@ public static partial class ResultExtensions
     #region CheckIf Left Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync(this Task<Result> resultTask, bool checkCondition, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync(this Task<Result> resultTask, bool checkCondition, Func<Result> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> CheckIfAsync<T1>(this Task<Result> resultTask, bool checkCondition, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Task<Result> CheckIfAsync<T1>(this Task<Result> resultTask, bool checkCondition, Func<Result<T1>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     #endregion
@@ -164,25 +164,25 @@ public static partial class ResultExtensions
     #region CheckIf Left ValueTask Async
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, bool checkCondition, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, bool checkCondition, Func<Result> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="checkCondition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> CheckIfAsync<T1>(this ValueTask<Result> resultTask, bool checkCondition, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static ValueTask<Result> CheckIfAsync<T1>(this ValueTask<Result> resultTask, bool checkCondition, Func<Result<T1>> check)
     {
-        return checkCondition ? resultTask.CheckAsync(bind) : resultTask;
+        return checkCondition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     #endregion

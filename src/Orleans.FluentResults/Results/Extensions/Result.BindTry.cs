@@ -28,7 +28,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -83,7 +83,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -139,7 +139,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -194,7 +194,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -248,7 +248,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -303,7 +303,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 
@@ -359,7 +359,7 @@ public static partial class ResultExtensions
         }
         catch (Exception ex)
         {
-            return Result.Fail(catchHandler(ex));
+            return Result.Fail(result.Errors.Add(catchHandler(ex)));
         }
     }
 

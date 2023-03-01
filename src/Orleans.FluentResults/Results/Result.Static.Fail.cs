@@ -116,8 +116,7 @@ public partial record Result
     public static Result<T> Fail<T>(IEnumerable<Exception> exceptions)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return new
-            Result<T>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
+        return new Result<T>(ImmutableList<IReason>.Empty.AddRange(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception))));
     }
 
     #endregion

@@ -12,11 +12,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Result Check(this Result result, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Result Check(this Result result, Func<Result> check)
     {
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -24,11 +24,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Result Check<T1>(this Result result, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static Result Check<T1>(this Result result, Func<Result<T1>> check)
     {
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -40,12 +40,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Task<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Task<Result>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -53,12 +53,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync<T1>(this Task<Result> resultTask, Func<Task<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync<T1>(this Task<Result> resultTask, Func<Task<Result<T1>>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -70,12 +70,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -83,12 +83,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync<T1>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync<T1>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T1>>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -100,11 +100,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync(this Result result, Func<Task<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync(this Result result, Func<Task<Result>> check)
     {
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -112,11 +112,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync<T1>(this Result result, Func<Task<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync<T1>(this Result result, Func<Task<Result<T1>>> check)
     {
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -128,11 +128,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync(this Result result, Func<ValueTask<Result>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync(this Result result, Func<ValueTask<Result>> check)
     {
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -140,11 +140,11 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync<T1>(this Result result, Func<ValueTask<Result<T1>>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync<T1>(this Result result, Func<ValueTask<Result<T1>>> check)
     {
-        var bindResult = await result.BindTryAsync(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = await result.BindTryAsync(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -156,12 +156,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Result> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -169,12 +169,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async Task<Result> CheckAsync<T1>(this Task<Result> resultTask, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async Task<Result> CheckAsync<T1>(this Task<Result> resultTask, Func<Result<T1>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
@@ -186,12 +186,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<Result> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<Result> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     /// <summary>
@@ -199,12 +199,12 @@ public static partial class ResultExtensions
     ///     If this Result is a failure, it is returned. Otherwise, the calling result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static async ValueTask<Result> CheckAsync<T1>(this ValueTask<Result> resultTask, Func<Result<T1>> bind)
+    /// <param name="check">Action that may fail.</param>
+    public static async ValueTask<Result> CheckAsync<T1>(this ValueTask<Result> resultTask, Func<Result<T1>> check)
     {
         var result = await resultTask.ConfigureAwait(false);
-        var bindResult = result.BindTry(bind);
-        return bindResult.IsFailed ? Result.Fail(bindResult.Errors) : result;
+        var checkResult = result.BindTry(check);
+        return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
     #endregion
