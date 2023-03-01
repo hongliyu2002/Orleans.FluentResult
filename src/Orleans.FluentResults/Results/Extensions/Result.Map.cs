@@ -8,7 +8,7 @@ public static partial class ResultExtensions
     #region Map
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
     #region Map Full Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
@@ -49,7 +49,7 @@ public static partial class ResultExtensions
     #region Map Full ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
@@ -70,7 +70,7 @@ public static partial class ResultExtensions
     #region Map Right Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
@@ -90,7 +90,7 @@ public static partial class ResultExtensions
     #region Map Right ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
@@ -110,7 +110,7 @@ public static partial class ResultExtensions
     #region Map Left Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
@@ -131,7 +131,7 @@ public static partial class ResultExtensions
     #region Map Left ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>

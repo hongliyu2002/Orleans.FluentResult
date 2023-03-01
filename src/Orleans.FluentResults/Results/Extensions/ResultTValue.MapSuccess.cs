@@ -10,7 +10,7 @@ public static partial class ResultTExtensions
     #region MapSuccess
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -26,7 +26,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Full Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -43,7 +43,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Full ValueTask Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -60,7 +60,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Right Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -76,7 +76,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Right ValueTask Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -92,7 +92,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Left Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapSuccess">Action that may fail.</param>
@@ -109,7 +109,7 @@ public static partial class ResultTExtensions
     #region MapSuccess Left ValueTask Async
 
     /// <summary>
-    ///     Execute an mapSuccess function which returns a <see cref="Result{T}" />.
+    ///     If the calling Result is a success, a new success result from the return value of a given map success function is returned. Otherwise, creates a new failure result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapSuccess">Action that may fail.</param>

@@ -8,7 +8,8 @@ public static partial class ResultExtensions
     #region BindTry
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -33,7 +34,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -62,7 +64,8 @@ public static partial class ResultExtensions
     #region BindTry Full Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -88,7 +91,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -118,7 +122,8 @@ public static partial class ResultExtensions
     #region BindTry Full ValueTask Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -144,7 +149,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -174,7 +180,8 @@ public static partial class ResultExtensions
     #region BindTry Right Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -199,7 +206,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -228,7 +236,8 @@ public static partial class ResultExtensions
     #region BindTry Right ValueTask Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -253,7 +262,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -282,7 +292,8 @@ public static partial class ResultExtensions
     #region BindTry Left Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -308,7 +319,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -338,7 +350,8 @@ public static partial class ResultExtensions
     #region BindTry Left ValueTask Async
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -364,7 +377,8 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     Try to execute an bind action which returns a <see cref="Result" />.
+    ///     Selects result from the return value of a given bind function. If the calling Result is a failure, a new failure result is returned instead.
+    ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>

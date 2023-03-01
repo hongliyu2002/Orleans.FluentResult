@@ -10,7 +10,7 @@ public static partial class ResultExtensions
     #region MapError
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -26,7 +26,7 @@ public static partial class ResultExtensions
     #region MapError Full Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -43,7 +43,7 @@ public static partial class ResultExtensions
     #region MapError Full ValueTask Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -60,7 +60,7 @@ public static partial class ResultExtensions
     #region MapError Right Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -76,7 +76,7 @@ public static partial class ResultExtensions
     #region MapError Right ValueTask Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -92,7 +92,7 @@ public static partial class ResultExtensions
     #region MapError Left Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapError">Action that may fail.</param>
@@ -109,7 +109,7 @@ public static partial class ResultExtensions
     #region MapError Left ValueTask Async
 
     /// <summary>
-    ///     Execute an mapError function which returns a <see cref="Result" />.
+    ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="mapError">Action that may fail.</param>

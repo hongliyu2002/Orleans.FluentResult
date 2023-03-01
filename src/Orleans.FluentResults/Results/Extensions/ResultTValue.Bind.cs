@@ -8,7 +8,7 @@ public static partial class ResultTExtensions
     #region Bind
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -24,7 +24,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -40,7 +40,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -56,7 +56,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -108,7 +108,7 @@ public static partial class ResultTExtensions
     #region Bind Full Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -125,7 +125,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -142,7 +142,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -159,7 +159,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -214,7 +214,7 @@ public static partial class ResultTExtensions
     #region Bind Full ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -231,7 +231,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -248,7 +248,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -265,7 +265,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -320,7 +320,7 @@ public static partial class ResultTExtensions
     #region Bind Right Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -336,7 +336,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -352,7 +352,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -368,7 +368,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -420,7 +420,7 @@ public static partial class ResultTExtensions
     #region Bind Right ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -436,7 +436,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -452,7 +452,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -468,7 +468,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -520,7 +520,7 @@ public static partial class ResultTExtensions
     #region Bind Left Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -537,7 +537,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -554,7 +554,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -571,7 +571,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -626,7 +626,7 @@ public static partial class ResultTExtensions
     #region Bind Left ValueTask Async
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -643,7 +643,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -660,7 +660,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
@@ -677,7 +677,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Execute an bind function which returns a <see cref="Result{T}" />.
+    ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="bind">Action that may fail.</param>
