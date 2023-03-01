@@ -65,6 +65,30 @@ public static partial class ResultExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static Result Ensure(this Result result, Func<bool> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return result.Ensure(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static Result Ensure(this Result result, Func<bool> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return result.Ensure(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region Ensure Full Async
@@ -127,6 +151,30 @@ public static partial class ResultExtensions
             return new Result(result.Reasons.AddRange(errors));
         }
         return result;
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static Task<Result> EnsureAsync(this Task<Result> resultTask, Func<Task<bool>> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static Task<Result> EnsureAsync(this Task<Result> resultTask, Func<Task<bool>> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     #endregion
@@ -193,6 +241,30 @@ public static partial class ResultExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, Func<ValueTask<bool>> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, Func<ValueTask<bool>> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region Ensure Right Async
@@ -255,6 +327,30 @@ public static partial class ResultExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static Task<Result> EnsureAsync(this Result result, Func<Task<bool>> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static Task<Result> EnsureAsync(this Result result, Func<Task<bool>> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region Ensure Right ValueTask Async
@@ -315,6 +411,30 @@ public static partial class ResultExtensions
             return new Result(result.Reasons.AddRange(errors));
         }
         return result;
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static ValueTask<Result> EnsureAsync(this Result result, Func<ValueTask<bool>> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static ValueTask<Result> EnsureAsync(this Result result, Func<ValueTask<bool>> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     #endregion
@@ -381,6 +501,30 @@ public static partial class ResultExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static Task<Result> EnsureAsync(this Task<Result> resultTask, Func<bool> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static Task<Result> EnsureAsync(this Task<Result> resultTask, Func<bool> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region Ensure Left ValueTask Async
@@ -443,6 +587,30 @@ public static partial class ResultExtensions
             return new Result(result.Reasons.AddRange(errors));
         }
         return result;
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exception"></param>
+    public static ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the predicate is false. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="predicate">Action that may fail.</param>
+    /// <param name="exceptions"></param>
+    public static ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, Func<bool> predicate, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     #endregion
