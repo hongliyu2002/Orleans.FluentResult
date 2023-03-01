@@ -8,7 +8,7 @@ public static partial class ResultTExtensions
     #region EnsureNotNull
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="errorMessage"></param>
@@ -19,7 +19,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="errorMessages"></param>
@@ -30,7 +30,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="error"></param>
@@ -45,7 +45,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="errors"></param>
@@ -59,12 +59,34 @@ public static partial class ResultTExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="exception"></param>
+    public static Result<T> EnsureNotNull<T>(this Result<T> result, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="exceptions"></param>
+    public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region EnsureNotNull Full Async
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errorMessage"></param>
@@ -75,7 +97,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errorMessages"></param>
@@ -86,7 +108,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="error"></param>
@@ -102,7 +124,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errors"></param>
@@ -117,12 +139,36 @@ public static partial class ResultTExtensions
         return result;
     }
 
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="exception"></param>
+    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        var result = await resultTask.ConfigureAwait(false);
+        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="exceptions"></param>
+    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        var result = await resultTask.ConfigureAwait(false);
+        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+    }
+
     #endregion
 
     #region EnsureNotNull Full ValueTask Async
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errorMessage"></param>
@@ -133,7 +179,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with errorMessage if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with errorMessage if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errorMessages"></param>
@@ -144,7 +190,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="error"></param>
@@ -160,7 +206,7 @@ public static partial class ResultTExtensions
     }
 
     /// <summary>
-    ///     Returns a new failure result with error if the predicate is false. Otherwise returns the starting result.
+    ///     Returns a new failure result with error if the result value is null. Otherwise returns the starting result.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errors"></param>
@@ -173,6 +219,30 @@ public static partial class ResultTExtensions
             return result with { Reasons = result.Reasons.AddRange(errors) };
         }
         return result;
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="exception"></param>
+    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        var result = await resultTask.ConfigureAwait(false);
+        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+    }
+
+    /// <summary>
+    ///     Returns a new failure result with exception if the result value is null. Otherwise returns the starting result.
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="exceptions"></param>
+    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<Exception> exceptions)
+    {
+        ArgumentNullException.ThrowIfNull(exceptions);
+        var result = await resultTask.ConfigureAwait(false);
+        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
     }
 
     #endregion
