@@ -12,7 +12,8 @@ public partial record Result
     /// </summary>
     public static Result Combine(IEnumerable<Result> results)
     {
-        return Combine(results.ToArray());
+        var resultsArray = results as Result[] ?? results.ToArray();
+        return Combine(resultsArray);
     }
 
     /// <summary>
@@ -21,7 +22,8 @@ public partial record Result
     public static Result Combine(params Result[] results)
     {
         ArgumentNullException.ThrowIfNull(results);
-        return new Result(ImmutableList<IReason>.Empty.AddRange(results.SelectMany(result => result.Reasons)));
+        var combinedResult = new Result(ImmutableList<IReason>.Empty.AddRange(results.SelectMany(result => result.Reasons)));
+        return combinedResult.IsSuccess ? combinedResult : Fail(combinedResult.Errors);
     }
 
     #endregion
