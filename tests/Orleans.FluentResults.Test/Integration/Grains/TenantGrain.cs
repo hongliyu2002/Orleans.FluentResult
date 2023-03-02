@@ -29,6 +29,8 @@ public class Tenant : Grain, ITenantGrain
     /// <inheritdoc />
     public async Task<Result> UpdateUser(int id, string name)
     {
+        var findResult = Result.OkIf(_users.State.Repository.ContainsKey(id), Errors.UserNotFound(id))
+                               .Tap(() => _users.State.Repository[id] = name);
         return null;
     }
 }

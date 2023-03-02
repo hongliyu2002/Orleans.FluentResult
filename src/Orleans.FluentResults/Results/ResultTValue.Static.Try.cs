@@ -19,7 +19,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 
@@ -37,7 +37,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 
@@ -55,7 +55,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 
@@ -77,7 +77,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 
@@ -95,7 +95,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 
@@ -113,7 +113,7 @@ public partial record Result<T>
         }
         catch (Exception ex)
         {
-            return Fail(catchHandler(ex));
+            return Fail(catchHandler(ex.InnerException ?? ex));
         }
     }
 

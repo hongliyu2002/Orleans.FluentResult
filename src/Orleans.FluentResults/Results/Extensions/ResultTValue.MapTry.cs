@@ -29,7 +29,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -55,7 +55,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -86,7 +86,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -113,7 +113,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -144,7 +144,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -171,7 +171,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -201,7 +201,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -227,7 +227,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -257,7 +257,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -283,7 +283,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -314,7 +314,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -341,7 +341,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -372,7 +372,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 
@@ -399,7 +399,7 @@ public static partial class ResultTExtensions
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex)));
+            return Result<T1>.Fail(result.Errors.Add(catchHandler(ex.InnerException ?? ex)));
         }
     }
 

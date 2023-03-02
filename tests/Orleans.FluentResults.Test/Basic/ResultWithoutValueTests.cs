@@ -223,7 +223,7 @@ public class ResultWithoutValueTests
     {
         var result = Result.OkIf(true, LazyError());
         result.IsSuccess.Should().BeTrue();
-        static string LazyError() => throw new Exception("This should not be thrown!");
+        static string LazyError() => "This should not be thrown!";
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class ResultWithoutValueTests
     {
         var result = Result.OkIf(true, LazyError());
         result.IsSuccess.Should().BeTrue();
-        static Error LazyError() => throw new Exception("This should not be thrown!");
+        static Error LazyError() => new Error("This should not be thrown!");
     }
 
     [Fact]
