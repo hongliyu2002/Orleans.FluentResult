@@ -1,21 +1,23 @@
 ﻿using Orleans.TestingHost;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Orleans.FluentResults.Test.Fixtures;
 
 public class ClusterFixture : IAsyncLifetime
 {
-
-    public ClusterFixture(ITestOutputHelper testOutputHelper)
+    public ClusterFixture()
     {
-        TestOutputHelper = testOutputHelper;
-        Cluster = new TestClusterBuilder().AddClientBuilderConfigurator<TestClientBuilderConfigurator>()
-                                          .AddSiloBuilderConfigurator<TestSiloConfigurator>()
-                                          .Build();
+        Cluster = new TestClusterBuilder().AddClientBuilderConfigurator<TestClientBuilderConfigurator>().AddSiloBuilderConfigurator<TestSiloConfigurator>().Build();
     }
+    // public ClusterFixture(ITestOutputHelper testOutputHelper)
+    // {
+    //     TestOutputHelper = testOutputHelper;
+    //     Cluster = new TestClusterBuilder().AddClientBuilderConfigurator<TestClientBuilderConfigurator>()
+    //                                       .AddSiloBuilderConfigurator<TestSiloConfigurator>()
+    //                                       .Build();
+    // }
 
-    public ITestOutputHelper TestOutputHelper { get; }
+    // public ITestOutputHelper TestOutputHelper { get; }
     public TestCluster Cluster { get; }
 
     /// <inheritdoc />
@@ -27,7 +29,6 @@ public class ClusterFixture : IAsyncLifetime
     /// <inheritdoc />
     public Task DisposeAsync()
     {
-        return Cluster.DisposeAsync()
-                      .AsTask();
+        return Cluster.DisposeAsync().AsTask();
     }
 }
