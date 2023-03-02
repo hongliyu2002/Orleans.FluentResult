@@ -14,8 +14,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessage"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
-        return result.EnsureNotNull(ResultSettings.Current.ErrorFactory(errorMessage));
+        return result.Ensure(r => r.Value is not null, errorMessage);
     }
 
     /// <summary>
@@ -25,8 +24,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessages"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<string> errorMessages)
     {
-        ArgumentNullException.ThrowIfNull(errorMessages);
-        return result.EnsureNotNull(errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return result.Ensure(r => r.Value is not null, errorMessages);
     }
 
     /// <summary>
@@ -36,12 +34,7 @@ public static partial class ResultTExtensions
     /// <param name="error"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.Add(error) };
-        }
-        return result;
+        return result.Ensure(r => r.Value is not null, error);
     }
 
     /// <summary>
@@ -51,12 +44,7 @@ public static partial class ResultTExtensions
     /// <param name="errors"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<IError> errors)
     {
-        ArgumentNullException.ThrowIfNull(errors);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.AddRange(errors) };
-        }
-        return result;
+        return result.Ensure(r => r.Value is not null, errors);
     }
 
     /// <summary>
@@ -66,8 +54,7 @@ public static partial class ResultTExtensions
     /// <param name="exception"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(exception);
-        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return result.Ensure(r => r.Value is not null, exception);
     }
 
     /// <summary>
@@ -77,8 +64,7 @@ public static partial class ResultTExtensions
     /// <param name="exceptions"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<Exception> exceptions)
     {
-        ArgumentNullException.ThrowIfNull(exceptions);
-        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return result.Ensure(r => r.Value is not null, exceptions);
     }
 
     #endregion
@@ -92,8 +78,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessage"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureNotNullAsync(ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(r => r.Value is not null, errorMessage);
     }
 
     /// <summary>
@@ -103,8 +88,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessages"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<string> errorMessages)
     {
-        ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureNotNullAsync(errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(r => r.Value is not null, errorMessages);
     }
 
     /// <summary>
@@ -112,15 +96,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="error"></param>
-    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IError error)
+    public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.Add(error) };
-        }
-        return result;
+        return resultTask.EnsureAsync(r => r.Value is not null, error);
     }
 
     /// <summary>
@@ -128,15 +106,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errors"></param>
-    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<IError> errors)
+    public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<IError> errors)
     {
-        ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.AddRange(errors) };
-        }
-        return result;
+        return resultTask.EnsureAsync(r => r.Value is not null, errors);
     }
 
     /// <summary>
@@ -144,11 +116,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="exception"></param>
-    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, Exception exception)
+    public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(exception);
-        var result = await resultTask.ConfigureAwait(false);
-        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(r => r.Value is not null, exception);
     }
 
     /// <summary>
@@ -156,11 +126,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="exceptions"></param>
-    public static async Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<Exception> exceptions)
+    public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<Exception> exceptions)
     {
-        ArgumentNullException.ThrowIfNull(exceptions);
-        var result = await resultTask.ConfigureAwait(false);
-        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(r => r.Value is not null, exceptions);
     }
 
     #endregion
@@ -174,8 +142,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessage"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureNotNullAsync(ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(r => r.Value is not null, errorMessage);
     }
 
     /// <summary>
@@ -185,8 +152,7 @@ public static partial class ResultTExtensions
     /// <param name="errorMessages"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<string> errorMessages)
     {
-        ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureNotNullAsync(errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(r => r.Value is not null, errorMessages);
     }
 
     /// <summary>
@@ -194,15 +160,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="error"></param>
-    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IError error)
+    public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IError error)
     {
-        ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.Add(error) };
-        }
-        return result;
+        return resultTask.EnsureAsync(r => r.Value is not null, error);
     }
 
     /// <summary>
@@ -210,15 +170,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="errors"></param>
-    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<IError> errors)
+    public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<IError> errors)
     {
-        ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
-        if (result is { IsSuccess: true, Value: null })
-        {
-            return result with { Reasons = result.Reasons.AddRange(errors) };
-        }
-        return result;
+        return resultTask.EnsureAsync(r => r.Value is not null, errors);
     }
 
     /// <summary>
@@ -226,11 +180,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="exception"></param>
-    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, Exception exception)
+    public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(exception);
-        var result = await resultTask.ConfigureAwait(false);
-        return result.EnsureNotNull(ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(r => r.Value is not null, exception);
     }
 
     /// <summary>
@@ -238,11 +190,9 @@ public static partial class ResultTExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="exceptions"></param>
-    public static async ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<Exception> exceptions)
+    public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<Exception> exceptions)
     {
-        ArgumentNullException.ThrowIfNull(exceptions);
-        var result = await resultTask.ConfigureAwait(false);
-        return result.EnsureNotNull(exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(r => r.Value is not null, exceptions);
     }
 
     #endregion

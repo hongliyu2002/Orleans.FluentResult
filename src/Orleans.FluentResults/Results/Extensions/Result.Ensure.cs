@@ -476,7 +476,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
         var result = await resultTask.ConfigureAwait(false);
-        if (result.IsSuccess && predicate(result))
+        if (result.IsSuccess && !predicate(result))
         {
             return new Result(result.Reasons.Add(error));
         }
@@ -494,7 +494,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
         var result = await resultTask.ConfigureAwait(false);
-        if (result.IsSuccess && predicate(result))
+        if (result.IsSuccess && !predicate(result))
         {
             return new Result(result.Reasons.AddRange(errors));
         }
@@ -564,7 +564,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
         var result = await resultTask.ConfigureAwait(false);
-        if (result.IsSuccess && predicate(result))
+        if (result.IsSuccess && !predicate(result))
         {
             return new Result(result.Reasons.Add(error));
         }
@@ -582,7 +582,7 @@ public static partial class ResultExtensions
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
         var result = await resultTask.ConfigureAwait(false);
-        if (result.IsSuccess && predicate(result))
+        if (result.IsSuccess && !predicate(result))
         {
             return new Result(result.Reasons.AddRange(errors));
         }

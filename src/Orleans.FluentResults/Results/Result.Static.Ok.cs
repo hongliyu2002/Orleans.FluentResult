@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace Orleans.FluentResults;
+﻿namespace Orleans.FluentResults;
 
 public partial record Result
 {
@@ -15,13 +13,13 @@ public partial record Result
         return new Result();
     }
 
-    /// <summary>
-    ///     Creates a success result with the given value
-    /// </summary>
-    public static Result Ok(string successMessage)
-    {
-        return new Result(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
-    }
+    // /// <summary>
+    // ///     Creates a success result with the given value
+    // /// </summary>
+    // public static Result Ok(string successMessage)
+    // {
+    //     return new Result(ImmutableList<IReason>.Empty.Add(ResultSettings.Current.SuccessFactory(successMessage)));
+    // }
 
     #endregion
 
@@ -35,13 +33,13 @@ public partial record Result
         return Result<T>.Ok();
     }
 
-    /// <summary>
-    ///     Creates a success result with the given value
-    /// </summary>
-    public static Result<T> Ok<T>(string successMessage)
-    {
-        return Result<T>.Ok(successMessage);
-    }
+    // /// <summary>
+    // ///     Creates a success result with the given value
+    // /// </summary>
+    // public static Result<T> Ok<T>(string successMessage)
+    // {
+    //     return Result<T>.Ok(successMessage);
+    // }
 
     /// <summary>
     ///     Creates a success result with the given value
