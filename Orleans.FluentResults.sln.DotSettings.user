@@ -2,31 +2,16 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\7.0.1\ref\net7.0\System.Linq.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1d6673a0_002Dbb84_002D40ad_002Da576_002D862a28837d96/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Implicit_conversion_Result_Value_is_converted_to_Result_object_with_Reasons" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithValueTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=15d2a2a0_002D833c_002D41ef_002Daf01_002D35b61071c692/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;And&gt;&#xD;
+    &lt;Namespace&gt;Orleans.FluentResults.Test&lt;/Namespace&gt;&#xD;
+    &lt;Project Location="F:\RiderProjects\Orleans.FluentResults\tests\Orleans.FluentResults.Test" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Orleans.FluentResults.Test&amp;gt;" /&gt;&#xD;
+  &lt;/And&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=73282df6_002Dc453_002D4ab7_002D9bb1_002D9aadd9e274d8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HasExceptionWithPredicate_WithRootError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.CheckReasonsTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorStringifyTests.EmptyErrorToString_OnlyType&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorStringifyTests.ErrorWithReasonsToString_TypeWithReasons&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ErrorTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests.Merge_WithResultWithoutValue_ShouldMergeResults&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests.Merge_WithFailedResultWithValue_ShouldMergeResults&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.MergeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultLoggingTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultStringifyTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithValueTests.Ok_WithNoParams_ShouldReturnSuccessResult&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithValueTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.BindMethodTests.Bind_ToAnotherValueTypeWithFailedResult_ReturnFailedResult&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.BindMethodTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.ResultWithoutValueTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.SuccessStringifyTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::82136704-6588-42F0-B557-A85EE7323F09::net7.0::Orleans.FluentResults.Test.SuccessTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
 	
 	</wpf:ResourceDictionary>

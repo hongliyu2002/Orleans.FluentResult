@@ -1,29 +1,26 @@
-﻿using System.Collections.Immutable;
-
-namespace Orleans.FluentResults;
+﻿namespace Orleans.FluentResults;
 
 /// <summary>
 /// </summary>
 public static class EnumerableExtensions
 {
 
-    #region Merge
+    #region Combine
 
     /// <summary>
     ///     Merge multiple result objects to one result together
     /// </summary>
-    public static Result Merge(this IEnumerable<Result> results)
+    public static Result Combine(this IEnumerable<Result> results)
     {
-        return new Result(ImmutableList<IReason>.Empty.AddRange(results.SelectMany(result => result.Reasons)));
+        return Result.Combine(results);
     }
 
     /// <summary>
     ///     Merge multiple result objects to one result together
     /// </summary>
-    public static Result<IEnumerable<T>> Merge<T>(this IEnumerable<Result<T>> results)
+    public static Result<IEnumerable<T>> Combine<T>(this IEnumerable<Result<T>> results)
     {
-        var resultsList = results as Result<T>[] ?? results.ToArray();
-        return new Result<IEnumerable<T>>(resultsList.Select(result => result.Value), ImmutableList<IReason>.Empty.AddRange(resultsList.SelectMany(result => result.Reasons)));
+        return Result.Combine(results);
     }
 
     #endregion

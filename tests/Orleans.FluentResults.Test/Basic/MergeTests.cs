@@ -13,7 +13,7 @@ public class MergeTests
                           Result.Ok(),
                           Result.Fail("Fail 1")
                       };
-        var mergedResult = results.Merge();
+        var mergedResult = results.Combine();
         mergedResult.IsFailed.Should().BeTrue();
         mergedResult.Errors.Should().HaveCount(1);
     }
@@ -26,7 +26,7 @@ public class MergeTests
                           Result<int>.Ok(12),
                           Result<int>.Fail("Fail 1")
                       };
-        var mergedResult = results.Merge();
+        var mergedResult = results.Combine();
         mergedResult.IsFailed.Should().BeTrue();
         mergedResult.Errors.Should().HaveCount(1);
     }
@@ -39,7 +39,7 @@ public class MergeTests
                           Result<int>.Ok(1),
                           Result<int>.Ok(2)
                       };
-        var mergedResult = results.Merge();
+        var mergedResult = results.Combine();
         mergedResult.IsSuccess.Should().BeTrue();
         mergedResult.Value.Should().HaveCount(2);
         mergedResult.Value.Should()
