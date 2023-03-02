@@ -8,14 +8,6 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result FailIf(bool failureCondition, IError error)
-    {
-        return failureCondition ? Fail(error) : Ok();
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
     public static Result FailIf(bool failureCondition, string errorMessage)
     {
         return failureCondition ? Fail(errorMessage) : Ok();
@@ -24,13 +16,9 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result FailIf(bool failureCondition, Func<IError> errorFactory)
+    public static Result FailIf(bool failureCondition, IError error)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        return failureCondition ? Fail(errorFactory.Invoke()) : Ok();
+        return failureCondition ? Fail(error) : Ok();
     }
 
     /// <summary>
@@ -39,10 +27,36 @@ public partial record Result
     /// <remarks>
     ///     IError is lazily evaluated.
     /// </remarks>
-    public static Result FailIf(bool failureCondition, Func<string> errorMessageFactory)
+    public static Result FailIf(bool failureCondition, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return failureCondition ? Fail(errorMessageFactory.Invoke()) : Ok();
+        return failureCondition ? Fail(exception) : Ok();
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result FailIf(Func<bool> failurePredicate, string errorMessage)
+    {
+        ArgumentNullException.ThrowIfNull(failurePredicate);
+        return failurePredicate() ? Fail(errorMessage) : Ok();
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result FailIf(Func<bool> failurePredicate, IError error)
+    {
+        ArgumentNullException.ThrowIfNull(failurePredicate);
+        return failurePredicate() ? Fail(error) : Ok();
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result FailIf(Func<bool> failurePredicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(failurePredicate);
+        return failurePredicate() ? Fail(exception) : Ok();
     }
 
     #endregion
@@ -52,45 +66,26 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, IError error)
+    public static async Task<Result> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage)
     {
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, error);
+        return FailIf(await failurePredicate(), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, string errorMessage)
+    public static async Task<Result> FailIfAsync(Func<Task<bool>> failurePredicate, IError error)
     {
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorMessage);
+        ArgumentNullException.ThrowIfNull(failurePredicate);
+        return FailIf(await failurePredicate(), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
+    public static async Task<Result> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result> FailIfAsync(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorMessageFactory);
+        return FailIf(await failurePredicate(), exception);
     }
 
     #endregion
@@ -100,58 +95,30 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, IError error)
+    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage)
     {
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, error);
+        return FailIf(await failurePredicate(), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, string errorMessage)
+    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error)
     {
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorMessage);
+        return FailIf(await failurePredicate(), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
+    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result> FailIfAsync(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var failureCondition = await predicate();
-        return FailIf(failureCondition, errorMessageFactory);
+        return FailIf(await failurePredicate(), exception);
     }
 
     #endregion
 
     #region FailIf Generic
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    public static Result<T> FailIf<T>(bool failureCondition, IError error)
-    {
-        return Result<T>.FailIf(failureCondition, error);
-    }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
@@ -164,23 +131,41 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> FailIf<T>(bool failureCondition, Func<IError> errorFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, IError error)
     {
-        return Result<T>.FailIf(failureCondition, errorFactory);
+        return Result<T>.FailIf(failureCondition, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> FailIf<T>(bool failureCondition, Func<string> errorMessageFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, Exception exception)
     {
-        return Result<T>.FailIf(failureCondition, errorMessageFactory);
+        return Result<T>.FailIf(failureCondition, exception);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, string errorMessage)
+    {
+        return Result<T>.FailIf(failurePredicate, errorMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, IError error)
+    {
+        return Result<T>.FailIf(failurePredicate, error);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, Exception exception)
+    {
+        return Result<T>.FailIf(failurePredicate, exception);
     }
 
     #endregion
@@ -190,39 +175,25 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, IError error)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, string errorMessage)
     {
-        return Result<T>.FailIfAsync(predicate, error);
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, string errorMessage)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, IError error)
     {
-        return Result<T>.FailIfAsync(predicate, errorMessage);
+        return Result<T>.FailIfAsync(failurePredicate, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, Func<IError> errorFactory)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, Exception exception)
     {
-        return Result<T>.FailIfAsync(predicate, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        return Result<T>.FailIfAsync(predicate, errorMessageFactory);
+        return Result<T>.FailIfAsync(failurePredicate, exception);
     }
 
     #endregion
@@ -232,39 +203,25 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, IError error)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, string errorMessage)
     {
-        return Result<T>.FailIfAsync(predicate, error);
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, string errorMessage)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, IError error)
     {
-        return Result<T>.FailIfAsync(predicate, errorMessage);
+        return Result<T>.FailIfAsync(failurePredicate, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, Exception exception)
     {
-        return Result<T>.FailIfAsync(predicate, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        return Result<T>.FailIfAsync(predicate, errorMessageFactory);
+        return Result<T>.FailIfAsync(failurePredicate, exception);
     }
 
     #endregion
@@ -274,39 +231,49 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool failureCondition, T successValue, IError error)
+    public static Result<T> FailIf<T>(bool failureCondition, string errorMessage, T successValue)
     {
-        return Result<T>.FailIf(failureCondition, successValue, error);
+        return Result<T>.FailIf(failureCondition, errorMessage, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf<T>(bool failureCondition, T successValue, string errorMessage)
+    public static Result<T> FailIf<T>(bool failureCondition, IError error, T successValue)
     {
-        return Result<T>.FailIf(failureCondition, successValue, errorMessage);
+        return Result<T>.FailIf(failureCondition, error, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> FailIf<T>(bool failureCondition, T successValue, Func<IError> errorFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, Exception exception, T successValue)
     {
-        return Result<T>.FailIf(failureCondition, successValue, errorFactory);
+        return Result<T>.FailIf(failureCondition, exception, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> FailIf<T>(bool failureCondition, T successValue, Func<string> errorMessageFactory)
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, string errorMessage, T successValue)
     {
-        return Result<T>.FailIf(failureCondition, successValue, errorMessageFactory);
+        return Result<T>.FailIf(failurePredicate, errorMessage, successValue);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, IError error, T successValue)
+    {
+        return Result<T>.FailIf(failurePredicate, error, successValue);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, Exception exception, T successValue)
+    {
+        return Result<T>.FailIf(failurePredicate, exception, successValue);
     }
 
     #endregion
@@ -316,39 +283,25 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, IError error)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, string errorMessage, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, error);
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, string errorMessage)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, IError error, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, errorMessage);
+        return Result<T>.FailIfAsync(failurePredicate, error, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<IError> errorFactory)
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, Exception exception, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter failureCondition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> predicate, T successValue, Func<string> errorMessageFactory)
-    {
-        return Result<T>.FailIfAsync(predicate, successValue, errorMessageFactory);
+        return Result<T>.FailIfAsync(failurePredicate, exception, successValue);
     }
 
     #endregion
@@ -358,39 +311,133 @@ public partial record Result
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, IError error)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, error);
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, string errorMessage)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, IError error, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, errorMessage);
+        return Result<T>.FailIfAsync(failurePredicate, error, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<IError> errorFactory)
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, errorFactory);
+        return Result<T>.FailIfAsync(failurePredicate, exception, successValue);
+    }
+
+    #endregion
+
+    #region FailIf Generic With Value With Success Message
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(bool failureCondition, string errorMessage, T successValue, string successMessage)
+    {
+        return Result<T>.FailIf(failureCondition, errorMessage, successValue, successMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> predicate, T successValue, Func<string> errorMessageFactory)
+    public static Result<T> FailIf<T>(bool failureCondition, IError error, T successValue, string successMessage)
     {
-        return Result<T>.FailIfAsync(predicate, successValue, errorMessageFactory);
+        return Result<T>.FailIf(failureCondition, error, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(bool failureCondition, Exception exception, T successValue, string successMessage)
+    {
+        return Result<T>.FailIf(failureCondition, exception, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, string errorMessage, T successValue, string successMessage)
+    {
+        return Result<T>.FailIf(failurePredicate, errorMessage, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, IError error, T successValue, string successMessage)
+    {
+        return Result<T>.FailIf(failurePredicate, error, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Result<T> FailIf<T>(Func<bool> failurePredicate, Exception exception, T successValue, string successMessage)
+    {
+        return Result<T>.FailIf(failurePredicate, exception, successValue, successMessage);
+    }
+
+    #endregion
+
+    #region FailIf Generic Async With Value With Success Message
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, string errorMessage, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, IError error, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, error, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static Task<Result<T>> FailIfAsync<T>(Func<Task<bool>> failurePredicate, Exception exception, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, exception, successValue, successMessage);
+    }
+
+    #endregion
+
+    #region FailIf Generic ValueTask Async With Value With Success Message
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, errorMessage, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, IError error, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, error, successValue, successMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter failureCondition
+    /// </summary>
+    public static ValueTask<Result<T>> FailIfAsync<T>(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue, string successMessage)
+    {
+        return Result<T>.FailIfAsync(failurePredicate, exception, successValue, successMessage);
     }
 
     #endregion

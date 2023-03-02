@@ -22,12 +22,8 @@ public class Tenant : Grain, ITenantGrain
     /// <inheritdoc />
     public Task<Result<string>> GetUser(int id)
     {
-        // if (!_users.State.Repository.TryGetValue(id, out string? name))
-        // {
-        //     return Result<string>.Fail(IErrors.UserNotFound(id));
-        // }
-        // return Result<string>.Ok(name);
-        return Task.FromResult(Result<string>.OkIf(_users.State.Repository.TryGetValue(id, out var name), name!, Errors.UserNotFound(id)));
+        var result = Result.OkIf(_users.State.Repository.TryGetValue(id, out var name) && string.IsNullOrEmpty(name), name!, Errors.UserNotFound(id));
+        return Task.FromResult(result);
     }
 
     /// <inheritdoc />
@@ -41,10 +37,10 @@ public class Tenant : Grain, ITenantGrain
 public class Users
 {
     [Id(0)]
-    public Dictionary<int, string> Repository { get; set; } = new()
-                                                              {
-                                                                  { 100, "Boss" },
-                                                                  { 101, "Leo" },
-                                                                  { 102, "Janet" }
-                                                              };
+    public Dictionary<int, string> Repository { get; } = new()
+                                                         {
+                                                             { 100, "Boss" },
+                                                             { 101, "Leo" },
+                                                             { 102, "Janet" }
+                                                         };
 }

@@ -6,43 +6,54 @@ public partial record Result<T>
     #region OkIf
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, IError error)
+    public static Result<T> OkIf(bool successCondition, string errorMessage)
     {
-        return condition ? Ok() : Fail(error);
+        return successCondition ? Ok() : Fail(errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, string errorMessage)
+    public static Result<T> OkIf(bool successCondition, IError error)
     {
-        return condition ? Ok() : Fail(errorMessage);
+        return successCondition ? Ok() : Fail(error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, Func<IError> errorFactory)
+    public static Result<T> OkIf(bool successCondition, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        return condition ? Ok() : Fail(errorFactory.Invoke());
+        return successCondition ? Ok() : Fail(exception);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, Func<string> errorMessageFactory)
+    public static Result<T> OkIf(Func<bool> successPredicate, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return condition ? Ok() : Fail(errorMessageFactory.Invoke());
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok() : Fail(errorMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, IError error)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok() : Fail(error);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok() : Fail(exception);
     }
 
     #endregion
@@ -50,47 +61,28 @@ public partial record Result<T>
     #region OkIf Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, error);
+        return OkIf(await successPredicate(), errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, errorMessage);
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return OkIf(await successPredicate(), error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, Func<IError> errorFactory)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, errorMessageFactory);
+        return OkIf(await successPredicate(), exception);
     }
 
     #endregion
@@ -98,187 +90,27 @@ public partial record Result<T>
     #region OkIf ValueTask Async
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, error);
+        return OkIf(await successPredicate(), errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, errorMessage);
+        return OkIf(await successPredicate(), error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, Func<IError> errorFactory)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, errorMessageFactory);
-    }
-
-    #endregion
-
-    #region OkIf With Success Message
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static Result<T> OkIf(bool condition, string successMessage, IError error)
-    {
-        return condition ? Ok(default!, successMessage) : Fail(error);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static Result<T> OkIf(bool condition, string successMessage, string errorMessage)
-    {
-        return condition ? Ok(default!, successMessage) : Fail(errorMessage);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, string successMessage, Func<IError> errorFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        return condition ? Ok(default!, successMessage) : Fail(errorFactory.Invoke());
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, string successMessage, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return condition ? Ok(default!, successMessage) : Fail(errorMessageFactory.Invoke());
-    }
-
-    #endregion
-
-    #region OkIf Async With Success Message
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, string successMessage, IError error)
-    {
-        var condition = await predicate();
-        return OkIf(condition, successMessage, error);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, string successMessage, string errorMessage)
-    {
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorMessage);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, string successMessage, Func<IError> errorFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorMessageFactory);
-    }
-
-    #endregion
-
-    #region OkIf ValueTask Async With Success Message
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, IError error)
-    {
-        var condition = await predicate();
-        return OkIf(condition, successMessage, error);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, string errorMessage)
-    {
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorMessage);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, Func<IError> errorFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, string successMessage, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successMessage, errorMessageFactory);
+        return OkIf(await successPredicate(), exception);
     }
 
     #endregion
@@ -286,43 +118,54 @@ public partial record Result<T>
     #region OkIf With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, T successValue, IError error)
+    public static Result<T> OkIf(bool successCondition, T successValue, string errorMessage)
     {
-        return condition ? Ok(successValue) : Fail(error);
+        return successCondition ? Ok(successValue) : Fail(errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, T successValue, string errorMessage)
+    public static Result<T> OkIf(bool successCondition, T successValue, IError error)
     {
-        return condition ? Ok(successValue) : Fail(errorMessage);
+        return successCondition ? Ok(successValue) : Fail(error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, T successValue, Func<IError> errorFactory)
+    public static Result<T> OkIf(bool successCondition, T successValue, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        return condition ? Ok(successValue) : Fail(errorFactory.Invoke());
+        return successCondition ? Ok(successValue) : Fail(exception);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, T successValue, Func<string> errorMessageFactory)
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return condition ? Ok(successValue) : Fail(errorMessageFactory.Invoke());
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue) : Fail(errorMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, IError error)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue) : Fail(error);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue) : Fail(exception);
     }
 
     #endregion
@@ -330,47 +173,27 @@ public partial record Result<T>
     #region OkIf Async With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, error);
+        return OkIf(await successPredicate(), successValue, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorMessage);
+        return OkIf(await successPredicate(), successValue, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, Func<IError> errorFactory)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorMessageFactory);
+        return OkIf(await successPredicate(), successValue, exception);
     }
 
     #endregion
@@ -378,47 +201,27 @@ public partial record Result<T>
     #region OkIf ValueTask Async With Value
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, error);
+        return OkIf(await successPredicate(), successValue, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorMessage);
+        return OkIf(await successPredicate(), successValue, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, Func<IError> errorFactory)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, errorMessageFactory);
+        return OkIf(await successPredicate(), successValue, exception);
     }
 
     #endregion
@@ -426,43 +229,54 @@ public partial record Result<T>
     #region OkIf With Value With Success Message
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, T successValue, string successMessage, IError error)
+    public static Result<T> OkIf(bool successCondition, T successValue, string successMessage, string errorMessage)
     {
-        return condition ? Ok(successValue, successMessage) : Fail(error);
+        return successCondition ? Ok(successValue, successMessage) : Fail(errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(bool condition, T successValue, string successMessage, string errorMessage)
+    public static Result<T> OkIf(bool successCondition, T successValue, string successMessage, IError error)
     {
-        return condition ? Ok(successValue, successMessage) : Fail(errorMessage);
+        return successCondition ? Ok(successValue, successMessage) : Fail(error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, T successValue, string successMessage, Func<IError> errorFactory)
+    public static Result<T> OkIf(bool successCondition, T successValue, string successMessage, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        return condition ? Ok(successValue, successMessage) : Fail(errorFactory.Invoke());
+        return successCondition ? Ok(successValue, successMessage) : Fail(exception);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static Result<T> OkIf(bool condition, T successValue, string successMessage, Func<string> errorMessageFactory)
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, string errorMessage)
     {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        return condition ? Ok(successValue, successMessage) : Fail(errorMessageFactory.Invoke());
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue, successMessage) : Fail(errorMessage);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, IError error)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue, successMessage) : Fail(error);
+    }
+
+    /// <summary>
+    ///     Create a success/failed result depending on the parameter successCondition
+    /// </summary>
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(successPredicate);
+        return successPredicate() ? Ok(successValue, successMessage) : Fail(exception);
     }
 
     #endregion
@@ -470,47 +284,27 @@ public partial record Result<T>
     #region OkIf Async With Value With Success Message
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, string successMessage, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, error);
+        return OkIf(await successPredicate(), successValue, successMessage, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, string successMessage, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorMessage);
+        return OkIf(await successPredicate(), successValue, successMessage, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, string successMessage, Func<IError> errorFactory)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> predicate, T successValue, string successMessage, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorMessageFactory);
+        return OkIf(await successPredicate(), successValue, successMessage, exception);
     }
 
     #endregion
@@ -518,47 +312,27 @@ public partial record Result<T>
     #region OkIf ValueTask Async With Value With Success Message
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, string successMessage, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, string errorMessage)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, error);
+        return OkIf(await successPredicate(), successValue, successMessage, errorMessage);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, string successMessage, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, IError error)
     {
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorMessage);
+        return OkIf(await successPredicate(), successValue, successMessage, error);
     }
 
     /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
+    ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, string successMessage, Func<IError> errorFactory)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, Exception exception)
     {
-        ArgumentNullException.ThrowIfNull(errorFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorFactory);
-    }
-
-    /// <summary>
-    ///     Create a success/failed result depending on the parameter condition
-    /// </summary>
-    /// <remarks>
-    ///     IError is lazily evaluated.
-    /// </remarks>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> predicate, T successValue, string successMessage, Func<string> errorMessageFactory)
-    {
-        ArgumentNullException.ThrowIfNull(errorMessageFactory);
-        var condition = await predicate();
-        return OkIf(condition, successValue, successMessage, errorMessageFactory);
+        return OkIf(await successPredicate(), successValue, successMessage, exception);
     }
 
     #endregion

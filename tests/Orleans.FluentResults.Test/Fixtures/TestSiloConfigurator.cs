@@ -8,7 +8,7 @@ public class TestSiloConfigurator : ISiloConfigurator
     /// <inheritdoc />
     public void Configure(ISiloBuilder siloBuilder)
     {
-        siloBuilder.AddMemoryGrainStorageAsDefault()
+        siloBuilder.AddMemoryGrainStorage("MemoryStore")
                    .AddMemoryGrainStorage("PubSubStore")
                    .AddStreaming()
                    .AddMemoryStreams("Default");

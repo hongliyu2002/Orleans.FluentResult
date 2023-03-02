@@ -175,23 +175,23 @@ public class ResultWithoutValueTests
     [Fact]
     public void FailIf_FailedConditionIsFalseAndWithObjectErrorFactory_CreateSuccessResult()
     {
-        var result = Result.FailIf(false, LazyError);
+        var result = Result.FailIf(false, LazyError());
         result.IsFailed.Should().BeFalse();
-        static Error LazyError() => throw new Exception("This should not be thrown!");
+        static Error LazyError() => new ExceptionalError(new Exception("This should not be thrown!"));
     }
 
     [Fact]
     public void FailIf_FailedConditionIsFalseAndWithStringErrorMessageFactory_CreateSuccessResult()
     {
-        var result = Result.FailIf(false, LazyError);
+        var result = Result.FailIf(false, LazyError());
         result.IsFailed.Should().BeFalse();
-        static string LazyError() => throw new Exception("This should not be thrown!");
+        static string LazyError() => "This should not be thrown!";
     }
 
     [Fact]
     public void FailIf_FailedConditionIsTrueAndWithObjectErrorFactory_CreateFailedResult()
     {
-        var result = Result.FailIf(true, () => "Error message");
+        var result = Result.FailIf(true, "Error message");
         result.IsFailed.Should().BeTrue();
         result.Errors.Single().Message.Should().Be("Error message");
     }
@@ -199,7 +199,7 @@ public class ResultWithoutValueTests
     [Fact]
     public void FailIf_FailedConditionIsTrueAndWithStringErrorMessageFactory_CreateFailedResult()
     {
-        var result = Result.FailIf(true, () => new Error("Error message"));
+        var result = Result.FailIf(true, new Error("Error message"));
         result.IsFailed.Should().BeTrue();
         result.Errors.Single().Message.Should().Be("Error message");
     }
@@ -221,7 +221,7 @@ public class ResultWithoutValueTests
     [Fact]
     public void OkIf_SuccessConditionIsTrueAndWithStringErrorMessageFactory_CreateSuccessResult()
     {
-        var result = Result.OkIf(true, LazyError);
+        var result = Result.OkIf(true, LazyError());
         result.IsSuccess.Should().BeTrue();
         static string LazyError() => throw new Exception("This should not be thrown!");
     }
@@ -229,7 +229,7 @@ public class ResultWithoutValueTests
     [Fact]
     public void OkIf_SuccessConditionIsTrueAnWithObjectErrorMessageFactory_CreateSuccessResult()
     {
-        var result = Result.OkIf(true, LazyError);
+        var result = Result.OkIf(true, LazyError());
         result.IsSuccess.Should().BeTrue();
         static Error LazyError() => throw new Exception("This should not be thrown!");
     }
@@ -254,7 +254,7 @@ public class ResultWithoutValueTests
     public void OkIf_SuccessConditionIsFalseAndWithStringErrorMessageFactory_CreateFailedResult()
     {
         const string errorMessage = "Error message";
-        var result = Result.OkIf(false, () => errorMessage);
+        var result = Result.OkIf(false, errorMessage);
         result.IsFailed.Should().BeTrue();
         result.Errors.Single().Message.Should().Be(errorMessage);
     }
@@ -263,7 +263,7 @@ public class ResultWithoutValueTests
     public void OkIf_SuccessConditionIsFalseAndWithObjectErrorMessageFactory_CreateFailedResult()
     {
         const string errorMessage = "Error message";
-        var result = Result.OkIf(false, () => new Error(errorMessage));
+        var result = Result.OkIf(false, new Error(errorMessage));
         result.IsFailed.Should().BeTrue();
         result.Errors.Single().Message.Should().Be(errorMessage);
     }

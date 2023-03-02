@@ -14,7 +14,7 @@ public class CombineTests : TestBase
         var result3 = Result.Fail("Fail 2");
         var result = Result.Combine(result1, result2, result3);
         result.IsSuccess.Should().BeFalse();
-        result.Errors.Should().BeEquivalentTo(result2.Errors.Union(result3.Errors));
+        result.Errors.Should().BeEquivalentTo(result2.Errors.Concat(result3.Errors));
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class CombineTests : TestBase
         var result4 = Result.Fail("Fail 2");
         var result = Result.Combine(result1, result2, result3, result4);
         result.IsSuccess.Should().BeFalse();
-        result.Errors.Should().BeEquivalentTo(result2.Errors.Union(result3.Errors).Union(result4.Errors));
+        result.Errors.Should().BeEquivalentTo(result2.Errors.Concat(result3.Errors).Concat(result4.Errors));
     }
 
     [Fact]

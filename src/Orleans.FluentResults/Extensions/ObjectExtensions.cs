@@ -11,7 +11,11 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static Result<T> ToResult<T>(this T value)
     {
-        return value switch { Result<T> resultOfT => resultOfT, Result result => result.ToResult<T>(), _ => new Result<T>(value) };
+        // if (value is null)
+        // {
+        //     return Result<T>.Fail(new ArgumentNullException(nameof(value)));
+        // }
+        return value switch { Result<T> resultOfT => resultOfT, Result result => result.ToResult<T>(), _ => Result<T>.Ok(value) };
     }
 
     /// <summary>
