@@ -5,7 +5,6 @@ namespace Orleans.FluentResults;
 /// <inheritdoc />
 /// <summary>
 /// </summary>
-[Alias("Result")]
 [Immutable]
 [GenerateSerializer]
 public partial record Result(IImmutableList<IReason> Reasons) : IResult
