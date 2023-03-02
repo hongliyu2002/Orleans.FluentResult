@@ -415,7 +415,7 @@ public class ResultWithValueTests
     {
         var result = new Result<dynamic>();
         var convertedValue = Convert.ChangeType(source, dest);
-        var dynamicResult = ResultTExtensions.WithValue(result, convertedValue);
+        var dynamicResult = ResultTValueExtensions.WithValue(result, convertedValue);
         return dynamicResult;
     }
 

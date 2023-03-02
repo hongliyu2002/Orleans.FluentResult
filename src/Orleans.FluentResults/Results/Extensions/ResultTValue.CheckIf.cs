@@ -2,7 +2,7 @@
 
 /// <summary>
 /// </summary>
-public static partial class ResultTExtensions
+public static partial class ResultTValueExtensions
 {
 
     #region CheckIf

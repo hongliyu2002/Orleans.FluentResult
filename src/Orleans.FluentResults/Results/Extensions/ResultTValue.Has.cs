@@ -1,6 +1,6 @@
 ﻿namespace Orleans.FluentResults;
 
-public static partial class ResultTExtensions
+public static partial class ResultTValueExtensions
 {
 
     #region Has Error
