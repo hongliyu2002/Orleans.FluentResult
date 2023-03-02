@@ -2,13 +2,13 @@
 
 /// <summary>
 /// </summary>
-public static partial class ResultTExtensions
+public static partial class ResultExtensions
 {
 
     #region CheckIf
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
@@ -36,7 +36,7 @@ public static partial class ResultTExtensions
     #region CheckIf Full Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
@@ -66,7 +66,7 @@ public static partial class ResultTExtensions
     #region CheckIf Full ValueTask Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
@@ -96,7 +96,7 @@ public static partial class ResultTExtensions
     #region CheckIf Right Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
@@ -124,7 +124,7 @@ public static partial class ResultTExtensions
     #region CheckIf Right ValueTask Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
@@ -152,7 +152,7 @@ public static partial class ResultTExtensions
     #region CheckIf Left Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
@@ -182,7 +182,7 @@ public static partial class ResultTExtensions
     #region CheckIf Left ValueTask Async
 
     /// <summary>
-    ///     When predicate is true, execute an check function which returns a <see cref="Result{T}" />.
+    ///     When predicate is true, execute an check function which returns a <see cref="Result" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
