@@ -13,8 +13,8 @@
         <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
         <PackageTags>Result;Results;Result Pattern;Orleans;Exception Handling;Error Handling;Actor</PackageTags>
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
-        <PackageIconUrl>https://raw.githubusercontent.com/hongliyu2002/Orleans.FluentResult/master/resources/icons/logo_128.png</PackageIconUrl>
         <PackageIcon>logo_128.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <!--SourceLink-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -29,18 +29,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\resources\icons\logo_128.png">
-            <Pack>True</Pack>
-            <PackagePath>..\..\packages</PackagePath>
-            <Link>logo_128.png</Link>
-        </None>
-    </ItemGroup>
-    
-    <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
         <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.1.0" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\resources\icons\logo_128.png" Pack="true" PackagePath="">
+            <Link>logo_128.png</Link>
+        </None>
+        <None Include="..\..\README.md" Pack="true" PackagePath="">
+            <Link>README.md</Link>
+        </None>
     </ItemGroup>
 
 </Project>
