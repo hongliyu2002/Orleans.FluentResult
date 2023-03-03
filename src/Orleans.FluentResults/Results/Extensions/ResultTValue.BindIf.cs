@@ -52,25 +52,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Result<T1> BindIf<T, T1>(this Result<T> result, bool condition, Func<Result<T1>> bind)
+    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, bool condition, Func<Result<TOutput>> bind)
     {
-        return condition ? result.Bind(bind) : result.ToResult<T, T1>();
+        return condition ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Result<T1> BindIf<T, T1>(this Result<T> result, bool condition, Func<T, Result<T1>> bind)
+    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, bool condition, Func<T, Result<TOutput>> bind)
     {
-        return condition ? result.Bind(bind) : result.ToResult<T, T1>();
+        return condition ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -122,25 +122,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<T1>>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<TOutput>>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<T1>>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<TOutput>>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -192,25 +192,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<T1>>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<TOutput>>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<T1>>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<TOutput>>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -262,25 +262,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Result<T> result, bool condition, Func<Task<Result<T1>>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<Task<Result<TOutput>>> bind)
     {
-        return condition ? result.BindAsync(bind) : Task.FromResult(result.ToResult<T, T1>());
+        return condition ? result.BindAsync(bind) : Task.FromResult(result.ToResult<T, TOutput>());
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Result<T> result, bool condition, Func<T, Task<Result<T1>>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, Task<Result<TOutput>>> bind)
     {
-        return condition ? result.BindAsync(bind) : Task.FromResult(result.ToResult<T, T1>());
+        return condition ? result.BindAsync(bind) : Task.FromResult(result.ToResult<T, TOutput>());
     }
 
     #endregion
@@ -332,25 +332,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this Result<T> result, bool condition, Func<ValueTask<Result<T1>>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<ValueTask<Result<TOutput>>> bind)
     {
-        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result.ToResult<T, T1>());
+        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result.ToResult<T, TOutput>());
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this Result<T> result, bool condition, Func<T, ValueTask<Result<T1>>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, ValueTask<Result<TOutput>>> bind)
     {
-        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result.ToResult<T, T1>());
+        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result.ToResult<T, TOutput>());
     }
 
     #endregion
@@ -402,25 +402,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<Result<T1>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T1>> BindIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<T1>> bind)
+    public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -472,25 +472,25 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<T1>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
-    ///     When condition is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T1>> BindIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<T1>> bind)
+    public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, T1>();
+        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion

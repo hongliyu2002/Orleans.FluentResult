@@ -26,25 +26,25 @@ public static partial class ResultTValueExtensions
     /// <summary>
     ///     Convert result with value to result.
     /// </summary>
-    public static Result<T1> ToResult<T, T1>(this Result<T> result)
+    public static Result<TOutput> ToResult<T, TOutput>(this Result<T> result)
     {
         try
         {
-            var value = Convert.ChangeType(result.Value, typeof(T1));
-            return value != null ? new Result<T1>((T1)value, result.Reasons) : new Result<T1>(result.Reasons);
+            var value = Convert.ChangeType(result.Value, typeof(TOutput));
+            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
         }
     }
 
     /// <summary>
     ///     Convert result with value to result with another value.
     /// </summary>
-    public static Result<T1> ToResult<T, T1>(this Result<T> result, T1 value)
+    public static Result<TOutput> ToResult<T, TOutput>(this Result<T> result, TOutput value)
     {
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -72,27 +72,27 @@ public static partial class ResultTValueExtensions
     /// <summary>
     ///     Convert result with value to result.
     /// </summary>
-    public static async Task<Result<T1>> ToResultAsync<T, T1>(this Task<Result<T>> resultTask)
+    public static async Task<Result<TOutput>> ToResultAsync<T, TOutput>(this Task<Result<T>> resultTask)
     {
         var result = await resultTask.ConfigureAwait(false);
         try
         {
-            var value = Convert.ChangeType(result.Value, typeof(T1));
-            return value != null ? new Result<T1>((T1)value, result.Reasons) : new Result<T1>(result.Reasons);
+            var value = Convert.ChangeType(result.Value, typeof(TOutput));
+            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
         }
     }
 
     /// <summary>
     ///     Convert result with value to result with another value.
     /// </summary>
-    public static async Task<Result<T1>> ToResultAsync<T, T1>(this Task<Result<T>> resultTask, T1 value)
+    public static async Task<Result<TOutput>> ToResultAsync<T, TOutput>(this Task<Result<T>> resultTask, TOutput value)
     {
         var result = await resultTask.ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -120,27 +120,27 @@ public static partial class ResultTValueExtensions
     /// <summary>
     ///     Convert result with value to result.
     /// </summary>
-    public static async ValueTask<Result<T1>> ToResultAsync<T, T1>(this ValueTask<Result<T>> resultTask)
+    public static async ValueTask<Result<TOutput>> ToResultAsync<T, TOutput>(this ValueTask<Result<T>> resultTask)
     {
         var result = await resultTask.ConfigureAwait(false);
         try
         {
-            var value = Convert.ChangeType(result.Value, typeof(T1));
-            return value != null ? new Result<T1>((T1)value, result.Reasons) : new Result<T1>(result.Reasons);
+            var value = Convert.ChangeType(result.Value, typeof(TOutput));
+            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
         }
         catch (Exception ex)
         {
-            return Result<T1>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
         }
     }
 
     /// <summary>
     ///     Convert result with value to result with another value.
     /// </summary>
-    public static async ValueTask<Result<T1>> ToResultAsync<T, T1>(this ValueTask<Result<T>> resultTask, T1 value)
+    public static async ValueTask<Result<TOutput>> ToResultAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, TOutput value)
     {
         var result = await resultTask.ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion

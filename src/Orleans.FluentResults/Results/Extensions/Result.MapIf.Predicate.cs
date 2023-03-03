@@ -8,15 +8,15 @@ public static partial class ResultExtensions
     #region MapIf
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static Result<T1> MapIf<T1>(this Result result, Func<Result, bool> predicate, Func<T1> map)
+    public static Result<TOutput> MapIf<TOutput>(this Result result, Func<Result, bool> predicate, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Map(map) : result.ToResult<T1>();
+        return predicate(result) ? result.Map(map) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -24,16 +24,16 @@ public static partial class ResultExtensions
     #region MapIf Full Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapIfAsync<T1>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Task<T1>> map)
+    public static async Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -41,16 +41,16 @@ public static partial class ResultExtensions
     #region MapIf Full ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapIfAsync<T1>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -58,15 +58,15 @@ public static partial class ResultExtensions
     #region MapIf Right Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapIfAsync<T1>(this Result result, Func<Result, bool> predicate, Func<Task<T1>> map)
+    public static async Task<Result<TOutput>> MapIfAsync<TOutput>(this Result result, Func<Result, bool> predicate, Func<Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -74,15 +74,15 @@ public static partial class ResultExtensions
     #region MapIf Right ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapIfAsync<T1>(this Result result, Func<Result, bool> predicate, Func<ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this Result result, Func<Result, bool> predicate, Func<ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.MapAsync(map).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -90,16 +90,16 @@ public static partial class ResultExtensions
     #region MapIf Left Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapIfAsync<T1>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<T1> map)
+    public static async Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? result.Map(map) : result.ToResult<T1>();
+        return predicate(result) ? result.Map(map) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -107,16 +107,16 @@ public static partial class ResultExtensions
     #region MapIf Left ValueTask Async
 
     /// <summary>
-    ///     Execute an map function which returns a <see cref="Result{T1}" />.
+    ///     Execute an map function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapIfAsync<T1>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<T1> map)
+    public static async ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? result.Map(map) : result.ToResult<T1>();
+        return predicate(result) ? result.Map(map) : result.ToResult<TOutput>();
     }
 
     #endregion

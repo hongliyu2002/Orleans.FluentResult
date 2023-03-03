@@ -52,23 +52,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Result<T> CheckIf<T, T1>(this Result<T> result, bool condition, Func<Result<T1>> check)
+    public static Result<T> CheckIf<T, TOutput>(this Result<T> result, bool condition, Func<Result<TOutput>> check)
     {
         return condition ? result.Check(check) : result;
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Result<T> CheckIf<T, T1>(this Result<T> result, bool condition, Func<T, Result<T1>> check)
+    public static Result<T> CheckIf<T, TOutput>(this Result<T> result, bool condition, Func<T, Result<TOutput>> check)
     {
         return condition ? result.Check(check) : result;
     }
@@ -122,23 +122,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<T1>>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<TOutput>>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<T1>>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<TOutput>>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
@@ -192,23 +192,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<T1>>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<TOutput>>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<T1>>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<TOutput>>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
@@ -262,23 +262,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Result<T> result, bool condition, Func<Task<Result<T1>>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<Task<Result<TOutput>>> check)
     {
         return condition ? result.CheckAsync(check) : Task.FromResult(result);
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Result<T> result, bool condition, Func<T, Task<Result<T1>>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, Task<Result<TOutput>>> check)
     {
         return condition ? result.CheckAsync(check) : Task.FromResult(result);
     }
@@ -332,23 +332,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this Result<T> result, bool condition, Func<ValueTask<Result<T1>>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<ValueTask<Result<TOutput>>> check)
     {
         return condition ? result.CheckAsync(check) : ValueTask.FromResult(result);
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this Result<T> result, bool condition, Func<T, ValueTask<Result<T1>>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, ValueTask<Result<TOutput>>> check)
     {
         return condition ? result.CheckAsync(check) : ValueTask.FromResult(result);
     }
@@ -402,23 +402,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<Result<T1>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Result<TOutput>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static Task<Result<T>> CheckIfAsync<T, T1>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<T1>> check)
+    public static Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
@@ -472,23 +472,23 @@ public static partial class ResultTValueExtensions
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<T1>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<TOutput>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }
 
     /// <summary>
-    ///     When condition is true, execute an check function which returns a <see cref="Result{T1}" />.
+    ///     When condition is true, execute an check function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="check">Action that may fail.</param>
-    public static ValueTask<Result<T>> CheckIfAsync<T, T1>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<T1>> check)
+    public static ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> check)
     {
         return condition ? resultTask.CheckAsync(check) : resultTask;
     }

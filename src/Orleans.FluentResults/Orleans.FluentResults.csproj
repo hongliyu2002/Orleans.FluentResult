@@ -5,13 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>Orleans.FluentResults</PackageId>
-        <Version>7.10.2.0</Version>
+        <Version>7.1.0.3</Version>
         <Authors>Leo Hong</Authors>
         <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
-        <PackageTags>Result;Results;Result Pattern;Orleans;Exception Handling;Error Handling;Actor</PackageTags>
+        <PackageTags>Result;Results;ResultPattern;Orleans;ExceptionHandling;ErrorHandling;Actor</PackageTags>
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
         <PackageIcon>logo_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>

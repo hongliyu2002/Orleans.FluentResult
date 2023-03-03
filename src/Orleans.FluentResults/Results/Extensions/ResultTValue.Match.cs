@@ -35,7 +35,7 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static T1 Match<T, T1>(this Result<T> result, Func<T, T1> onSuccess, Func<IEnumerable<IError>, T1> onFailure)
+    public static TOutput Match<T, TOutput>(this Result<T> result, Func<T, TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -75,7 +75,7 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async Task<T1> MatchAsync<T, T1>(this Task<Result<T>> resultTask, Func<T, Task<T1>> onSuccess, Func<IEnumerable<IError>, Task<T1>> onFailure)
+    public static async Task<TOutput> MatchAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<T1> MatchAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<T1>> onSuccess, Func<IEnumerable<IError>, ValueTask<T1>> onFailure)
+    public static async ValueTask<TOutput> MatchAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -156,7 +156,7 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async Task<T1> MatchAsync<T, T1>(this Result<T> result, Func<T, Task<T1>> onSuccess, Func<IEnumerable<IError>, Task<T1>> onFailure)
+    public static async Task<TOutput> MatchAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -195,7 +195,7 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<T1> MatchAsync<T, T1>(this Result<T> result, Func<T, ValueTask<T1>> onSuccess, Func<IEnumerable<IError>, ValueTask<T1>> onFailure)
+    public static async ValueTask<TOutput> MatchAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -235,7 +235,7 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async Task<T1> MatchAsync<T, T1>(this Task<Result<T>> resultTask, Func<T, T1> onSuccess, Func<IEnumerable<IError>, T1> onFailure)
+    public static async Task<TOutput> MatchAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -276,7 +276,7 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="onSuccess">Action that may fail.</param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<T1> MatchAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<T, T1> onSuccess, Func<IEnumerable<IError>, T1> onFailure)
+    public static async ValueTask<TOutput> MatchAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);

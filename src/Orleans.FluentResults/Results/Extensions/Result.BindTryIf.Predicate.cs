@@ -21,16 +21,16 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static Result<T1> BindTryIf<T1>(this Result result, Func<Result, bool> predicate, Func<Result<T1>> bind, Func<Exception, IError>? catchHandler = null)
+    public static Result<TOutput> BindTryIf<TOutput>(this Result result, Func<Result, bool> predicate, Func<Result<TOutput>> bind, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<T1>();
+        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -53,18 +53,18 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T1>> BindTryIfAsync<T1>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Task<Result<T1>>> bind,
+    public static async Task<Result<TOutput>> BindTryIfAsync<TOutput>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Task<Result<TOutput>>> bind,
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -87,18 +87,18 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T1>> BindTryIfAsync<T1>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask<Result<T1>>> bind,
+    public static async ValueTask<Result<TOutput>> BindTryIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask<Result<TOutput>>> bind,
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -119,17 +119,17 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T1>> BindTryIfAsync<T1>(this Result result, Func<Result, bool> predicate, Func<Task<Result<T1>>> bind,
+    public static async Task<Result<TOutput>> BindTryIfAsync<TOutput>(this Result result, Func<Result, bool> predicate, Func<Task<Result<TOutput>>> bind,
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -151,17 +151,17 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T1>> BindTryIfAsync<T1>(this Result result, Func<Result, bool> predicate, Func<ValueTask<Result<T1>>> bind,
+    public static async ValueTask<Result<TOutput>> BindTryIfAsync<TOutput>(this Result result, Func<Result, bool> predicate, Func<ValueTask<Result<TOutput>>> bind,
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<T1>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -183,18 +183,18 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T1>> BindTryIfAsync<T1>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Result<T1>> bind,
+    public static async Task<Result<TOutput>> BindTryIfAsync<TOutput>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Result<TOutput>> bind,
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<T1>();
+        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -217,18 +217,18 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    ///     When predicate is true, execute an bind function which returns a <see cref="Result{T1}" />.
+    ///     When predicate is true, execute an bind function which returns a <see cref="Result{TOutput}" />.
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T1>> BindTryIfAsync<T1>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<Result<T1>> bind,
+    public static async ValueTask<Result<TOutput>> BindTryIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<Result<TOutput>> bind,
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<T1>();
+        return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<TOutput>();
     }
 
     #endregion

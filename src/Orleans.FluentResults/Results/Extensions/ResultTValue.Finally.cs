@@ -23,7 +23,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static T1 Finally<T, T1>(this Result<T> result, Func<Result<T>, T1> finalize)
+    public static TOutput Finally<T, TOutput>(this Result<T> result, Func<Result<T>, TOutput> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         return finalize(result);
@@ -50,7 +50,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T1> FinallyAsync<T, T1>(this Task<Result<T>> resultTask, Func<Result<T>, Task<T1>> finalize)
+    public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, Task<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         var result = await resultTask.ConfigureAwait(false);
@@ -78,7 +78,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T1> FinallyAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<T1>> finalize)
+    public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         var result = await resultTask.ConfigureAwait(false);
@@ -105,7 +105,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T1> FinallyAsync<T, T1>(this Result<T> result, Func<Result<T>, Task<T1>> finalize)
+    public static async Task<TOutput> FinallyAsync<T, TOutput>(this Result<T> result, Func<Result<T>, Task<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         return await finalize(result);
@@ -131,7 +131,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T1> FinallyAsync<T, T1>(this Result<T> result, Func<Result<T>, ValueTask<T1>> finalize)
+    public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this Result<T> result, Func<Result<T>, ValueTask<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         return await finalize(result);
@@ -158,7 +158,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T1> FinallyAsync<T, T1>(this Task<Result<T>> resultTask, Func<Result<T>, T1> finalize)
+    public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, TOutput> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         var result = await resultTask.ConfigureAwait(false);
@@ -186,7 +186,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T1> FinallyAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<Result<T>, T1> finalize)
+    public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, TOutput> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
         var result = await resultTask.ConfigureAwait(false);

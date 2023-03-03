@@ -12,15 +12,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static Result<T1> Map<T, T1>(this Result<T> result, Func<T1> map)
+    public static Result<TOutput> Map<T, TOutput>(this Result<T> result, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map();
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -28,15 +28,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static Result<T1> Map<T, T1>(this Result<T> result, Func<T, T1> map)
+    public static Result<TOutput> Map<T, TOutput>(this Result<T> result, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map(result.Value);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -48,16 +48,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Task<Result<T>> resultTask, Func<Task<T1>> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -65,16 +65,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Task<Result<T>> resultTask, Func<T, Task<T1>> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -86,16 +86,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -103,16 +103,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -124,15 +124,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Result<T> result, Func<Task<T1>> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -140,15 +140,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Result<T> result, Func<T, Task<T1>> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -160,15 +160,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this Result<T> result, Func<ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map().ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -176,15 +176,15 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this Result<T> result, Func<T, ValueTask<T1>> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = await map(result.Value).ConfigureAwait(false);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -196,16 +196,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Task<Result<T>> resultTask, Func<T1> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map();
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -213,16 +213,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<T1>> MapAsync<T, T1>(this Task<Result<T>> resultTask, Func<T, T1> map)
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map(result.Value);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
@@ -234,16 +234,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<T1> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map();
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     /// <summary>
@@ -251,16 +251,16 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<T1>> MapAsync<T, T1>(this ValueTask<Result<T>> resultTask, Func<T, T1> map)
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
         var result = await resultTask.ConfigureAwait(false);
         if (result.IsFailed)
         {
-            return Result<T1>.Fail(result.Errors);
+            return Result<TOutput>.Fail(result.Errors);
         }
         var value = map(result.Value);
-        return new Result<T1>(value, result.Reasons);
+        return new Result<TOutput>(value, result.Reasons);
     }
 
     #endregion
