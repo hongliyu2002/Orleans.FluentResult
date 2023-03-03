@@ -5,23 +5,22 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>Orleans.FluentResults</PackageId>
-        <Version>7.15.2.0</Version>
-        <Authors>Michael Altmann, Leo Hong</Authors>
+        <Version>7.10.2.0</Version>
+        <Authors>Leo Hong</Authors>
         <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Copyright>Copyright 2022 (c) Michael Altmann &amp; Leo Hong. All rights reserved.</Copyright>
-        <PackageTags>result results orleans exception error handling</PackageTags>
+        <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
+        <PackageTags>result results orleans exception error handling actor</PackageTags>
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
-        <PackageIconUrl>https://raw.githubusercontent.com/hongliyu2002/Orleans.FluentResult/master/resources/icons/FluentResults-Icon-128.png</PackageIconUrl>
-        <PackageIcon>FluentResults-Icon-128.png</PackageIcon>
+        <PackageIcon>logo_128.png</PackageIcon>
 
         <!--SourceLink-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Title>Fluent Results for Orleans</Title>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -30,7 +29,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\resources\icons\FluentResults-Icon-128.png" Pack="true" PackagePath="" />
+        <None Include="..\..\resources\icons\logo_128.png">
+          <Pack>True</Pack>
+          <PackagePath></PackagePath>
+          <Link>logo_128.png</Link>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
