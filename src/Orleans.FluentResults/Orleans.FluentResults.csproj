@@ -11,10 +11,10 @@
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
-        <PackageTags>result results orleans exception error handling actor</PackageTags>
+        <PackageTags>Result;Results;Result Pattern;Orleans;Exception Handling;Error Handling;Actor</PackageTags>
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/hongliyu2002/Orleans.FluentResult/master/resources/icons/logo_128.png</PackageIconUrl>
         <PackageIcon>logo_128.png</PackageIcon>
-
         <!--SourceLink-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -23,19 +23,19 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Title>Fluent Results for Orleans</Title>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <FileVersion>1.0.0.0</FileVersion>
+        <AssemblyVersion>7.10.2.0</AssemblyVersion>
+        <FileVersion>7.10.2.0</FileVersion>
         <RepositoryUrl>https://github.com/hongliyu2002/Orleans.FluentResult</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\..\resources\icons\logo_128.png">
-          <Pack>True</Pack>
-          <PackagePath></PackagePath>
-          <Link>logo_128.png</Link>
+            <Pack>True</Pack>
+            <PackagePath>..\..\packages</PackagePath>
+            <Link>logo_128.png</Link>
         </None>
     </ItemGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
         <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.1.0" />
