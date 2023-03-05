@@ -14,7 +14,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static Result<T> TapErrorTryIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action tapError, Func<Exception, IError>? catchHandler = null)
+    public static Result<T> TapErrorTryIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
@@ -27,7 +27,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static Result<T> TapErrorTryIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action<T> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Result<T> TapErrorTryIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
@@ -44,7 +44,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task> tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, Task> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -59,7 +59,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task> tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -78,7 +78,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask> tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -93,7 +93,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask> tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -112,7 +112,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task> tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, Task> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -126,7 +126,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task> tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -144,7 +144,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask> tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -158,7 +158,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask> tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -176,7 +176,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -191,7 +191,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T> tapError,
+    public static async Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError,
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -210,7 +210,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -225,7 +225,7 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T> tapError,
+    public static async ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError,
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
