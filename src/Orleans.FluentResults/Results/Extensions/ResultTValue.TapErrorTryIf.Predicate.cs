@@ -48,8 +48,8 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     #endregion
@@ -82,8 +82,8 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -97,8 +97,8 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     #endregion
@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     #endregion
@@ -148,7 +148,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.TapErrorTryAsync(tapError, catchHandler).ConfigureAwait(true) : result;
     }
 
     #endregion
@@ -180,7 +180,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 
@@ -195,7 +195,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 
@@ -214,7 +214,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 
@@ -229,7 +229,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 

@@ -44,7 +44,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorTryAsync(this Task<Result> resultTask, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -73,7 +73,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorTryAsync(this ValueTask<Result> resultTask, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -158,7 +158,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorTryAsync(this Task<Result> resultTask, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -187,7 +187,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorTryAsync(this ValueTask<Result> resultTask, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;

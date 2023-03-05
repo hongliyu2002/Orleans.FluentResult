@@ -51,12 +51,12 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(false);
+        var value = await map().ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -68,12 +68,12 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(false);
+        var value = await map(result.Value).ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -89,12 +89,12 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(false);
+        var value = await map().ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -106,12 +106,12 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(false);
+        var value = await map(result.Value).ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -131,7 +131,7 @@ public static partial class ResultTValueExtensions
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(false);
+        var value = await map().ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -147,7 +147,7 @@ public static partial class ResultTValueExtensions
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(false);
+        var value = await map(result.Value).ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -167,7 +167,7 @@ public static partial class ResultTValueExtensions
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(false);
+        var value = await map().ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -183,7 +183,7 @@ public static partial class ResultTValueExtensions
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(false);
+        var value = await map(result.Value).ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -199,7 +199,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -216,7 +216,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -237,7 +237,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -254,7 +254,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);

@@ -57,7 +57,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             await onSuccess();
@@ -79,7 +79,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
     }
 
@@ -98,7 +98,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             await onSuccess();
@@ -120,7 +120,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
     }
 
@@ -217,7 +217,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             onSuccess();
@@ -239,7 +239,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? onSuccess() : onFailure(result.Errors);
     }
 
@@ -258,7 +258,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             onSuccess();
@@ -280,7 +280,7 @@ public static partial class ResultExtensions
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? onSuccess() : onFailure(result.Errors);
     }
 

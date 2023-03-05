@@ -44,7 +44,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Func<Task> tap, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -73,7 +73,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -158,7 +158,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -187,7 +187,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;

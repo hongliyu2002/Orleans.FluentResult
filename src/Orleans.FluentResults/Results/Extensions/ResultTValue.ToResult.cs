@@ -56,7 +56,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async Task<Result> ToResultAsync<T>(this Task<Result<T>> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result(result.Reasons);
     }
 
@@ -65,7 +65,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result<T>> resultTask, T value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result with { Value = value };
     }
 
@@ -74,7 +74,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async Task<Result<TOutput>> ToResultAsync<T, TOutput>(this Task<Result<T>> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         try
         {
             var value = Convert.ChangeType(result.Value, typeof(TOutput));
@@ -91,7 +91,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async Task<Result<TOutput>> ToResultAsync<T, TOutput>(this Task<Result<T>> resultTask, TOutput value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -104,7 +104,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async ValueTask<Result> ToResultAsync<T>(this ValueTask<Result<T>> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result(result.Reasons);
     }
 
@@ -113,7 +113,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result<T>> resultTask, T value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result with { Value = value };
     }
 
@@ -122,7 +122,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async ValueTask<Result<TOutput>> ToResultAsync<T, TOutput>(this ValueTask<Result<T>> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         try
         {
             var value = Convert.ChangeType(result.Value, typeof(TOutput));
@@ -139,7 +139,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static async ValueTask<Result<TOutput>> ToResultAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, TOutput value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<TOutput>(value, result.Reasons);
     }
 

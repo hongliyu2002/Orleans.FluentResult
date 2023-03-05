@@ -33,8 +33,8 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, Task<IError>> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(false);
-        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(true);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -50,8 +50,8 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, ValueTask<IError>> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(false);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
+        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(true);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -67,7 +67,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, Task<IError>> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(false);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(true);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -83,7 +83,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, ValueTask<IError>> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(false);
+        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(true);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -99,7 +99,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, IError> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, IError> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }

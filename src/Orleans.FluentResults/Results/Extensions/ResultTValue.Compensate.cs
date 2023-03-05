@@ -30,7 +30,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> CompensateAsync<T>(this Task<Result<T>> resultTask, Func<IEnumerable<IError>, Task<Result<T>>> compensate)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? result : await compensate(result.Errors);
     }
 
@@ -46,7 +46,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> CompensateAsync<T>(this ValueTask<Result<T>> resultTask, Func<IEnumerable<IError>, ValueTask<Result<T>>> compensate)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? result : await compensate(result.Errors);
     }
 
@@ -92,7 +92,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> CompensateAsync<T>(this Task<Result<T>> resultTask, Func<IEnumerable<IError>, Result<T>> compensate)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 
@@ -108,7 +108,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> CompensateAsync<T>(this ValueTask<Result<T>> resultTask, Func<IEnumerable<IError>, Result<T>> compensate)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 

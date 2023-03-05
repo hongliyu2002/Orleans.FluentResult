@@ -34,7 +34,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapAsync(this Task<Result> resultTask, Func<Task> tap)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             await tap();
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             await tap();
@@ -112,7 +112,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapAsync(this Task<Result> resultTask, Action tap)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             tap();
@@ -132,7 +132,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Action tap)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess)
         {
             tap();

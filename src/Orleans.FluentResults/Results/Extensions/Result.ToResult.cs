@@ -32,7 +32,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<T>(result.Reasons);
     }
 
@@ -41,7 +41,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result> resultTask, T value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<T>(value, result.Reasons);
     }
 
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result> resultTask)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<T>(result.Reasons);
     }
 
@@ -63,7 +63,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result> resultTask, T value)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return new Result<T>(value, result.Reasons);
     }
 

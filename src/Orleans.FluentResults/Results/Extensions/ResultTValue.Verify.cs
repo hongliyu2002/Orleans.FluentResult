@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> VerifyAsync<T>(this Task<Result<T>> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return condition ? result : result with { Reasons = result.Reasons.Add(error) };
     }
 
@@ -129,7 +129,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> VerifyAsync<T>(this Task<Result<T>> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return condition ? result : result with { Reasons = result.Reasons.AddRange(errors) };
     }
 
@@ -194,7 +194,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> VerifyAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return condition ? result : result with { Reasons = result.Reasons.Add(error) };
     }
 
@@ -207,7 +207,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> VerifyAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return condition ? result : result with { Reasons = result.Reasons.AddRange(errors) };
     }
 

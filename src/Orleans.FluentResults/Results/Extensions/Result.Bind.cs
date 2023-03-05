@@ -51,12 +51,12 @@ public static partial class ResultExtensions
     public static async Task<Result> BindAsync(this Task<Result> resultTask, Func<Task<Result>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
     }
 
@@ -68,12 +68,12 @@ public static partial class ResultExtensions
     public static async Task<Result<T>> BindAsync<T>(this Task<Result> resultTask, Func<Task<Result<T>>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
@@ -89,12 +89,12 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> BindAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
     }
 
@@ -106,12 +106,12 @@ public static partial class ResultExtensions
     public static async ValueTask<Result<T>> BindAsync<T>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T>>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
@@ -131,7 +131,7 @@ public static partial class ResultExtensions
         {
             return Result.Fail(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
     }
 
@@ -147,7 +147,7 @@ public static partial class ResultExtensions
         {
             return Result.Fail<T>(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
@@ -167,7 +167,7 @@ public static partial class ResultExtensions
         {
             return Result.Fail(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return new Result(result.Reasons.AddRange(bindResult.Reasons));
     }
 
@@ -183,7 +183,7 @@ public static partial class ResultExtensions
         {
             return Result.Fail<T>(result.Errors);
         }
-        var bindResult = await bind().ConfigureAwait(false);
+        var bindResult = await bind().ConfigureAwait(true);
         return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
     }
 
@@ -199,7 +199,7 @@ public static partial class ResultExtensions
     public static async Task<Result> BindAsync(this Task<Result> resultTask, Func<Result> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -216,7 +216,7 @@ public static partial class ResultExtensions
     public static async Task<Result<T>> BindAsync<T>(this Task<Result> resultTask, Func<Result<T>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -237,7 +237,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> BindAsync(this ValueTask<Result> resultTask, Func<Result> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -254,7 +254,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result<T>> BindAsync<T>(this ValueTask<Result> resultTask, Func<Result<T>> bind)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);

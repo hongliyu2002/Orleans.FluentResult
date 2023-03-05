@@ -35,8 +35,8 @@ public static partial class ResultExtensions
                                                            Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -54,8 +54,8 @@ public static partial class ResultExtensions
                                                                 Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -72,7 +72,7 @@ public static partial class ResultExtensions
     public static async Task<Result<TOutput>> MapTryIfAsync<TOutput>(this Result result, Func<Result, bool> predicate, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -90,7 +90,7 @@ public static partial class ResultExtensions
                                                                 Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -107,7 +107,7 @@ public static partial class ResultExtensions
     public static async Task<Result<TOutput>> MapTryIfAsync<TOutput>(this Task<Result> resultTask, Func<Result, bool> predicate, Func<TOutput> map, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<TOutput>();
     }
 
@@ -126,7 +126,7 @@ public static partial class ResultExtensions
                                                                 Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<TOutput>();
     }
 

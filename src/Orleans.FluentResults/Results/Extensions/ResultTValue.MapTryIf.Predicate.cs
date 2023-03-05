@@ -48,8 +48,8 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -82,8 +82,8 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -97,8 +97,8 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -148,7 +148,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(false) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -180,7 +180,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -195,7 +195,7 @@ public static partial class ResultTValueExtensions
                                                               Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -214,7 +214,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -229,7 +229,7 @@ public static partial class ResultTValueExtensions
                                                                    Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 

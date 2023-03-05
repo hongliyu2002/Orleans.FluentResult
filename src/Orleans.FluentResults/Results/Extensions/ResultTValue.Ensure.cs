@@ -124,7 +124,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -141,7 +141,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -210,7 +210,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -227,7 +227,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };

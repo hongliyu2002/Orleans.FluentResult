@@ -124,7 +124,7 @@ public static partial class ResultExtensions
     public static async Task<Result> EnsureAsync(this Task<Result> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return new Result(result.Reasons.Add(error));
@@ -141,7 +141,7 @@ public static partial class ResultExtensions
     public static async Task<Result> EnsureAsync(this Task<Result> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return new Result(result.Reasons.AddRange(errors));
@@ -210,7 +210,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, bool condition, IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return new Result(result.Reasons.Add(error));
@@ -227,7 +227,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> EnsureAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<IError> errors)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         if (result.IsSuccess && !condition)
         {
             return new Result(result.Reasons.AddRange(errors));

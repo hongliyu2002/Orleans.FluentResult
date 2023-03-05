@@ -48,8 +48,8 @@ public static partial class ResultExtensions
                                                     Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ public static partial class ResultExtensions
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -82,8 +82,8 @@ public static partial class ResultExtensions
                                                          Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result;
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -97,8 +97,8 @@ public static partial class ResultExtensions
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        var result = await resultTask.ConfigureAwait(true);
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -115,7 +115,7 @@ public static partial class ResultExtensions
     public static async Task<Result> BindTryIfAsync(this Result result, Func<Result, bool> predicate, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public static partial class ResultExtensions
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -147,7 +147,7 @@ public static partial class ResultExtensions
                                                          Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result;
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result;
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public static partial class ResultExtensions
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(false) : result.ToResult<TOutput>();
+        return predicate(result) ? await result.BindTryAsync(bind, catchHandler).ConfigureAwait(true) : result.ToResult<TOutput>();
     }
 
     #endregion
@@ -178,7 +178,7 @@ public static partial class ResultExtensions
     public static async Task<Result> BindTryIfAsync(this Task<Result> resultTask, Func<Result, bool> predicate, Func<Result> bind, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.BindTry(bind, catchHandler) : result;
     }
 
@@ -193,7 +193,7 @@ public static partial class ResultExtensions
                                                             Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<TOutput>();
     }
 
@@ -212,7 +212,7 @@ public static partial class ResultExtensions
                                                          Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.BindTry(bind, catchHandler) : result;
     }
 
@@ -227,7 +227,7 @@ public static partial class ResultExtensions
                                                                  Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return predicate(result) ? result.BindTry(bind, catchHandler) : result.ToResult<TOutput>();
     }
 

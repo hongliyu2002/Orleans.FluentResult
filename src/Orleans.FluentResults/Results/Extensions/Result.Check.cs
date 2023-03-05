@@ -43,7 +43,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Task<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -56,7 +56,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result> CheckAsync<TOutput>(this Task<Result> resultTask, Func<Task<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -73,7 +73,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -86,7 +86,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result> CheckAsync<TOutput>(this ValueTask<Result> resultTask, Func<ValueTask<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -159,7 +159,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -172,7 +172,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result> CheckAsync<TOutput>(this Task<Result> resultTask, Func<Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -189,7 +189,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
@@ -202,7 +202,7 @@ public static partial class ResultExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result> CheckAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }

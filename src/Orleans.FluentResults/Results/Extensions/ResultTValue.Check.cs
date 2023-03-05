@@ -91,7 +91,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Task<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -104,7 +104,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Task<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -117,7 +117,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Task<Result<T>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -130,7 +130,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Task<Result<T>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -143,7 +143,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -156,7 +156,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -173,7 +173,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -186,7 +186,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -199,7 +199,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result<T>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -212,7 +212,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result<T>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -225,7 +225,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -238,7 +238,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result<TOutput>>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = await result.BindTryAsync(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -407,7 +407,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -420,7 +420,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -433,7 +433,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -446,7 +446,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Result<T>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -459,7 +459,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -472,7 +472,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -489,7 +489,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -502,7 +502,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, Result> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -515,7 +515,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -528,7 +528,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, Result<T>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry<T>(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -541,7 +541,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }
@@ -554,7 +554,7 @@ public static partial class ResultTValueExtensions
     /// <param name="check">Action that may fail.</param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, Result<TOutput>> check)
     {
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         var checkResult = result.BindTry(check);
         return checkResult.IsFailed ? Result<T>.Fail(checkResult.Errors) : result;
     }

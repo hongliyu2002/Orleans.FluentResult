@@ -41,7 +41,7 @@ public static partial class ResultTValueExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<T>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return await finalize(result);
     }
 
@@ -53,7 +53,7 @@ public static partial class ResultTValueExtensions
     public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, Task<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return await finalize(result);
     }
 
@@ -69,7 +69,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<T>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return await finalize(result);
     }
 
@@ -81,7 +81,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<TOutput>> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return await finalize(result);
     }
 
@@ -149,7 +149,7 @@ public static partial class ResultTValueExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, T> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return finalize(result);
     }
 
@@ -161,7 +161,7 @@ public static partial class ResultTValueExtensions
     public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, TOutput> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return finalize(result);
     }
 
@@ -177,7 +177,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, T> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return finalize(result);
     }
 
@@ -189,7 +189,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, TOutput> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(false);
+        var result = await resultTask.ConfigureAwait(true);
         return finalize(result);
     }
 
