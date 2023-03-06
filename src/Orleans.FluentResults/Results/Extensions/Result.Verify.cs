@@ -89,10 +89,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errorMessage"></param>
-    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.VerifyAsync(condition, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.VerifyAsync(condition, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -101,10 +102,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errorMessages"></param>
-    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.VerifyAsync(condition, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.VerifyAsync(condition, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -113,10 +115,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="error"></param>
-    public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IError error)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.Add(error));
     }
 
@@ -126,10 +129,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errors"></param>
-    public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.AddRange(errors));
     }
 
@@ -139,10 +143,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="exception"></param>
-    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.VerifyAsync(condition, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.VerifyAsync(condition, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -151,10 +156,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="exceptions"></param>
-    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.VerifyAsync(condition, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.VerifyAsync(condition, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -167,10 +173,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errorMessage"></param>
-    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.VerifyAsync(condition, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.VerifyAsync(condition, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -179,10 +186,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errorMessages"></param>
-    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.VerifyAsync(condition, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.VerifyAsync(condition, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -191,10 +199,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="error"></param>
-    public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IError error)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.Add(error));
     }
 
@@ -204,10 +213,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="errors"></param>
-    public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.AddRange(errors));
     }
 
@@ -217,10 +227,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="exception"></param>
-    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.VerifyAsync(condition, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.VerifyAsync(condition, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -229,10 +240,11 @@ public static partial class ResultExtensions
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
     /// <param name="exceptions"></param>
-    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.VerifyAsync(condition, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.VerifyAsync(condition, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
