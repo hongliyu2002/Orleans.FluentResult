@@ -11,7 +11,7 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
     public static Result Tap(this Result result, Action tap)
     {
         ArgumentNullException.ThrowIfNull(tap);
@@ -30,14 +30,15 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async Task<Result> TapAsync(this Task<Result> resultTask, Func<Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> TapAsync(this Task<Result> resultTask, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
-            await tap();
+            await tap().ConfigureAwait(configureAwait);
         }
         return result;
     }
@@ -50,14 +51,15 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
-            await tap();
+            await tap().ConfigureAwait(configureAwait);
         }
         return result;
     }
@@ -70,13 +72,14 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async Task<Result> TapAsync(this Result result, Func<Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> TapAsync(this Result result, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
         if (result.IsSuccess)
         {
-            await tap();
+            await tap().ConfigureAwait(configureAwait);
         }
         return result;
     }
@@ -89,13 +92,14 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async ValueTask<Result> TapAsync(this Result result, Func<ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> TapAsync(this Result result, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
         if (result.IsSuccess)
         {
-            await tap();
+            await tap().ConfigureAwait(configureAwait);
         }
         return result;
     }
@@ -108,11 +112,12 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async Task<Result> TapAsync(this Task<Result> resultTask, Action tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> TapAsync(this Task<Result> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();
@@ -128,11 +133,12 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Action tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();

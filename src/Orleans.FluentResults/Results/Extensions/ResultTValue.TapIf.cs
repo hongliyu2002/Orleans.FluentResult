@@ -12,7 +12,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
     public static Result<T> TapIf<T>(this Result<T> result, bool condition, Action tap)
     {
         return condition ? result.Tap(tap) : result;
@@ -23,7 +23,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
     public static Result<T> TapIf<T>(this Result<T> result, bool condition, Action<T> tap)
     {
         return condition ? result.Tap(tap) : result;
@@ -38,10 +38,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -49,10 +50,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     #endregion
@@ -64,10 +66,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -75,10 +78,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     #endregion
@@ -90,10 +94,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<Task> tap, bool configureAwait = true)
     {
-        return condition ? result.TapAsync(tap) : Task.FromResult(result);
+        return condition ? result.TapAsync(tap, configureAwait) : Task.FromResult(result);
     }
 
     /// <summary>
@@ -101,10 +106,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<T, Task> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<T, Task> tap, bool configureAwait = true)
     {
-        return condition ? result.TapAsync(tap) : Task.FromResult(result);
+        return condition ? result.TapAsync(tap, configureAwait) : Task.FromResult(result);
     }
 
     #endregion
@@ -116,10 +122,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask> tap, bool configureAwait = true)
     {
-        return condition ? result.TapAsync(tap) : ValueTask.FromResult(result);
+        return condition ? result.TapAsync(tap, configureAwait) : ValueTask.FromResult(result);
     }
 
     /// <summary>
@@ -127,10 +134,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask> tap, bool configureAwait = true)
     {
-        return condition ? result.TapAsync(tap) : ValueTask.FromResult(result);
+        return condition ? result.TapAsync(tap, configureAwait) : ValueTask.FromResult(result);
     }
 
     #endregion
@@ -142,10 +150,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -153,10 +162,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<T> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<T> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     #endregion
@@ -168,10 +178,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -179,10 +190,11 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tap">Action that may fail.</param>
-    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<T> tap)
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<T> tap, bool configureAwait = true)
     {
-        return condition ? resultTask.TapAsync(tap) : resultTask;
+        return condition ? resultTask.TapAsync(tap, configureAwait) : resultTask;
     }
 
     #endregion

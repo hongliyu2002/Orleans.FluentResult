@@ -11,7 +11,7 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
     /// <param name="catchHandler"></param>
     public static Result TapTry(this Result result, Action tap, Func<Exception, IError>? catchHandler = null)
     {
@@ -39,18 +39,19 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Func<Task> tap, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Func<Task> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
             try
             {
-                await tap();
+                await tap().ConfigureAwait(configureAwait);
             }
             catch (Exception ex)
             {
@@ -68,18 +69,19 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
             try
             {
-                await tap();
+                await tap().ConfigureAwait(configureAwait);
             }
             catch (Exception ex)
             {
@@ -97,9 +99,10 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> TapTryAsync(this Result result, Func<Task> tap, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> TapTryAsync(this Result result, Func<Task> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
         if (result.IsSuccess)
@@ -107,7 +110,7 @@ public static partial class ResultExtensions
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
             try
             {
-                await tap();
+                await tap().ConfigureAwait(configureAwait);
             }
             catch (Exception ex)
             {
@@ -125,9 +128,10 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> TapTryAsync(this Result result, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> TapTryAsync(this Result result, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
         if (result.IsSuccess)
@@ -135,7 +139,7 @@ public static partial class ResultExtensions
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
             try
             {
-                await tap();
+                await tap().ConfigureAwait(configureAwait);
             }
             catch (Exception ex)
             {
@@ -153,12 +157,13 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> TapTryAsync(this Task<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -182,12 +187,13 @@ public static partial class ResultExtensions
     ///     Executes the given action if the calling result is a success. Returns the calling result.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="tap">Action that may fail.</param>
+    /// <param name="tap">tap action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> TapTryAsync(this ValueTask<Result> resultTask, Action tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;

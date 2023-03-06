@@ -12,7 +12,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
     /// <param name="catchHandler"></param>
     public static Result<T> TapErrorTryIf<T>(this Result<T> result, bool condition, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
@@ -24,7 +24,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
     /// <param name="catchHandler"></param>
     public static Result<T> TapErrorTryIf<T>(this Result<T> result, bool condition, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
     {
@@ -40,11 +40,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -52,11 +53,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     #endregion
@@ -68,11 +70,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -80,11 +83,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     #endregion
@@ -96,11 +100,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.TapErrorTryAsync(tapError, catchHandler) : Task.FromResult(result);
+        return condition ? result.TapErrorTryAsync(tapError, catchHandler, configureAwait) : Task.FromResult(result);
     }
 
     /// <summary>
@@ -108,11 +113,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<T, IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<T, IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.TapErrorTryAsync(tapError, catchHandler) : Task.FromResult(result);
+        return condition ? result.TapErrorTryAsync(tapError, catchHandler, configureAwait) : Task.FromResult(result);
     }
 
     #endregion
@@ -124,11 +130,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.TapErrorTryAsync(tapError, catchHandler) : ValueTask.FromResult(result);
+        return condition ? result.TapErrorTryAsync(tapError, catchHandler, configureAwait) : ValueTask.FromResult(result);
     }
 
     /// <summary>
@@ -136,11 +143,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<T, IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this Result<T> result, bool condition, Func<T, IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.TapErrorTryAsync(tapError, catchHandler) : ValueTask.FromResult(result);
+        return condition ? result.TapErrorTryAsync(tapError, catchHandler, configureAwait) : ValueTask.FromResult(result);
     }
 
     #endregion
@@ -152,11 +160,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -164,11 +173,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> TapErrorTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     #endregion
@@ -180,11 +190,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -192,11 +203,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="tapError">Action that may fail.</param>
+    /// <param name="tapError">tap error action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> TapErrorTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Action<T, IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler) : resultTask;
+        return condition ? resultTask.TapErrorTryAsync(tapError, catchHandler, configureAwait) : resultTask;
     }
 
     #endregion
