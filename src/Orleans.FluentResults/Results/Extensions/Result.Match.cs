@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
     public static void Match(this Result result, Action onSuccess, Action<IEnumerable<IError>> onFailure)
     {
@@ -33,9 +33,10 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static TOutput Match<TOutput>(this Result result, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
+    /// <param name="configureAwait"></param>
+    public static TOutput Match<TOutput>(this Result result, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
@@ -51,20 +52,21 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task MatchAsync(this Task<Result> resultTask, Func<Task> onSuccess, Func<IEnumerable<IError>, Task> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task MatchAsync(this Task<Result> resultTask, Func<Task> onSuccess, Func<IEnumerable<IError>, Task> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
-            await onSuccess();
+            await onSuccess().ConfigureAwait(configureAwait);
         }
         else
         {
-            await onFailure(result.Errors);
+            await onFailure(result.Errors).ConfigureAwait(configureAwait);
         }
     }
 
@@ -73,14 +75,15 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task<TOutput> MatchAsync<TOutput>(this Task<Result> resultTask, Func<Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task<TOutput> MatchAsync<TOutput>(this Task<Result> resultTask, Func<Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
-        return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return result.IsSuccess ? await onSuccess().ConfigureAwait(configureAwait) : await onFailure(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -92,20 +95,21 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask MatchAsync(this ValueTask<Result> resultTask, Func<ValueTask> onSuccess, Func<IEnumerable<IError>, ValueTask> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask MatchAsync(this ValueTask<Result> resultTask, Func<ValueTask> onSuccess, Func<IEnumerable<IError>, ValueTask> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
-            await onSuccess();
+            await onSuccess().ConfigureAwait(configureAwait);
         }
         else
         {
-            await onFailure(result.Errors);
+            await onFailure(result.Errors).ConfigureAwait(configureAwait);
         }
     }
 
@@ -114,14 +118,15 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<TOutput> MatchAsync<TOutput>(this ValueTask<Result> resultTask, Func<ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<TOutput> MatchAsync<TOutput>(this ValueTask<Result> resultTask, Func<ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
-        return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return result.IsSuccess ? await onSuccess().ConfigureAwait(configureAwait) : await onFailure(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -133,19 +138,20 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task MatchAsync(this Result result, Func<Task> onSuccess, Func<IEnumerable<IError>, Task> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task MatchAsync(this Result result, Func<Task> onSuccess, Func<IEnumerable<IError>, Task> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
         if (result.IsSuccess)
         {
-            await onSuccess();
+            await onSuccess().ConfigureAwait(configureAwait);
         }
         else
         {
-            await onFailure(result.Errors);
+            await onFailure(result.Errors).ConfigureAwait(configureAwait);
         }
     }
 
@@ -154,13 +160,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task<TOutput> MatchAsync<TOutput>(this Result result, Func<Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task<TOutput> MatchAsync<TOutput>(this Result result, Func<Task<TOutput>> onSuccess, Func<IEnumerable<IError>, Task<TOutput>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
+        return result.IsSuccess ? await onSuccess().ConfigureAwait(configureAwait) : await onFailure(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -172,19 +179,20 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask MatchAsync(this Result result, Func<ValueTask> onSuccess, Func<IEnumerable<IError>, ValueTask> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask MatchAsync(this Result result, Func<ValueTask> onSuccess, Func<IEnumerable<IError>, ValueTask> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
         if (result.IsSuccess)
         {
-            await onSuccess();
+            await onSuccess().ConfigureAwait(configureAwait);
         }
         else
         {
-            await onFailure(result.Errors);
+            await onFailure(result.Errors).ConfigureAwait(configureAwait);
         }
     }
 
@@ -193,13 +201,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<TOutput> MatchAsync<TOutput>(this Result result, Func<ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<TOutput> MatchAsync<TOutput>(this Result result, Func<ValueTask<TOutput>> onSuccess, Func<IEnumerable<IError>, ValueTask<TOutput>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        return result.IsSuccess ? await onSuccess() : await onFailure(result.Errors);
+        return result.IsSuccess ? await onSuccess().ConfigureAwait(configureAwait) : await onFailure(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -211,13 +220,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task MatchAsync(this Task<Result> resultTask, Action onSuccess, Action<IEnumerable<IError>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task MatchAsync(this Task<Result> resultTask, Action onSuccess, Action<IEnumerable<IError>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             onSuccess();
@@ -233,13 +243,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async Task<TOutput> MatchAsync<TOutput>(this Task<Result> resultTask, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async Task<TOutput> MatchAsync<TOutput>(this Task<Result> resultTask, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? onSuccess() : onFailure(result.Errors);
     }
 
@@ -252,13 +263,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask MatchAsync(this ValueTask<Result> resultTask, Action onSuccess, Action<IEnumerable<IError>> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask MatchAsync(this ValueTask<Result> resultTask, Action onSuccess, Action<IEnumerable<IError>> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             onSuccess();
@@ -274,13 +286,14 @@ public static partial class ResultExtensions
     ///     Otherwise, it returns the result of the given <paramref name="onFailure" /> function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="onSuccess">Action that may fail.</param>
+    /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
-    public static async ValueTask<TOutput> MatchAsync<TOutput>(this ValueTask<Result> resultTask, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<TOutput> MatchAsync<TOutput>(this ValueTask<Result> resultTask, Func<TOutput> onSuccess, Func<IEnumerable<IError>, TOutput> onFailure, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? onSuccess() : onFailure(result.Errors);
     }
 
