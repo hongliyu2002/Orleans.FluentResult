@@ -99,10 +99,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -111,10 +112,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -123,12 +125,13 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
         }
@@ -141,12 +144,13 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
         }
@@ -159,10 +163,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -171,10 +176,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<bool>> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -187,10 +193,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -199,10 +206,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -211,12 +219,13 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
         }
@@ -229,12 +238,13 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
         }
@@ -247,10 +257,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -259,10 +270,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -275,10 +287,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return result.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return result.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -287,10 +300,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return result.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return result.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -299,11 +313,12 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
         }
@@ -316,11 +331,12 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
         }
@@ -333,10 +349,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -345,10 +362,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, Task<bool>> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -361,10 +379,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return result.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return result.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -373,10 +392,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return result.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return result.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -385,11 +405,12 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
         }
@@ -402,11 +423,12 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        if (result.IsSuccess && !await predicate(result).ConfigureAwait(true))
+        if (result.IsSuccess && !await predicate(result).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
         }
@@ -419,10 +441,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return result.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -431,10 +454,11 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this Result<T> result, Func<Result<T>, ValueTask<bool>> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return result.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -447,10 +471,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -459,10 +484,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -471,11 +497,12 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -489,11 +516,12 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -507,10 +535,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -519,10 +548,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
@@ -535,10 +565,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessage"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, string errorMessage)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessage);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ErrorFactory(errorMessage), configureAwait);
     }
 
     /// <summary>
@@ -547,10 +578,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errorMessages"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<string> errorMessages)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errorMessages);
-        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory));
+        return resultTask.EnsureAsync(predicate, errorMessages.Select(ResultSettings.Current.ErrorFactory), configureAwait);
     }
 
     /// <summary>
@@ -559,11 +591,12 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="error"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IError error)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -577,11 +610,12 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="errors"></param>
-    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<IError> errors)
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -595,10 +629,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exception"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Exception exception)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exception);
-        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception));
+        return resultTask.EnsureAsync(predicate, ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception), configureAwait);
     }
 
     /// <summary>
@@ -607,10 +642,11 @@ public static partial class ResultTValueExtensions
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
     /// <param name="exceptions"></param>
-    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<Exception> exceptions)
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(exceptions);
-        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)));
+        return resultTask.EnsureAsync(predicate, exceptions.Select(exception => ResultSettings.Current.ExceptionalErrorFactory(exception.Message, exception)), configureAwait);
     }
 
     #endregion
