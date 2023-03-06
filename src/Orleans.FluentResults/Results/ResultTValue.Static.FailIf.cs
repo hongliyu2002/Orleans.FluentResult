@@ -32,7 +32,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, string errorMessage)
+    public static Result<T> FailIf(Func<bool> failurePredicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(errorMessage) : Ok();
@@ -41,7 +41,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, IError error)
+    public static Result<T> FailIf(Func<bool> failurePredicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(error) : Ok();
@@ -50,7 +50,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, Exception exception)
+    public static Result<T> FailIf(Func<bool> failurePredicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(exception) : Ok();
@@ -63,26 +63,26 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
-        return FailIf(await failurePredicate(), error);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception);
     }
 
     #endregion
@@ -92,25 +92,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), error);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception);
     }
 
     #endregion
@@ -175,25 +175,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage, T successValue)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error, T successValue)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), error, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception, T successValue)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception, successValue);
     }
 
     #endregion
@@ -203,25 +203,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error, T successValue)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), error, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error, successValue);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception, successValue);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception, successValue);
     }
 
     #endregion
@@ -255,7 +255,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, string errorMessage, T successValue, string successMessage)
+    public static Result<T> FailIf(Func<bool> failurePredicate, string errorMessage, T successValue, string successMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(errorMessage) : Ok(successValue, successMessage);
@@ -264,7 +264,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, IError error, T successValue, string successMessage)
+    public static Result<T> FailIf(Func<bool> failurePredicate, IError error, T successValue, string successMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(error) : Ok(successValue, successMessage);
@@ -273,7 +273,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static Result<T> FailIf(Func<bool> failurePredicate, Exception exception, T successValue, string successMessage)
+    public static Result<T> FailIf(Func<bool> failurePredicate, Exception exception, T successValue, string successMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(failurePredicate);
         return failurePredicate() ? Fail(exception) : Ok(successValue, successMessage);
@@ -286,25 +286,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage, T successValue, string successMessage)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, string errorMessage, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage, successValue, successMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error, T successValue, string successMessage)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, IError error, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), error, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error, successValue, successMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception, T successValue, string successMessage)
+    public static async Task<Result<T>> FailIfAsync(Func<Task<bool>> failurePredicate, Exception exception, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception, successValue, successMessage);
     }
 
     #endregion
@@ -314,25 +314,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue, string successMessage)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, string errorMessage, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), errorMessage, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), errorMessage, successValue, successMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error, T successValue, string successMessage)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, IError error, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), error, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), error, successValue, successMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter failureCondition
     /// </summary>
-    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue, string successMessage)
+    public static async ValueTask<Result<T>> FailIfAsync(Func<ValueTask<bool>> failurePredicate, Exception exception, T successValue, string successMessage, bool configureAwait = true)
     {
-        return FailIf(await failurePredicate(), exception, successValue, successMessage);
+        return FailIf(await failurePredicate().ConfigureAwait(configureAwait), exception, successValue, successMessage);
     }
 
     #endregion

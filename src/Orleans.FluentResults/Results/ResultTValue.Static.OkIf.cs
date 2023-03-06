@@ -32,7 +32,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, string errorMessage)
+    public static Result<T> OkIf(Func<bool> successPredicate, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok() : Fail(errorMessage);
@@ -41,7 +41,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, IError error)
+    public static Result<T> OkIf(Func<bool> successPredicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok() : Fail(error);
@@ -50,7 +50,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, Exception exception)
+    public static Result<T> OkIf(Func<bool> successPredicate, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok() : Fail(exception);
@@ -63,26 +63,26 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
-        return OkIf(await successPredicate(), error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, Exception exception)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), exception);
     }
 
     #endregion
@@ -92,25 +92,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, IError error, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, Exception exception)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), exception);
     }
 
     #endregion
@@ -175,25 +175,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, IError error, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, Exception exception)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, exception);
     }
 
     #endregion
@@ -203,25 +203,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, IError error, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, Exception exception)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, exception);
     }
 
     #endregion
@@ -255,7 +255,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, string errorMessage)
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, string errorMessage, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok(successValue, successMessage) : Fail(errorMessage);
@@ -264,7 +264,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, IError error)
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok(successValue, successMessage) : Fail(error);
@@ -273,7 +273,7 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, Exception exception)
+    public static Result<T> OkIf(Func<bool> successPredicate, T successValue, string successMessage, Exception exception, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(successPredicate);
         return successPredicate() ? Ok(successValue, successMessage) : Fail(exception);
@@ -286,25 +286,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, string errorMessage)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, IError error)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, IError error, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, Exception exception)
+    public static async Task<Result<T>> OkIfAsync(Func<Task<bool>> successPredicate, T successValue, string successMessage, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, exception);
     }
 
     #endregion
@@ -314,25 +314,25 @@ public partial record Result<T>
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, string errorMessage)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, string errorMessage, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, errorMessage);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, errorMessage);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, IError error)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, IError error, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, error);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, error);
     }
 
     /// <summary>
     ///     Create a success/failed result depending on the parameter successCondition
     /// </summary>
-    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, Exception exception)
+    public static async ValueTask<Result<T>> OkIfAsync(Func<ValueTask<bool>> successPredicate, T successValue, string successMessage, Exception exception, bool configureAwait = true)
     {
-        return OkIf(await successPredicate(), successValue, successMessage, exception);
+        return OkIf(await successPredicate().ConfigureAwait(configureAwait), successValue, successMessage, exception);
     }
 
     #endregion

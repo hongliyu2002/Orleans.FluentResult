@@ -350,7 +350,7 @@ public class ResultWithoutValueTests
     {
         var exception = new Exception("ex message");
         Task Action() => throw exception;
-        var result = await Result.TryAsync(Action, _ => new Error("xy"));
+        var result = await Result.TryAsync(Action, true, _ => new Error("xy"));
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCount(1);
         var error = result.Errors.First();
@@ -362,7 +362,7 @@ public class ResultWithoutValueTests
     {
         var exception = new Exception("ex message");
         ValueTask Action() => throw exception;
-        var result = await Result.TryAsync(Action, _ => new Error("xy"));
+        var result = await Result.TryAsync(Action, true, _ => new Error("xy"));
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCount(1);
         var error = result.Errors.First();

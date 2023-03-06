@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>Orleans.FluentResults</PackageId>
-        <Version>7.1.0.6</Version>
+        <Version>7.1.0.7</Version>
         <Authors>Leo Hong</Authors>
         <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
