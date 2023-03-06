@@ -49,8 +49,7 @@ public static partial class ResultExtensions
     /// <param name="predicate"></param>
     /// <param name="tap">Action that may fail.</param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> TapTryIfAsync(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask> tap,
-                                                        Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> TapTryIfAsync(this ValueTask<Result> resultTask, Func<Result, bool> predicate, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(true);

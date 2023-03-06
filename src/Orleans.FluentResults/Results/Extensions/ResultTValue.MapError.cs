@@ -13,7 +13,7 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="mapError">Action that may fail.</param>
+    /// <param name="mapError">map error function</param>
     public static Result<T> MapError<T>(this Result<T> result, Func<IError, IError> mapError)
     {
         ArgumentNullException.ThrowIfNull(mapError);
@@ -29,12 +29,13 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, Task<IError>> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, Task<IError>> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(true);
-        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -46,12 +47,13 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, ValueTask<IError>> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, ValueTask<IError>> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(true);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -63,11 +65,12 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async Task<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, Task<IError>> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, Task<IError>> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(true);
+        var errors = await Task.WhenAll(result.Errors.Select(mapError)).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -79,11 +82,12 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async ValueTask<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, ValueTask<IError>> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> MapErrorAsync<T>(this Result<T> result, Func<IError, ValueTask<IError>> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(true);
+        var errors = await Task.WhenAll(result.Errors.Select(error => mapError(error).AsTask())).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
 
@@ -95,11 +99,12 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, IError> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> MapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IError, IError> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }
@@ -112,11 +117,12 @@ public static partial class ResultTValueExtensions
     ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given map error function.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="mapError">Action that may fail.</param>
-    public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, IError> mapError)
+    /// <param name="mapError">map error function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> MapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IError, IError> mapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapError);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         var errors = result.Errors.Select(mapError);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(errors).AddRange(result.Successes) };
     }

@@ -42,10 +42,6 @@ public record Error(string Message, IImmutableDictionary<string, object> Metadat
     /// <returns></returns>
     public override string ToString()
     {
-        return new ReasonStringBuilder().WithReasonType(GetType())
-                                        .WithInfo(nameof(Message), Message)
-                                        .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
-                                        .WithInfo(nameof(Reasons), string.Join("; ", Reasons))
-                                        .Build();
+        return new ReasonStringBuilder().WithReasonType(GetType()).WithInfo(nameof(Message), Message).WithInfo(nameof(Metadata), string.Join("; ", Metadata)).WithInfo(nameof(Reasons), string.Join("; ", Reasons)).Build();
     }
 }

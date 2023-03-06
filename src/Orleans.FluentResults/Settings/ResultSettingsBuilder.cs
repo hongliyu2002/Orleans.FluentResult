@@ -27,8 +27,7 @@ public sealed class ResultSettingsBuilder
     /// <summary>
     ///     Factory to create an ExceptionalError object. Used in all scenarios where an exceptional error is created within FluentResults.
     /// </summary>
-    public Func<string, Exception, IExceptionalError> ExceptionalErrorFactory { get; set; } =
-        (errorMessage, exception) => new ExceptionalError(string.IsNullOrEmpty(errorMessage) ? exception.Message : errorMessage, exception);
+    public Func<string, Exception, IExceptionalError> ExceptionalErrorFactory { get; set; } = (errorMessage, exception) => new ExceptionalError(string.IsNullOrEmpty(errorMessage) ? exception.Message : errorMessage, exception);
 
     /// <summary>
     /// </summary>

@@ -7,8 +7,7 @@ namespace Orleans.FluentResults;
 /// </summary>
 [Immutable]
 [GenerateSerializer]
-public record ExceptionalError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons, Exception Exception)
-    : Error(Message, Metadata, Reasons), IExceptionalError
+public record ExceptionalError(string Message, IImmutableDictionary<string, object> Metadata, IImmutableList<IError> Reasons, Exception Exception) : Error(Message, Metadata, Reasons), IExceptionalError
 {
     /// <summary>
     ///     Creates a new instance of <see cref="ExceptionalError" />
@@ -51,11 +50,6 @@ public record ExceptionalError(string Message, IImmutableDictionary<string, obje
     /// <returns></returns>
     public override string ToString()
     {
-        return new ReasonStringBuilder().WithReasonType(GetType())
-                                        .WithInfo(nameof(Message), Message)
-                                        .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
-                                        .WithInfo(nameof(Reasons), string.Join("; ", Reasons))
-                                        .WithInfo(nameof(Exception), Exception.ToString())
-                                        .Build();
+        return new ReasonStringBuilder().WithReasonType(GetType()).WithInfo(nameof(Message), Message).WithInfo(nameof(Metadata), string.Join("; ", Metadata)).WithInfo(nameof(Reasons), string.Join("; ", Reasons)).WithInfo(nameof(Exception), Exception.ToString()).Build();
     }
 }

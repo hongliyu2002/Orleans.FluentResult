@@ -48,7 +48,7 @@ public partial record Result<T>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async Task<Result<T>> TryAsync(Func<Task> action, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<T>> TryAsync(Func<Task> action, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -66,7 +66,7 @@ public partial record Result<T>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async Task<Result<T>> TryAsync(Func<Task<T>> func, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<T>> TryAsync(Func<Task<T>> func, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(func);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -88,7 +88,7 @@ public partial record Result<T>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async ValueTask<Result<T>> TryAsync(Func<ValueTask> action, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<T>> TryAsync(Func<ValueTask> action, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(action);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
@@ -106,7 +106,7 @@ public partial record Result<T>
     /// <summary>
     ///     Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object
     /// </summary>
-    public static async ValueTask<Result<T>> TryAsync(Func<ValueTask<T>> func, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<T>> TryAsync(Func<ValueTask<T>> func, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(func);
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;

@@ -12,7 +12,7 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     /// <param name="catchHandler"></param>
     public static Result<TOutput> MapTry<T, TOutput>(this Result<T> result, Func<TOutput> map, Func<Exception, IError>? catchHandler = null)
     {
@@ -38,7 +38,7 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     /// <param name="catchHandler"></param>
     public static Result<TOutput> MapTry<T, TOutput>(this Result<T> result, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null)
     {
@@ -68,12 +68,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -81,7 +82,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map().ConfigureAwait(true);
+            var value = await map().ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -95,12 +96,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -108,7 +110,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map(result.Value).ConfigureAwait(true);
+            var value = await map(result.Value).ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -126,12 +128,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -139,7 +142,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map().ConfigureAwait(true);
+            var value = await map().ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -153,12 +156,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -166,7 +170,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map(result.Value).ConfigureAwait(true);
+            var value = await map(result.Value).ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -184,9 +188,10 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
@@ -196,7 +201,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map().ConfigureAwait(true);
+            var value = await map().ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -210,9 +215,10 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
@@ -222,7 +228,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map(result.Value).ConfigureAwait(true);
+            var value = await map(result.Value).ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -240,9 +246,10 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
@@ -252,7 +259,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map().ConfigureAwait(true);
+            var value = await map().ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -266,9 +273,10 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
@@ -278,7 +286,7 @@ public static partial class ResultTValueExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var value = await map(result.Value).ConfigureAwait(true);
+            var value = await map(result.Value).ConfigureAwait(configureAwait);
             return new Result<TOutput>(value, result.Reasons);
         }
         catch (Exception ex)
@@ -296,12 +304,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -323,12 +332,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -354,12 +364,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -381,12 +392,13 @@ public static partial class ResultTValueExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);

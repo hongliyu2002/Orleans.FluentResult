@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     public static Result<TOutput> MapIf<TOutput>(this Result result, bool condition, Func<TOutput> map)
     {
         return condition ? result.Map(map) : result.ToResult<TOutput>();
@@ -27,10 +27,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<Task<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
     }
 
     #endregion
@@ -42,10 +43,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
     }
 
     #endregion
@@ -57,10 +59,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Result result, bool condition, Func<Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Result result, bool condition, Func<Task<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? result.MapAsync(map) : Task.FromResult(result.ToResult<TOutput>());
+        return condition ? result.MapAsync(map, configureAwait) : Task.FromResult(result.ToResult<TOutput>());
     }
 
     #endregion
@@ -72,10 +75,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this Result result, bool condition, Func<ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this Result result, bool condition, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? result.MapAsync(map) : ValueTask.FromResult(result.ToResult<TOutput>());
+        return condition ? result.MapAsync(map, configureAwait) : ValueTask.FromResult(result.ToResult<TOutput>());
     }
 
     #endregion
@@ -87,10 +91,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
     }
 
     #endregion
@@ -102,10 +107,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
     }
 
     #endregion

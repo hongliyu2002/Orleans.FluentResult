@@ -91,9 +91,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -104,9 +104,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -117,9 +117,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -130,9 +130,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -143,9 +143,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
@@ -156,9 +156,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -173,9 +173,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -186,9 +186,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -199,9 +199,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -212,9 +212,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -225,9 +225,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
@@ -238,9 +238,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -255,9 +255,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : Task.FromResult(result.ToResult());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : Task.FromResult(result.ToResult());
     }
 
     /// <summary>
@@ -268,9 +268,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, Task<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : Task.FromResult(result.ToResult());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : Task.FromResult(result.ToResult());
     }
 
     /// <summary>
@@ -281,9 +281,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync<T>(bind, configureAwait, catchHandler) : Task.FromResult(result);
+        return condition ? result.BindTryAsync<T>(bind, catchHandler, configureAwait) : Task.FromResult(result);
     }
 
     /// <summary>
@@ -294,9 +294,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync<T>(bind, configureAwait, catchHandler) : Task.FromResult(result);
+        return condition ? result.BindTryAsync<T>(bind, catchHandler, configureAwait) : Task.FromResult(result);
     }
 
     /// <summary>
@@ -307,9 +307,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<Task<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<Task<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : Task.FromResult(result.ToResult<T, TOutput>());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : Task.FromResult(result.ToResult<T, TOutput>());
     }
 
     /// <summary>
@@ -320,9 +320,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, Task<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : Task.FromResult(result.ToResult<T, TOutput>());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : Task.FromResult(result.ToResult<T, TOutput>());
     }
 
     #endregion
@@ -337,9 +337,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : ValueTask.FromResult(result.ToResult());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : ValueTask.FromResult(result.ToResult());
     }
 
     /// <summary>
@@ -350,9 +350,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : ValueTask.FromResult(result.ToResult());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : ValueTask.FromResult(result.ToResult());
     }
 
     /// <summary>
@@ -363,9 +363,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync<T>(bind, configureAwait, catchHandler) : ValueTask.FromResult(result);
+        return condition ? result.BindTryAsync<T>(bind, catchHandler, configureAwait) : ValueTask.FromResult(result);
     }
 
     /// <summary>
@@ -376,9 +376,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this Result<T> result, bool condition, Func<T, ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync<T>(bind, configureAwait, catchHandler) : ValueTask.FromResult(result);
+        return condition ? result.BindTryAsync<T>(bind, catchHandler, configureAwait) : ValueTask.FromResult(result);
     }
 
     /// <summary>
@@ -389,9 +389,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<ValueTask<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : ValueTask.FromResult(result.ToResult<T, TOutput>());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : ValueTask.FromResult(result.ToResult<T, TOutput>());
     }
 
     /// <summary>
@@ -402,9 +402,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Result<T> result, bool condition, Func<T, ValueTask<Result<TOutput>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? result.BindTryAsync(bind, configureAwait, catchHandler) : ValueTask.FromResult(result.ToResult<T, TOutput>());
+        return condition ? result.BindTryAsync(bind, catchHandler, configureAwait) : ValueTask.FromResult(result.ToResult<T, TOutput>());
     }
 
     #endregion
@@ -419,9 +419,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -432,9 +432,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -445,9 +445,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -458,9 +458,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<T>> BindTryIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -471,9 +471,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
@@ -484,9 +484,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static Task<Result<TOutput>> BindTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion
@@ -501,9 +501,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -514,9 +514,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync();
     }
 
     /// <summary>
@@ -527,9 +527,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -540,9 +540,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<T>> BindTryIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync<T>(bind, configureAwait, catchHandler) : resultTask;
+        return condition ? resultTask.BindTryAsync<T>(bind, catchHandler, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -553,9 +553,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     /// <summary>
@@ -566,9 +566,9 @@ public static partial class ResultTValueExtensions
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
+    public static ValueTask<Result<TOutput>> BindTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.BindTryAsync(bind, configureAwait, catchHandler) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindTryAsync(bind, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
     }
 
     #endregion

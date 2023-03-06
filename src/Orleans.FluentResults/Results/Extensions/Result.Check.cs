@@ -57,7 +57,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -75,7 +75,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -97,7 +97,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -115,7 +115,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -136,7 +136,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -153,7 +153,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -174,7 +174,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 
@@ -191,7 +191,7 @@ public static partial class ResultExtensions
         {
             return result;
         }
-        var checkResult = await result.BindTryAsync(check, configureAwait).ConfigureAwait(configureAwait);
+        var checkResult = await result.BindTryAsync(check, null, configureAwait).ConfigureAwait(configureAwait);
         return checkResult.IsFailed ? Result.Fail(checkResult.Errors) : result;
     }
 

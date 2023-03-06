@@ -11,7 +11,7 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     public static Result<TOutput> Map<T, TOutput>(this Result<T> result, Func<TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
@@ -27,7 +27,7 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     public static Result<TOutput> Map<T, TOutput>(this Result<T> result, Func<T, TOutput> map)
     {
         ArgumentNullException.ThrowIfNull(map);
@@ -47,16 +47,17 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(true);
+        var value = await map().ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -64,16 +65,17 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(true);
+        var value = await map(result.Value).ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -85,16 +87,17 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(true);
+        var value = await map().ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -102,16 +105,17 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(true);
+        var value = await map(result.Value).ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -123,15 +127,16 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<Task<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(true);
+        var value = await map().ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -139,15 +144,16 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, Task<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(true);
+        var value = await map(result.Value).ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -159,15 +165,16 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map().ConfigureAwait(true);
+        var value = await map().ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -175,15 +182,16 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this Result<T> result, Func<T, ValueTask<TOutput>> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
         }
-        var value = await map(result.Value).ConfigureAwait(true);
+        var value = await map(result.Value).ConfigureAwait(configureAwait);
         return new Result<TOutput>(value, result.Reasons);
     }
 
@@ -195,11 +203,12 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<TOutput> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -212,11 +221,12 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<TOutput>> MapAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, TOutput> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -233,11 +243,12 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<TOutput> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);
@@ -250,11 +261,12 @@ public static partial class ResultTValueExtensions
     ///     Creates a new result from the return value of a given map function. If the calling Result is a failure, a new failure result is returned instead.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="map">Action that may fail.</param>
-    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map)
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<TOutput>> MapAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, TOutput> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result<TOutput>.Fail(result.Errors);

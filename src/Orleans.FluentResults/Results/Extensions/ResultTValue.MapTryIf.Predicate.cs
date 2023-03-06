@@ -12,7 +12,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     /// <param name="catchHandler"></param>
     public static Result<TOutput> MapTryIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<TOutput> map, Func<Exception, IError>? catchHandler = null)
     {
@@ -25,7 +25,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
     /// <param name="catchHandler"></param>
     public static Result<TOutput> MapTryIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null)
     {
@@ -42,14 +42,14 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<TOutput>> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -57,14 +57,14 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<TOutput>> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -76,14 +76,14 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<TOutput>> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -91,14 +91,14 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<TOutput>> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -110,13 +110,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<TOutput>> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -124,13 +124,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<TOutput>> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -142,13 +142,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<TOutput>> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -156,13 +156,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<TOutput>> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.MapTryAsync(map, catchHandler).ConfigureAwait(true) : result.ToResult<T, TOutput>();
+        return predicate(result) ? await result.MapTryAsync(map, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -174,13 +174,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<TOutput> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -189,13 +189,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, TOutput> map,
-                                                              Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -208,13 +208,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<TOutput> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
@@ -223,13 +223,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="map">Action that may fail.</param>
+    /// <param name="map">map function</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, TOutput> map,
-                                                                   Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.MapTry(map, catchHandler) : result.ToResult<T, TOutput>();
     }
 
