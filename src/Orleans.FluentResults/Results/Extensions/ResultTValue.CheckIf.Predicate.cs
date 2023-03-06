@@ -12,7 +12,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -24,7 +24,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -36,7 +36,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result<T>> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -48,7 +48,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result<T>> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -60,7 +60,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result<TOutput>> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -72,7 +72,7 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
+    /// <param name="check">check action</param>
     public static Result<T> CheckIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> check)
     {
         ArgumentNullException.ThrowIfNull(predicate);
@@ -88,12 +88,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -101,12 +102,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -114,12 +116,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -127,12 +130,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -140,12 +144,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -153,12 +158,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -170,12 +176,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -183,12 +190,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -196,12 +204,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -209,12 +218,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -222,12 +232,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -235,12 +246,13 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -252,11 +264,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -264,11 +277,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -276,11 +290,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -288,11 +303,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -300,11 +316,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -312,11 +329,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -328,11 +346,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -340,11 +359,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -352,11 +372,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -364,11 +385,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync<T>(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync<T>(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -376,11 +398,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -388,11 +411,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.CheckAsync(check).ConfigureAwait(true) : result;
+        return predicate(result) ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -404,11 +428,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -417,11 +442,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -430,11 +456,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check<T>(check) : result;
     }
 
@@ -443,11 +470,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check<T>(check) : result;
     }
 
@@ -456,11 +484,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -469,11 +498,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result<T>> CheckIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -486,11 +516,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -499,11 +530,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -512,11 +544,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check<T>(check) : result;
     }
 
@@ -525,11 +558,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check<T>(check) : result;
     }
 
@@ -538,11 +572,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
@@ -551,11 +586,12 @@ public static partial class ResultTValueExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="predicate"></param>
-    /// <param name="check">Action that may fail.</param>
-    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> check)
+    /// <param name="check">check action</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result<T>> CheckIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return predicate(result) ? result.Check(check) : result;
     }
 
