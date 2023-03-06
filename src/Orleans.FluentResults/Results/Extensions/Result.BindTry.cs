@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
     /// <param name="catchHandler"></param>
     public static Result BindTry(this Result result, Func<Result> bind, Func<Exception, IError>? catchHandler = null)
     {
@@ -38,7 +38,7 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
     /// <param name="catchHandler"></param>
     public static Result<T> BindTry<T>(this Result result, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null)
     {
@@ -68,12 +68,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -81,7 +82,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return new Result(result.Reasons.AddRange(bindResult.Reasons));
         }
         catch (Exception ex)
@@ -95,12 +96,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -108,7 +110,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
         }
         catch (Exception ex)
@@ -126,12 +128,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -139,7 +142,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return new Result(result.Reasons.AddRange(bindResult.Reasons));
         }
         catch (Exception ex)
@@ -153,12 +156,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -166,7 +170,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
         }
         catch (Exception ex)
@@ -184,9 +188,10 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> BindTryAsync(this Result result, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> BindTryAsync(this Result result, Func<Task<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
@@ -196,7 +201,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return new Result(result.Reasons.AddRange(bindResult.Reasons));
         }
         catch (Exception ex)
@@ -210,9 +215,10 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> BindTryAsync<T>(this Result result, Func<Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<T>> BindTryAsync<T>(this Result result, Func<Task<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
@@ -222,7 +228,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
         }
         catch (Exception ex)
@@ -240,9 +246,10 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> BindTryAsync(this Result result, Func<ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> BindTryAsync(this Result result, Func<ValueTask<Result>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
@@ -252,7 +259,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return new Result(result.Reasons.AddRange(bindResult.Reasons));
         }
         catch (Exception ex)
@@ -266,9 +273,10 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> BindTryAsync<T>(this Result result, Func<ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<T>> BindTryAsync<T>(this Result result, Func<ValueTask<Result<T>>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
         if (result.IsFailed)
@@ -278,7 +286,7 @@ public static partial class ResultExtensions
         catchHandler ??= ResultSettings.Current.DefaultTryCatchHandler;
         try
         {
-            var bindResult = await bind().ConfigureAwait(true);
+            var bindResult = await bind().ConfigureAwait(configureAwait);
             return bindResult with { Reasons = result.Reasons.AddRange(bindResult.Reasons) };
         }
         catch (Exception ex)
@@ -296,12 +304,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Result> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -323,12 +332,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -354,12 +364,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<Result> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<Result> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -381,12 +392,13 @@ public static partial class ResultExtensions
     ///     If a given function throws an exception, an error is returned from the given error handler
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
     /// <param name="catchHandler"></param>
-    public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null)
+    public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<Result<T>> bind, bool configureAwait = true, Func<Exception, IError>? catchHandler = null)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);

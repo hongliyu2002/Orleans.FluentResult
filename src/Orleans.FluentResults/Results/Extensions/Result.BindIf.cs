@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
     public static Result BindIf(this Result result, bool condition, Func<Result> bind)
     {
         return condition ? result.Bind(bind) : result;
@@ -23,7 +23,7 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
+    /// <param name="bind">bind action</param>
     public static Result<T> BindIf<T>(this Result result, bool condition, Func<Result<T>> bind)
     {
         return condition ? result.Bind(bind) : result.ToResult<T>();
@@ -38,10 +38,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> BindIfAsync(this Task<Result> resultTask, bool condition, Func<Task<Result>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result> BindIfAsync(this Task<Result> resultTask, bool condition, Func<Task<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask;
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -49,10 +50,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Task<Result<T>>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Task<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
     }
 
     #endregion
@@ -64,10 +66,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> BindIfAsync(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<Result>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> BindIfAsync(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask;
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -75,10 +78,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<Result<T>>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
     }
 
     #endregion
@@ -90,10 +94,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> BindIfAsync(this Result result, bool condition, Func<Task<Result>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result> BindIfAsync(this Result result, bool condition, Func<Task<Result>> bind, bool configureAwait = true)
     {
-        return condition ? result.BindAsync(bind) : Task.FromResult(result);
+        return condition ? result.BindAsync(bind, configureAwait) : Task.FromResult(result);
     }
 
     /// <summary>
@@ -101,10 +106,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T>> BindIfAsync<T>(this Result result, bool condition, Func<Task<Result<T>>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> BindIfAsync<T>(this Result result, bool condition, Func<Task<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? result.BindAsync(bind) : Task.FromResult(result.ToResult<T>());
+        return condition ? result.BindAsync(bind, configureAwait) : Task.FromResult(result.ToResult<T>());
     }
 
     #endregion
@@ -116,10 +122,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> BindIfAsync(this Result result, bool condition, Func<ValueTask<Result>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> BindIfAsync(this Result result, bool condition, Func<ValueTask<Result>> bind, bool configureAwait = true)
     {
-        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result);
+        return condition ? result.BindAsync(bind, configureAwait) : ValueTask.FromResult(result);
     }
 
     /// <summary>
@@ -127,10 +134,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="result"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T>> BindIfAsync<T>(this Result result, bool condition, Func<ValueTask<Result<T>>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> BindIfAsync<T>(this Result result, bool condition, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? result.BindAsync(bind) : ValueTask.FromResult(result.ToResult<T>());
+        return condition ? result.BindAsync(bind, configureAwait) : ValueTask.FromResult(result.ToResult<T>());
     }
 
     #endregion
@@ -142,10 +150,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result> BindIfAsync(this Task<Result> resultTask, bool condition, Func<Result> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result> BindIfAsync(this Task<Result> resultTask, bool condition, Func<Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask;
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -153,10 +162,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Result<T>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
     }
 
     #endregion
@@ -168,10 +178,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result> BindIfAsync(this ValueTask<Result> resultTask, bool condition, Func<Result> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result> BindIfAsync(this ValueTask<Result> resultTask, bool condition, Func<Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask;
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask;
     }
 
     /// <summary>
@@ -179,10 +190,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="resultTask"></param>
     /// <param name="condition"></param>
-    /// <param name="bind">Action that may fail.</param>
-    public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<Result<T>> bind)
+    /// <param name="bind">bind action</param>
+    /// <param name="configureAwait"></param>
+    public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
     }
 
     #endregion
