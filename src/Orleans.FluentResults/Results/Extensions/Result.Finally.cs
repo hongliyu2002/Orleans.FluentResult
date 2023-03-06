@@ -11,7 +11,7 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="finalize">Action that may fail.</param>
+    /// <param name="finalize">finalize function</param>
     public static T Finally<T>(this Result result, Func<Result, T> finalize)
     {
         ArgumentNullException.ThrowIfNull(finalize);
@@ -26,12 +26,13 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, Task<T>> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, Task<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(true);
-        return await finalize(result);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return await finalize(result).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -42,12 +43,13 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, ValueTask<T>> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, ValueTask<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(true);
-        return await finalize(result);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return await finalize(result).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -58,11 +60,12 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T> FinallyAsync<T>(this Result result, Func<Result, Task<T>> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<T> FinallyAsync<T>(this Result result, Func<Result, Task<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        return await finalize(result);
+        return await finalize(result).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -73,11 +76,12 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T> FinallyAsync<T>(this Result result, Func<Result, ValueTask<T>> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<T> FinallyAsync<T>(this Result result, Func<Result, ValueTask<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        return await finalize(result);
+        return await finalize(result).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -88,11 +92,12 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, T> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
@@ -104,11 +109,12 @@ public static partial class ResultExtensions
     ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="finalize">Action that may fail.</param>
-    public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, T> finalize)
+    /// <param name="finalize">finalize function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
