@@ -31,7 +31,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<Task<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>(configureAwait);
     }
 
     #endregion
@@ -47,7 +47,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>(configureAwait);
     }
 
     #endregion
@@ -95,7 +95,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<TOutput>(this Task<Result> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>(configureAwait);
     }
 
     #endregion
@@ -111,7 +111,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<TOutput>(this ValueTask<Result> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<TOutput>(configureAwait);
     }
 
     #endregion

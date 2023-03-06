@@ -86,7 +86,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -162,7 +162,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -174,7 +174,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -222,7 +222,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -390,7 +390,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -402,7 +402,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, bool condition, Func<T, Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -438,7 +438,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -450,7 +450,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -466,7 +466,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -478,7 +478,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync(configureAwait);
     }
 
     /// <summary>
@@ -514,7 +514,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<Result<TOutput>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -526,7 +526,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, Result<TOutput>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion

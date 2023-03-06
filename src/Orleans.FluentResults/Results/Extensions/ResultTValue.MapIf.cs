@@ -42,7 +42,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -70,7 +70,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<TOutput>> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -154,7 +154,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<TOutput>> MapIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -182,7 +182,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -194,7 +194,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<TOutput>> MapIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, TOutput> map, bool configureAwait = true)
     {
-        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapAsync(map, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion

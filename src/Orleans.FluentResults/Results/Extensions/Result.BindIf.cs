@@ -54,7 +54,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Task<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>(configureAwait);
     }
 
     #endregion
@@ -82,7 +82,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>(configureAwait);
     }
 
     #endregion
@@ -166,7 +166,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> BindIfAsync<T>(this Task<Result> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>(configureAwait);
     }
 
     #endregion
@@ -194,7 +194,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result> resultTask, bool condition, Func<Result<T>> bind, bool configureAwait = true)
     {
-        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>();
+        return condition ? resultTask.BindAsync(bind, configureAwait) : resultTask.ToResultAsync<T>(configureAwait);
     }
 
     #endregion

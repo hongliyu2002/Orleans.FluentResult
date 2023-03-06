@@ -45,7 +45,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, Task<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -75,7 +75,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, ValueTask<TOutput>> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -165,7 +165,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static Task<Result<TOutput>> MapTryIfAsync<T, TOutput>(this Task<Result<T>> resultTask, bool condition, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
@@ -195,7 +195,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public static partial class ResultTValueExtensions
     /// <param name="catchHandler"></param>
     public static ValueTask<Result<TOutput>> MapTryIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, bool condition, Func<T, TOutput> map, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
-        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>();
+        return condition ? resultTask.MapTryAsync(map, catchHandler, configureAwait) : resultTask.ToResultAsync<T, TOutput>(configureAwait);
     }
 
     #endregion
