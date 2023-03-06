@@ -11,7 +11,7 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="compensate"></param>
+    /// <param name="compensate">compensate function</param>
     public static Result Compensate(this Result result, Func<IEnumerable<IError>, Result> compensate)
     {
         ArgumentNullException.ThrowIfNull(compensate);
@@ -26,12 +26,13 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="compensate"></param>
-    public static async Task<Result> CompensateAsync(this Task<Result> resultTask, Func<IEnumerable<IError>, Task<Result>> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> CompensateAsync(this Task<Result> resultTask, Func<IEnumerable<IError>, Task<Result>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(true);
-        return result.IsSuccess ? result : await compensate(result.Errors);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -42,12 +43,13 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="compensate"></param>
-    public static async ValueTask<Result> CompensateAsync(this ValueTask<Result> resultTask, Func<IEnumerable<IError>, ValueTask<Result>> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> CompensateAsync(this ValueTask<Result> resultTask, Func<IEnumerable<IError>, ValueTask<Result>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(true);
-        return result.IsSuccess ? result : await compensate(result.Errors);
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -58,11 +60,12 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="compensate"></param>
-    public static async Task<Result> CompensateAsync(this Result result, Func<IEnumerable<IError>, Task<Result>> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> CompensateAsync(this Result result, Func<IEnumerable<IError>, Task<Result>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        return result.IsSuccess ? result : await compensate(result.Errors);
+        return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -73,11 +76,12 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="result"></param>
-    /// <param name="compensate"></param>
-    public static async ValueTask<Result> CompensateAsync(this Result result, Func<IEnumerable<IError>, ValueTask<Result>> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> CompensateAsync(this Result result, Func<IEnumerable<IError>, ValueTask<Result>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        return result.IsSuccess ? result : await compensate(result.Errors);
+        return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
     #endregion
@@ -88,11 +92,12 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="compensate"></param>
-    public static async Task<Result> CompensateAsync(this Task<Result> resultTask, Func<IEnumerable<IError>, Result> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async Task<Result> CompensateAsync(this Task<Result> resultTask, Func<IEnumerable<IError>, Result> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 
@@ -104,11 +109,12 @@ public static partial class ResultExtensions
     ///     If the calling result is a failure, the given compensate function is executed and its result is returned.
     /// </summary>
     /// <param name="resultTask"></param>
-    /// <param name="compensate"></param>
-    public static async ValueTask<Result> CompensateAsync(this ValueTask<Result> resultTask, Func<IEnumerable<IError>, Result> compensate)
+    /// <param name="compensate">compensate function</param>
+    /// <param name="configureAwait"></param>
+    public static async ValueTask<Result> CompensateAsync(this ValueTask<Result> resultTask, Func<IEnumerable<IError>, Result> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(true);
+        var result = await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 
