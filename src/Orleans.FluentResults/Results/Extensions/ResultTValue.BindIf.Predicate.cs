@@ -13,10 +13,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result BindIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result> bind)
+    public static Result BindIf<T>(this Result<T> result, Func<T, bool> predicate, Func<Result> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -25,10 +25,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result BindIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result> bind)
+    public static Result BindIf<T>(this Result<T> result, Func<T, bool> predicate, Func<T, Result> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -37,10 +37,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result<T> BindIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result<T>> bind)
+    public static Result<T> BindIf<T>(this Result<T> result, Func<T, bool> predicate, Func<Result<T>> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -49,10 +49,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result<T> BindIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result<T>> bind)
+    public static Result<T> BindIf<T>(this Result<T> result, Func<T, bool> predicate, Func<T, Result<T>> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -61,10 +61,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Result<TOutput>> bind)
+    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<Result<TOutput>> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -73,10 +73,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
-    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> bind)
+    public static Result<TOutput> BindIf<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<T, Result<TOutput>> bind)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -90,11 +90,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result>> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -104,11 +104,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result>> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -118,11 +118,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -132,11 +132,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -146,11 +146,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -160,11 +160,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -178,11 +178,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -192,11 +192,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -206,11 +206,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -220,11 +220,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -234,11 +234,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -248,11 +248,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -266,10 +266,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result>> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<Task<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -279,10 +279,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result>> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, Task<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -292,10 +292,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<T>>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<Task<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -305,10 +305,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<T>>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, Task<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -318,10 +318,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<Task<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -331,10 +331,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<T, Task<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -348,10 +348,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result>> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<ValueTask<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -361,10 +361,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result>> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, ValueTask<Result>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
     /// <summary>
@@ -374,10 +374,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -387,10 +387,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, ValueTask<Result<T>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.BindAsync<T>(bind, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -400,10 +400,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -413,10 +413,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this Result<T> result, Func<T, bool> predicate, Func<T, ValueTask<Result<TOutput>>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? await result.BindAsync(bind, configureAwait).ConfigureAwait(configureAwait) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -430,11 +430,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Result> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -444,11 +444,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> bind, bool configureAwait = true)
+    public static async Task<Result> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -458,11 +458,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Result<T>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -472,11 +472,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> bind, bool configureAwait = true)
+    public static async Task<Result<T>> BindIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result<T>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -486,11 +486,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Result<TOutput>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -500,11 +500,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> bind, bool configureAwait = true)
+    public static async Task<Result<TOutput>> BindIfAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result<TOutput>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     #endregion
@@ -518,11 +518,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<Result> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -532,11 +532,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result> bind, bool configureAwait = true)
+    public static async ValueTask<Result> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult();
     }
 
     /// <summary>
@@ -546,11 +546,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<T>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<Result<T>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -560,11 +560,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<T>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<T>> BindIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result<T>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind<T>(bind) : result;
+        return predicate(result.Value) ? result.Bind<T>(bind) : result;
     }
 
     /// <summary>
@@ -574,11 +574,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<Result<TOutput>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<Result<TOutput>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     /// <summary>
@@ -588,11 +588,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="bind">bind action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, Result<TOutput>> bind, bool configureAwait = true)
+    public static async ValueTask<Result<TOutput>> BindIfAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Result<TOutput>> bind, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.Bind(bind) : result.ToResult<T, TOutput>();
+        return predicate(result.Value) ? result.Bind(bind) : result.ToResult<T, TOutput>();
     }
 
     #endregion

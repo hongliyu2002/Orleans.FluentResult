@@ -13,10 +13,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
-    public static Result<T> TapErrorIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError)
+    public static Result<T> TapErrorIf<T>(this Result<T> result, Func<T, bool> predicate, Action<IEnumerable<IError>> tapError)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     /// <summary>
@@ -25,10 +25,10 @@ public static partial class ResultTValueExtensions
     /// <param name="result"></param>
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
-    public static Result<T> TapErrorIf<T>(this Result<T> result, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError)
+    public static Result<T> TapErrorIf<T>(this Result<T> result, Func<T, bool> predicate, Action<T, IEnumerable<IError>> tapError)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     #endregion
@@ -42,11 +42,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -56,11 +56,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -74,11 +74,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -88,11 +88,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -106,10 +106,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -119,10 +119,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -136,10 +136,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     /// <summary>
@@ -149,10 +149,10 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<Result<T>, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this Result<T> result, Func<T, bool> predicate, Func<T, IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        return predicate(result) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
+        return predicate(result.Value) ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
     #endregion
@@ -166,11 +166,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     /// <summary>
@@ -180,11 +180,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
+    public static async Task<Result<T>> TapErrorIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     #endregion
@@ -198,11 +198,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     /// <summary>
@@ -212,11 +212,11 @@ public static partial class ResultTValueExtensions
     /// <param name="predicate"></param>
     /// <param name="tapError">tap error action</param>
     /// <param name="configureAwait"></param>
-    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, bool> predicate, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
+    public static async ValueTask<Result<T>> TapErrorIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return predicate(result) ? result.TapError(tapError) : result;
+        return predicate(result.Value) ? result.TapError(tapError) : result;
     }
 
     #endregion
