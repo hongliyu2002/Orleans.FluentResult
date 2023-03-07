@@ -14,7 +14,7 @@ public static partial class ResultTValueExtensions
     /// <param name="errorMessage"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, string errorMessage)
     {
-        return result.Ensure(r => r.Value is not null, errorMessage);
+        return result.Ensure(value => value is not null, errorMessage);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public static partial class ResultTValueExtensions
     /// <param name="errorMessages"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<string> errorMessages)
     {
-        return result.Ensure(r => r.Value is not null, errorMessages);
+        return result.Ensure(value => value is not null, errorMessages);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public static partial class ResultTValueExtensions
     /// <param name="error"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IError error)
     {
-        return result.Ensure(r => r.Value is not null, error);
+        return result.Ensure(value => value is not null, error);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public static partial class ResultTValueExtensions
     /// <param name="errors"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<IError> errors)
     {
-        return result.Ensure(r => r.Value is not null, errors);
+        return result.Ensure(value => value is not null, errors);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public static partial class ResultTValueExtensions
     /// <param name="exception"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, Exception exception)
     {
-        return result.Ensure(r => r.Value is not null, exception);
+        return result.Ensure(value => value is not null, exception);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public static partial class ResultTValueExtensions
     /// <param name="exceptions"></param>
     public static Result<T> EnsureNotNull<T>(this Result<T> result, IEnumerable<Exception> exceptions)
     {
-        return result.Ensure(r => r.Value is not null, exceptions);
+        return result.Ensure(value => value is not null, exceptions);
     }
 
     #endregion
@@ -79,7 +79,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, string errorMessage, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errorMessage, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errorMessage, configureAwait);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errorMessages, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errorMessages, configureAwait);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IError error, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, error, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, error, configureAwait);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<IError> errors, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errors, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errors, configureAwait);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, Exception exception, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, exception, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, exception, configureAwait);
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static Task<Result<T>> EnsureNotNullAsync<T>(this Task<Result<T>> resultTask, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, exceptions, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, exceptions, configureAwait);
     }
 
     #endregion
@@ -149,7 +149,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, string errorMessage, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errorMessage, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errorMessage, configureAwait);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<string> errorMessages, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errorMessages, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errorMessages, configureAwait);
     }
 
     /// <summary>
@@ -171,7 +171,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IError error, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, error, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, error, configureAwait);
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<IError> errors, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, errors, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, errors, configureAwait);
     }
 
     /// <summary>
@@ -193,7 +193,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, Exception exception, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, exception, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, exception, configureAwait);
     }
 
     /// <summary>
@@ -204,7 +204,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static ValueTask<Result<T>> EnsureNotNullAsync<T>(this ValueTask<Result<T>> resultTask, IEnumerable<Exception> exceptions, bool configureAwait = true)
     {
-        return resultTask.EnsureAsync(r => r.Value is not null, exceptions, configureAwait);
+        return resultTask.EnsureAsync(value => value is not null, exceptions, configureAwait);
     }
 
     #endregion
