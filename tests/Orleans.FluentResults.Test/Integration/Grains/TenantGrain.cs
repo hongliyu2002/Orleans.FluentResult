@@ -37,7 +37,7 @@ public partial class TenantGrain : Grain, ITenantGrain
     /// <inheritdoc />
     public Task<Result<ImmutableArray<int>>> GetUsersAtAddress(string postalCode, string nr)
     {
-        var result = Result.Ok()
+        var result = Result.Ok("Fuck")
                            .Ensure(!string.IsNullOrEmpty(postalCode) && PostalCodeRegex().IsMatch(postalCode), Errors.InvalidPostalCode(postalCode))
                            .Ensure(!string.IsNullOrEmpty(nr) && HouseNrRegex().IsMatch(nr), Errors.InvalidHouseNumber(nr))
                            .TapTry(() => Console.WriteLine("Fuck"))
