@@ -38,12 +38,10 @@ public partial class TenantGrain : Grain, ITenantGrain
     public Task<Result<ImmutableArray<int>>> GetUsersAtAddress(string postalCode, string nr)
     {
         var result = Result.Ok()
-                           .Verify(r => !string.IsNullOrEmpty(postalCode) && PostalCodeRegex()
-                                           .IsMatch(postalCode), Errors.InvalidPostalCode(postalCode))
-                           .Verify(r => !string.IsNullOrEmpty(nr) && HouseNrRegex()
-                                           .IsMatch(nr), Errors.InvalidHouseNumber(nr))
+                           .Ensure(!string.IsNullOrEmpty(postalCode) && PostalCodeRegex().IsMatch(postalCode), Errors.InvalidPostalCode(postalCode))
+                           .Ensure(!string.IsNullOrEmpty(nr) && HouseNrRegex().IsMatch(nr), Errors.InvalidHouseNumber(nr))
                            .TapTry(() => Console.WriteLine("Fuck"))
-                           .Verify(r => int.TryParse(nr, out var number) && number % 2 == 1, Errors.NoUsersAtHouse($"{postalCode} {nr}"))
+                           .Ensure(int.TryParse(nr, out var number) && number % 2 == 1, Errors.NoUsersAtHouse($"{postalCode} {nr}"))
                            .Map(() => ImmutableArray.Create(0));
         return Task.FromResult(result);
     }
@@ -58,8 +56,7 @@ public partial class TenantGrain : Grain, ITenantGrain
     /// <inheritdoc />
     public Task<Result> UpdateUser(int id, string name)
     {
-        var result = Result.OkIf(_users.State.Repository.ContainsKey(id), Errors.UserNotFound(id))
-                           .TapTry(() => _users.State.Repository[id] = name);
+        var result = Result.OkIf(_users.State.Repository.ContainsKey(id), Errors.UserNotFound(id)).TapTry(() => _users.State.Repository[id] = name);
         return Task.FromResult(result);
     }
 

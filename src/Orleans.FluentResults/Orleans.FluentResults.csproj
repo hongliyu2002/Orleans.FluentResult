@@ -5,13 +5,17 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>Orleans.FluentResults</PackageId>
-        <Version>7.1.0.8</Version>
-        <Authors>Leo Hong</Authors>
+        <Title>Fluent Results for Orleans</Title>
         <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
+        <Version>7.1.1</Version>
+        <AssemblyVersion>7.1.1.0</AssemblyVersion>
+        <FileVersion>7.1.1.0</FileVersion>
+        <Authors>Leo Hong</Authors>
+        <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
+        <RepositoryUrl>https://github.com/hongliyu2002/Orleans.FluentResult</RepositoryUrl>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
-        <PackageTags>Result;Results;ResultPattern;Orleans;ExceptionHandling;ErrorHandling;Actor</PackageTags>
+        <PackageTags>result;results;result-pattern;results-pattern;orleans;exception-handling;error-handling</PackageTags>
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
         <PackageIcon>logo_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -22,15 +26,12 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <Title>Fluent Results for Orleans</Title>
-        <AssemblyVersion>7.1.0.0</AssemblyVersion>
-        <FileVersion>7.1.0.0</FileVersion>
-        <RepositoryUrl>https://github.com/hongliyu2002/Orleans.FluentResult</RepositoryUrl>
+        <RootNamespace>Orleans.FluentResults</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-        <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.1.0" />
+        <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.1.1" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     </ItemGroup>

@@ -11,12 +11,12 @@
         <PackageReference Include="FluentAssertions" Version="6.10.0" />
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-        <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
+        <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.1" />
         <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Orleans.EventSourcing" Version="7.1.0" />
-        <PackageReference Include="Microsoft.Orleans.TestingHost" Version="7.1.0" />
-        <PackageReference Include="Microsoft.Orleans.Transactions" Version="7.1.0" />
-        <PackageReference Include="Microsoft.Orleans.Transactions.TestKit.xUnit" Version="7.1.0" />
+        <PackageReference Include="Microsoft.Orleans.EventSourcing" Version="7.1.1" />
+        <PackageReference Include="Microsoft.Orleans.TestingHost" Version="7.1.1" />
+        <PackageReference Include="Microsoft.Orleans.Transactions" Version="7.1.1" />
+        <PackageReference Include="Microsoft.Orleans.Transactions.TestKit.xUnit" Version="7.1.1" />
         <PackageReference Include="NETStandard.Library" Version="2.0.3" />
         <PackageReference Include="NuGet.Frameworks" Version="6.5.0" />
         <PackageReference Include="System.Interactive" Version="6.0.1" />
