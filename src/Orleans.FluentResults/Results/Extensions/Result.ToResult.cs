@@ -5,7 +5,15 @@ namespace Orleans.FluentResults;
 public static partial class ResultExtensions
 {
 
-    #region ToResult
+    #region To Result
+
+    /// <summary>
+    ///     Convert result to result
+    /// </summary>
+    public static Result ToResult(this Result result)
+    {
+        return new Result(result.Reasons);
+    }
 
     /// <summary>
     ///     Convert result to result
@@ -25,7 +33,16 @@ public static partial class ResultExtensions
 
     #endregion
 
-    #region ToResult Async
+    #region To Result Async
+
+    /// <summary>
+    ///     Convert result to result with a value
+    /// </summary>
+    public static async Task<Result> ToResultAsync(this Task<Result> resultTask, bool configureAwait = true)
+    {
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return new Result(result.Reasons);
+    }
 
     /// <summary>
     ///     Convert result to result with a value
@@ -47,7 +64,16 @@ public static partial class ResultExtensions
 
     #endregion
 
-    #region ToResult ValueTask Async
+    #region To Result ValueTask Async
+
+    /// <summary>
+    ///     Convert result to result with a value
+    /// </summary>
+    public static async ValueTask<Result> ToResultAsync(this ValueTask<Result> resultTask, bool configureAwait = true)
+    {
+        var result = await resultTask.ConfigureAwait(configureAwait);
+        return new Result(result.Reasons);
+    }
 
     /// <summary>
     ///     Convert result to result with a value
