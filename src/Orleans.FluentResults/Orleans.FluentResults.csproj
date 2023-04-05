@@ -7,9 +7,9 @@
         <PackageId>Orleans.FluentResults</PackageId>
         <Title>Fluent Results for Orleans</Title>
         <Description>A lightweight Result object implementation for Microsoft Orleans</Description>
-        <Version>7.1.3</Version>
-        <AssemblyVersion>7.1.3.0</AssemblyVersion>
-        <FileVersion>7.1.3.0</FileVersion>
+        <Version>7.1.4</Version>
+        <AssemblyVersion>7.1.4.0</AssemblyVersion>
+        <FileVersion>7.1.4.0</FileVersion>
         <Authors>Leo Hong</Authors>
         <Copyright>Copyright 2023 (c) Leo Hong. All rights reserved.</Copyright>
         <RepositoryUrl>https://github.com/hongliyu2002/Orleans.FluentResult</RepositoryUrl>
@@ -19,7 +19,7 @@
         <PackageProjectUrl>https://github.com/hongliyu2002/Orleans.FluentResult</PackageProjectUrl>
         <PackageIcon>logo_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Map unit(from Result{T} to Result) extension methods are added.</PackageReleaseNotes>
+        <PackageReleaseNotes>Modify ToResult{T, TOutput}, change the type converter logic.</PackageReleaseNotes>
         <!--SourceLink-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>

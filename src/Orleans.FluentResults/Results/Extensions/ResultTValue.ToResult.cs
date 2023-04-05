@@ -20,7 +20,10 @@ public static partial class ResultTValueExtensions
     /// </summary>
     public static Result<T> ToResult<T>(this Result<T> result, T value)
     {
-        return result with { Value = value };
+        return result with
+               {
+                   Value = value
+               };
     }
 
     /// <summary>
@@ -30,12 +33,20 @@ public static partial class ResultTValueExtensions
     {
         try
         {
+            if (result.Value is null)
+            {
+                return new Result<TOutput>(result.Reasons);
+            }
+            if (result.Value is TOutput output)
+            {
+                return new Result<TOutput>(output, result.Reasons);
+            }
             var value = Convert.ChangeType(result.Value, typeof(TOutput));
-            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
+            return new Result<TOutput>((TOutput)value, result.Reasons);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return new Result<TOutput>(result.Reasons);
         }
     }
 
@@ -66,7 +77,10 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result<T>> resultTask, T value, bool configureAwait = true)
     {
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return result with { Value = value };
+        return result with
+               {
+                   Value = value
+               };
     }
 
     /// <summary>
@@ -77,12 +91,20 @@ public static partial class ResultTValueExtensions
         var result = await resultTask.ConfigureAwait(configureAwait);
         try
         {
+            if (result.Value is null)
+            {
+                return new Result<TOutput>(result.Reasons);
+            }
+            if (result.Value is TOutput output)
+            {
+                return new Result<TOutput>(output, result.Reasons);
+            }
             var value = Convert.ChangeType(result.Value, typeof(TOutput));
-            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
+            return new Result<TOutput>((TOutput)value, result.Reasons);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return new Result<TOutput>(result.Reasons);
         }
     }
 
@@ -114,7 +136,10 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result<T>> resultTask, T value, bool configureAwait = true)
     {
         var result = await resultTask.ConfigureAwait(configureAwait);
-        return result with { Value = value };
+        return result with
+               {
+                   Value = value
+               };
     }
 
     /// <summary>
@@ -125,12 +150,20 @@ public static partial class ResultTValueExtensions
         var result = await resultTask.ConfigureAwait(configureAwait);
         try
         {
+            if (result.Value is null)
+            {
+                return new Result<TOutput>(result.Reasons);
+            }
+            if (result.Value is TOutput output)
+            {
+                return new Result<TOutput>(output, result.Reasons);
+            }
             var value = Convert.ChangeType(result.Value, typeof(TOutput));
-            return value != null ? new Result<TOutput>((TOutput)value, result.Reasons) : new Result<TOutput>(result.Reasons);
+            return new Result<TOutput>((TOutput)value, result.Reasons);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return Result<TOutput>.Fail(ex.InnerException ?? ex).WithReasons(result.Reasons);
+            return new Result<TOutput>(result.Reasons);
         }
     }
 
