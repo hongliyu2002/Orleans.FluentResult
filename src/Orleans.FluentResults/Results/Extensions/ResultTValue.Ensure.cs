@@ -127,7 +127,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -145,7 +145,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> EnsureAsync<T>(this Task<Result<T>> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -219,7 +219,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -237,7 +237,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> EnsureAsync<T>(this ValueTask<Result<T>> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !condition)
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };

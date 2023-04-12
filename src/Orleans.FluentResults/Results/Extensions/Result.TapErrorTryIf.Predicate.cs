@@ -35,7 +35,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorTryIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<IEnumerable<IError>, Task> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapErrorTryAsync(tapError, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorTryIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapErrorTryAsync(tapError, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -109,7 +109,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorTryIfAsync(this Task<Result> resultTask, Func<bool> predicate, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 
@@ -128,7 +128,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorTryIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Action<IEnumerable<IError>> tapError, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.TapErrorTry(tapError, catchHandler) : result;
     }
 

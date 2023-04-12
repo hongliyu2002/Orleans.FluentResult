@@ -33,7 +33,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -51,7 +51,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -103,7 +103,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapIfAsync(this Task<Result> resultTask, Func<bool> predicate, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Tap(tap) : result;
     }
 
@@ -121,7 +121,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Tap(tap) : result;
     }
 

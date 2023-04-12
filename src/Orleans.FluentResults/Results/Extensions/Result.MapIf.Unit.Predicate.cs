@@ -33,7 +33,7 @@ public static partial class ResultExtensions
     public static async Task<Result> MapIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -51,7 +51,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> MapIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -103,7 +103,7 @@ public static partial class ResultExtensions
     public static async Task<Result> MapIfAsync(this Task<Result> resultTask, Func<bool> predicate, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Map(map) : result.ToResult();
     }
 
@@ -121,7 +121,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> MapIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Map(map) : result.ToResult();
     }
 

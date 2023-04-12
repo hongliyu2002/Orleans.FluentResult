@@ -116,7 +116,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Task<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -134,7 +134,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Task<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -152,7 +152,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Task<Result<T>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -170,7 +170,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Task<Result<T>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -188,7 +188,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Task<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -206,7 +206,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Task<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -228,7 +228,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -246,7 +246,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -264,7 +264,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result<T>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -282,7 +282,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result<T>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -300,7 +300,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -318,7 +318,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -552,7 +552,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -570,7 +570,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -588,7 +588,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -606,7 +606,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T>(this Task<Result<T>> resultTask, Func<T, Result<T>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -624,7 +624,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -642,7 +642,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result<T>> CheckAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<T, Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -664,7 +664,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -682,7 +682,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -700,7 +700,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -718,7 +718,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, Result<T>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -736,7 +736,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -754,7 +754,7 @@ public static partial class ResultTValueExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result<T>> CheckAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<T, Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;

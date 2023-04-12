@@ -31,7 +31,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> CompensateAsync<T>(this Task<Result<T>> resultTask, Func<IEnumerable<IError>, Task<Result<T>>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
@@ -48,7 +48,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> CompensateAsync<T>(this ValueTask<Result<T>> resultTask, Func<IEnumerable<IError>, ValueTask<Result<T>>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : await compensate(result.Errors).ConfigureAwait(configureAwait);
     }
 
@@ -97,7 +97,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> CompensateAsync<T>(this Task<Result<T>> resultTask, Func<IEnumerable<IError>, Result<T>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 
@@ -114,7 +114,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> CompensateAsync<T>(this ValueTask<Result<T>> resultTask, Func<IEnumerable<IError>, Result<T>> compensate, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(compensate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return result.IsSuccess ? result : compensate(result.Errors);
     }
 

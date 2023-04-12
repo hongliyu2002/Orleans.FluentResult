@@ -48,7 +48,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapTryIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapTryAsync(tap, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -63,7 +63,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapTryIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapTryAsync(tap, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -82,7 +82,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapTryAsync(tap, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -97,7 +97,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapTryAsync(tap, catchHandler, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -180,7 +180,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapTryIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.TapTry(tap, catchHandler) : result;
     }
 
@@ -195,7 +195,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapTryIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action<T> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.TapTry(tap, catchHandler) : result;
     }
 
@@ -214,7 +214,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.TapTry(tap, catchHandler) : result;
     }
 
@@ -229,7 +229,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapTryIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action<T> tap, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.TapTry(tap, catchHandler) : result;
     }
 

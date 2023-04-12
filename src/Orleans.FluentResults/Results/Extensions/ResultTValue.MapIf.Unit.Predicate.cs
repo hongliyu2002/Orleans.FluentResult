@@ -45,7 +45,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -59,7 +59,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -77,7 +77,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -91,7 +91,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.MapAsync(map, configureAwait).ConfigureAwait(configureAwait) : result.ToResult();
     }
 
@@ -169,7 +169,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Map(map) : result.ToResult();
     }
 
@@ -183,7 +183,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action<T> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Map(map) : result.ToResult();
     }
 
@@ -201,7 +201,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Map(map) : result.ToResult();
     }
 
@@ -215,7 +215,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action<T> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Map(map) : result.ToResult();
     }
 

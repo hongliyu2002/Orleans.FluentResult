@@ -45,7 +45,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CheckIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<Task<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -59,7 +59,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CheckIfAsync<TOutput>(this Task<Result> resultTask, Func<bool> predicate, Func<Task<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -77,7 +77,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<ValueTask<Result>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -91,7 +91,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CheckIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<bool> predicate, Func<ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.CheckAsync(check, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -169,7 +169,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CheckIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Check(check) : result;
     }
 
@@ -183,7 +183,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CheckIfAsync<TOutput>(this Task<Result> resultTask, Func<bool> predicate, Func<Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Check(check) : result;
     }
 
@@ -201,7 +201,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CheckIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<Result> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Check(check) : result;
     }
 
@@ -215,7 +215,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CheckIfAsync<TOutput>(this ValueTask<Result> resultTask, Func<bool> predicate, Func<Result<TOutput>> check, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.Check(check) : result;
     }
 

@@ -45,7 +45,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -59,7 +59,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -77,7 +77,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -91,7 +91,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Func<T, ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? await result.TapAsync(tap, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -169,7 +169,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Tap(tap) : result;
     }
 
@@ -183,7 +183,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapIfAsync<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Action<T> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Tap(tap) : result;
     }
 
@@ -201,7 +201,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Tap(tap) : result;
     }
 
@@ -215,7 +215,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapIfAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, bool> predicate, Action<T> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate(result.Value) ? result.Tap(tap) : result;
     }
 

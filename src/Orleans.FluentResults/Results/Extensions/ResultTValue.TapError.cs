@@ -50,7 +50,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapErrorAsync<T>(this Task<Result<T>> resultTask, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             await tapError(result.Errors).ConfigureAwait(configureAwait);
@@ -67,7 +67,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapErrorAsync<T>(this Task<Result<T>> resultTask, Func<T, IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             await tapError(result.Value, result.Errors).ConfigureAwait(configureAwait);
@@ -88,7 +88,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             await tapError(result.Errors).ConfigureAwait(configureAwait);
@@ -105,7 +105,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             await tapError(result.Value, result.Errors).ConfigureAwait(configureAwait);
@@ -198,7 +198,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapErrorAsync<T>(this Task<Result<T>> resultTask, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             tapError(result.Errors);
@@ -215,7 +215,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapErrorAsync<T>(this Task<Result<T>> resultTask, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             tapError(result.Value, result.Errors);
@@ -236,7 +236,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             tapError(result.Errors);
@@ -253,7 +253,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapErrorAsync<T>(this ValueTask<Result<T>> resultTask, Action<T, IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tapError);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             tapError(result.Value, result.Errors);

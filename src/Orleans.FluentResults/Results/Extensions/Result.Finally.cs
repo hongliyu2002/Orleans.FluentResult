@@ -31,7 +31,7 @@ public static partial class ResultExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, Task<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -48,7 +48,7 @@ public static partial class ResultExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, ValueTask<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -97,7 +97,7 @@ public static partial class ResultExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result> resultTask, Func<Result, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
@@ -114,7 +114,7 @@ public static partial class ResultExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result> resultTask, Func<Result, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 

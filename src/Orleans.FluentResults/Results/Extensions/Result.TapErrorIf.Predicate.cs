@@ -33,7 +33,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorIfAsync(this Task<Result> resultTask, Func<bool> predicate, Func<IEnumerable<IError>, Task> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -51,7 +51,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Func<IEnumerable<IError>, ValueTask> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? await result.TapErrorAsync(tapError, configureAwait).ConfigureAwait(configureAwait) : result;
     }
 
@@ -103,7 +103,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapErrorIfAsync(this Task<Result> resultTask, Func<bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.TapError(tapError) : result;
     }
 
@@ -121,7 +121,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapErrorIfAsync(this ValueTask<Result> resultTask, Func<bool> predicate, Action<IEnumerable<IError>> tapError, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(predicate);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return predicate() ? result.TapError(tapError) : result;
     }
 

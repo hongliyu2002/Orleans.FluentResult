@@ -36,7 +36,7 @@ public static partial class ResultExtensions
     public static async Task<Result> MapAsync(this Task<Result> resultTask, Func<Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -58,7 +58,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> MapAsync(this ValueTask<Result> resultTask, Func<ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -122,7 +122,7 @@ public static partial class ResultExtensions
     public static async Task<Result> MapAsync(this Task<Result> resultTask, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -144,7 +144,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> MapAsync(this ValueTask<Result> resultTask, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);

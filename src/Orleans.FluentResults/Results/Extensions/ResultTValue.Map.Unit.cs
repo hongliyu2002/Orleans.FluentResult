@@ -52,7 +52,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapAsync<T>(this Task<Result<T>> resultTask, Func<Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -70,7 +70,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapAsync<T>(this Task<Result<T>> resultTask, Func<T, Task> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -92,7 +92,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -110,7 +110,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -208,7 +208,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapAsync<T>(this Task<Result<T>> resultTask, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -226,7 +226,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result> MapAsync<T>(this Task<Result<T>> resultTask, Action<T> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -248,7 +248,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapAsync<T>(this ValueTask<Result<T>> resultTask, Action map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -266,7 +266,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result> MapAsync<T>(this ValueTask<Result<T>> resultTask, Action<T> map, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(map);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);

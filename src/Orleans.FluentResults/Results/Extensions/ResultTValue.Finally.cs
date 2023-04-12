@@ -42,7 +42,7 @@ public static partial class ResultTValueExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, Task<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -55,7 +55,7 @@ public static partial class ResultTValueExtensions
     public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, Task<TOutput>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -72,7 +72,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<T>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -85,7 +85,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, ValueTask<TOutput>> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return await finalize(result).ConfigureAwait(configureAwait);
     }
 
@@ -158,7 +158,7 @@ public static partial class ResultTValueExtensions
     public static async Task<T> FinallyAsync<T>(this Task<Result<T>> resultTask, Func<Result<T>, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
@@ -171,7 +171,7 @@ public static partial class ResultTValueExtensions
     public static async Task<TOutput> FinallyAsync<T, TOutput>(this Task<Result<T>> resultTask, Func<Result<T>, TOutput> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
@@ -188,7 +188,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<T> FinallyAsync<T>(this ValueTask<Result<T>> resultTask, Func<Result<T>, T> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 
@@ -201,7 +201,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<TOutput> FinallyAsync<T, TOutput>(this ValueTask<Result<T>> resultTask, Func<Result<T>, TOutput> finalize, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(finalize);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return finalize(result);
     }
 

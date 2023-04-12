@@ -34,7 +34,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> MapSuccessAsync<T>(this Task<Result<T>> resultTask, Func<ISuccess, Task<ISuccess>> mapSuccess, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var successes = await Task.WhenAll(result.Successes.Select(mapSuccess)).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors) };
     }
@@ -52,7 +52,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> MapSuccessAsync<T>(this ValueTask<Result<T>> resultTask, Func<ISuccess, ValueTask<ISuccess>> mapSuccess, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var successes = await Task.WhenAll(result.Successes.Select(success => mapSuccess(success).AsTask())).ConfigureAwait(configureAwait);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors) };
     }
@@ -104,7 +104,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> MapSuccessAsync<T>(this Task<Result<T>> resultTask, Func<ISuccess, ISuccess> mapSuccess, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var successes = result.Successes.Select(mapSuccess);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors) };
     }
@@ -122,7 +122,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> MapSuccessAsync<T>(this ValueTask<Result<T>> resultTask, Func<ISuccess, ISuccess> mapSuccess, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(mapSuccess);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var successes = result.Successes.Select(mapSuccess);
         return result with { Reasons = ImmutableList<IReason>.Empty.AddRange(successes).AddRange(result.Errors) };
     }

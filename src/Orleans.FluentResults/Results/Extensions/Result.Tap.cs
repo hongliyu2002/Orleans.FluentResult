@@ -35,7 +35,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapAsync(this Task<Result> resultTask, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap().ConfigureAwait(configureAwait);
@@ -56,7 +56,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap().ConfigureAwait(configureAwait);
@@ -117,7 +117,7 @@ public static partial class ResultExtensions
     public static async Task<Result> TapAsync(this Task<Result> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();
@@ -138,7 +138,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> TapAsync(this ValueTask<Result> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();

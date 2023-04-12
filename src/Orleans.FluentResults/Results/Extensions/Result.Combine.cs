@@ -53,7 +53,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CombineAsync<T>(this Task<Result> resultTask, IEnumerable<Task<Result<T>>> otherResultTasks, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResultTasks);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var otherResults = await Task.WhenAll(otherResultTasks).ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults.Select(otherResult => otherResult.ToResult())));
     }
@@ -75,7 +75,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CombineAsync(this Task<Result> resultTask, IEnumerable<Task<Result>> otherResultTasks, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResultTasks);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var otherResults = await Task.WhenAll(otherResultTasks).ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults));
     }
@@ -101,7 +101,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CombineAsync<T>(this ValueTask<Result> resultTask, IEnumerable<ValueTask<Result<T>>> otherResultTasks, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResultTasks);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var otherResults = await Task.WhenAll(otherResultTasks.Select(t => t.AsTask())).ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults.Select(otherResult => otherResult.ToResult())));
     }
@@ -123,7 +123,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CombineAsync(this ValueTask<Result> resultTask, IEnumerable<ValueTask<Result>> otherResultTasks, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResultTasks);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         var otherResults = await Task.WhenAll(otherResultTasks.Select(t => t.AsTask())).ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults));
     }
@@ -237,7 +237,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CombineAsync<T>(this Task<Result> resultTask, IEnumerable<Result<T>> otherResults, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResults);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults.Select(otherResult => otherResult.ToResult())));
     }
 
@@ -257,7 +257,7 @@ public static partial class ResultExtensions
     public static async Task<Result> CombineAsync(this Task<Result> resultTask, IEnumerable<Result> otherResults, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResults);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults));
     }
 
@@ -281,7 +281,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CombineAsync<T>(this ValueTask<Result> resultTask, IEnumerable<Result<T>> otherResults, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResults);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults.Select(otherResult => otherResult.ToResult())));
     }
 
@@ -301,7 +301,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> CombineAsync(this ValueTask<Result> resultTask, IEnumerable<Result> otherResults, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(otherResults);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return Result.Combine(new[] { result }.Union(otherResults));
     }
 

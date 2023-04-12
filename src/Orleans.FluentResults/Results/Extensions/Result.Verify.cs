@@ -119,7 +119,7 @@ public static partial class ResultExtensions
     public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.Add(error));
     }
 
@@ -133,7 +133,7 @@ public static partial class ResultExtensions
     public static async Task<Result> VerifyAsync(this Task<Result> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.AddRange(errors));
     }
 
@@ -203,7 +203,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IError error, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.Add(error));
     }
 
@@ -217,7 +217,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> VerifyAsync(this ValueTask<Result> resultTask, bool condition, IEnumerable<IError> errors, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return condition ? result : new Result(result.Reasons.AddRange(errors));
     }
 

@@ -40,7 +40,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result> ToResultAsync(this Task<Result> resultTask, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result(result.Reasons);
     }
 
@@ -49,7 +49,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result> resultTask, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result<T>(result.Reasons);
     }
 
@@ -58,7 +58,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<T>> ToResultAsync<T>(this Task<Result> resultTask, T value, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result<T>(value, result.Reasons);
     }
 
@@ -71,7 +71,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async ValueTask<Result> ToResultAsync(this ValueTask<Result> resultTask, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result(result.Reasons);
     }
 
@@ -80,7 +80,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result> resultTask, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result<T>(result.Reasons);
     }
 
@@ -89,7 +89,7 @@ public static partial class ResultExtensions
     /// </summary>
     public static async ValueTask<Result<T>> ToResultAsync<T>(this ValueTask<Result> resultTask, T value, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         return new Result<T>(value, result.Reasons);
     }
 

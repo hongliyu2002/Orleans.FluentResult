@@ -52,7 +52,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Task<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -70,7 +70,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result> CheckAsync<TOutput>(this Task<Result> resultTask, Func<Task<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -92,7 +92,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -110,7 +110,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result> CheckAsync<TOutput>(this ValueTask<Result> resultTask, Func<ValueTask<Result<TOutput>>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -208,7 +208,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result> CheckAsync(this Task<Result> resultTask, Func<Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -226,7 +226,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async Task<Result> CheckAsync<TOutput>(this Task<Result> resultTask, Func<Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -248,7 +248,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result> CheckAsync(this ValueTask<Result> resultTask, Func<Result> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;
@@ -266,7 +266,7 @@ public static partial class ResultExtensions
     /// <param name="configureAwait"></param>
     public static async ValueTask<Result> CheckAsync<TOutput>(this ValueTask<Result> resultTask, Func<Result<TOutput>> check, bool configureAwait = true)
     {
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return result;

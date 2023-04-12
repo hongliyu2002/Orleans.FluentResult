@@ -74,7 +74,7 @@ public static partial class ResultExtensions
     public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Task<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -102,7 +102,7 @@ public static partial class ResultExtensions
     public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Task<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -134,7 +134,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<ValueTask<Result>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -162,7 +162,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<ValueTask<Result<T>>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -310,7 +310,7 @@ public static partial class ResultExtensions
     public static async Task<Result> BindTryAsync(this Task<Result> resultTask, Func<Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -338,7 +338,7 @@ public static partial class ResultExtensions
     public static async Task<Result<T>> BindTryAsync<T>(this Task<Result> resultTask, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);
@@ -370,7 +370,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result> BindTryAsync(this ValueTask<Result> resultTask, Func<Result> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
@@ -398,7 +398,7 @@ public static partial class ResultExtensions
     public static async ValueTask<Result<T>> BindTryAsync<T>(this ValueTask<Result> resultTask, Func<Result<T>> bind, Func<Exception, IError>? catchHandler = null, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(bind);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsFailed)
         {
             return Result.Fail<T>(result.Errors);

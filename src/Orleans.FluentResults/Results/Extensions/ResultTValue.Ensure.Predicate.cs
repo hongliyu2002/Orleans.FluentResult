@@ -130,7 +130,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !await predicate(result.Value).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -149,7 +149,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !await predicate(result.Value).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -224,7 +224,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !await predicate(result.Value).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -243,7 +243,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !await predicate(result.Value).ConfigureAwait(configureAwait))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -502,7 +502,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result.Value))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -521,7 +521,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result.Value))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };
@@ -596,7 +596,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(error);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result.Value))
         {
             return result with { Reasons = result.Reasons.Add(error) };
@@ -615,7 +615,7 @@ public static partial class ResultTValueExtensions
     {
         ArgumentNullException.ThrowIfNull(predicate);
         ArgumentNullException.ThrowIfNull(errors);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess && !predicate(result.Value))
         {
             return result with { Reasons = result.Reasons.AddRange(errors) };

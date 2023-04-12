@@ -50,7 +50,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapAsync<T>(this Task<Result<T>> resultTask, Func<Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap().ConfigureAwait(configureAwait);
@@ -67,7 +67,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapAsync<T>(this Task<Result<T>> resultTask, Func<T, Task> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap(result.Value).ConfigureAwait(configureAwait);
@@ -88,7 +88,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapAsync<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap().ConfigureAwait(configureAwait);
@@ -105,7 +105,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapAsync<T>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             await tap(result.Value).ConfigureAwait(configureAwait);
@@ -198,7 +198,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapAsync<T>(this Task<Result<T>> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();
@@ -215,7 +215,7 @@ public static partial class ResultTValueExtensions
     public static async Task<Result<T>> TapAsync<T>(this Task<Result<T>> resultTask, Action<T> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap(result.Value);
@@ -236,7 +236,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapAsync<T>(this ValueTask<Result<T>> resultTask, Action tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap();
@@ -253,7 +253,7 @@ public static partial class ResultTValueExtensions
     public static async ValueTask<Result<T>> TapAsync<T>(this ValueTask<Result<T>> resultTask, Action<T> tap, bool configureAwait = true)
     {
         ArgumentNullException.ThrowIfNull(tap);
-        var result = await resultTask.ConfigureAwait(configureAwait);
+        var result = resultTask.IsCompleted ? resultTask.Result : await resultTask.ConfigureAwait(configureAwait);
         if (result.IsSuccess)
         {
             tap(result.Value);
